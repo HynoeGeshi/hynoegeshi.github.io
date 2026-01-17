@@ -1,75 +1,36 @@
+// Hynoe Flicks - Portfolio Carousel
 // Put your portfolio images in: assets/img/
-// IMPORTANT: Because your filenames include spaces + commas, we URL-encode them here.
-// Do NOT rename your files—just upload them exactly as-is.
+// Long filenames are fine (spaces/commas) because we URL-encode them.
 
 const images = [
-  // Chicago / City
-  {
-    src: "assets/img/" + encodeURIComponent("Photo Oct 31 2024, 4 46 02 AM.jpg"),
-    type: "city",
-    alt: "Chicago skyline at night - city photography"
-  },
-  {
-    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 50 39 AM.jpg"),
-    type: "city",
-    alt: "Chicago skyline at night - city photography"
-  },
-
-  // Portraits
-  {
-    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 50 05 AM.jpg"),
-    type: "portrait",
-    alt: "Studio portrait with ring light - Chicago portrait photography"
-  },
-  {
-    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 49 14 AM.jpg"),
-    type: "portrait",
-    alt: "Cinematic portrait - Chicago photographer"
-  },
-  {
-    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 49 32 AM.jpg"),
-    type: "portrait",
-    alt: "Lifestyle portrait - Chicago photographer"
-  },
+  // City / Chicago (optional: add more if you want)
+  { file: "Photo Oct 31 2024, 4 43 35 AM.jpg", type: "city", alt: "Chicago skyline at night - city photography" },
 
   // Music
-  {
-    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 48 07 AM.jpg"),
-    type: "music",
-    alt: "Live bassist performance - Chicago music photography"
-  },
-  {
-    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 48 11 AM.jpg"),
-    type: "music",
-    alt: "Artist portrait - Chicago music photography"
-  },
-  {
-    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 49 45 AM.jpg"),
-    type: "music",
-    alt: "Live performance moment - Chicago concert photography"
-  },
-  {
-    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 49 54 AM.jpg"),
-    type: "music",
-    alt: "Concert photography - Chicago"
-  },
+  { file: "Photo Jan 17 2026, 10 48 07 AM.jpg", type: "music", alt: "Live bassist performance - Chicago music photography" },
+  { file: "Photo Jan 17 2026, 10 49 45 AM.jpg", type: "music", alt: "Live performance moment - Chicago concert photography" },
+  { file: "Photo Jan 17 2026, 10 49 54 AM.jpg", type: "music", alt: "Concert photography - Chicago" },
 
-  // Extra / Creative
-  {
-    src: "assets/img/" + encodeURIComponent("Photo Jan 25 2023, 4 44 42 AM.jpg"),
-    type: "portrait",
-    alt: "Creative portrait - shallow depth of field"
-  }
-];
+  // Portraits
+  { file: "Photo Jan 17 2026, 10 50 05 AM.jpg", type: "portrait", alt: "Studio portrait with ring light - Chicago portrait photography" },
+  { file: "Photo Jan 17 2026, 10 49 14 AM.jpg", type: "portrait", alt: "Cinematic portrait - Chicago photographer" },
+  { file: "Photo Jan 17 2026, 10 49 32 AM.jpg", type: "portrait", alt: "Lifestyle portrait - Chicago photographer" },
+  { file: "Photo Jan 25 2023, 4 44 42 AM.jpg", type: "portrait", alt: "Creative portrait - shallow depth of field" }
+].map(x => ({
+  ...x,
+  src: "assets/img/" + encodeURIComponent(x.file)
+}));
 
 let filtered = [...images];
 let index = 0;
+
 let autoplay = true;
 let timer = null;
 
 const imgEl = document.getElementById("slideImg");
 const countEl = document.getElementById("slideCount");
 const typeEl = document.getElementById("slideType");
+
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const toggleAutoBtn = document.getElementById("toggleAuto");
@@ -108,7 +69,6 @@ function show() {
   imgEl.alt = item.alt || `Portfolio photo ${index + 1}`;
   countEl.textContent = `${index + 1} / ${filtered.length}`;
   typeEl.textContent = getTypeLabel(item.type);
-
   renderDots();
 }
 
@@ -161,7 +121,7 @@ imgEl.addEventListener("touchend", (e) => {
   }
 }, { passive: true });
 
-// Filter buttons
+// Filters
 const filterButtons = document.querySelectorAll(".filter-bar .pill");
 filterButtons.forEach(btn => {
   btn.addEventListener("click", () => {
@@ -169,7 +129,10 @@ filterButtons.forEach(btn => {
     btn.classList.add("active");
 
     const type = btn.dataset.filter;
-    filtered = type === "all" ? [...images] : images.filter(img => img.type === type);
+    filtered = type === "all"
+      ? [...images]
+      : images.filter(img => img.type === type);
+
     index = 0;
     show();
     restartAutoplay();
