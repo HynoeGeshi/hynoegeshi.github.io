@@ -1,19 +1,65 @@
 // Put your portfolio images in: assets/img/
-// Update the filenames below to match YOUR uploaded images exactly.
+// IMPORTANT: Because your filenames include spaces + commas, we URL-encode them here.
+// Do NOT rename your files—just upload them exactly as-is.
 
 const images = [
-  { src: "assets/img/08-chicago-skyline-1.jpg", type: "city", alt: "Chicago skyline at night - city photography" },
-  { src: "assets/img/09-chicago-skyline-2.jpg", type: "city", alt: "Chicago skyline and river at night - city photography" },
-  { src: "assets/img/10-chicago-street.jpg", type: "city", alt: "Downtown Chicago street at night - city photography" },
+  // Chicago / City
+  {
+    src: "assets/img/" + encodeURIComponent("Photo Oct 31 2024, 4 46 02 AM.jpg"),
+    type: "city",
+    alt: "Chicago skyline at night - city photography"
+  },
+  {
+    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 50 39 AM.jpg"),
+    type: "city",
+    alt: "Chicago skyline at night - city photography"
+  },
 
-  { src: "assets/img/01-ringlight.jpg", type: "portrait", alt: "Studio portrait with ring light - Chicago portrait photography" },
-  { src: "assets/img/02-bearded-portrait.jpg", type: "portrait", alt: "Cinematic portrait - Chicago photographer" },
-  { src: "assets/img/03-yellow-dress.jpg", type: "portrait", alt: "Portrait session in Chicago - lifestyle portrait" },
-  { src: "assets/img/04-indoor-portrait.jpg", type: "portrait", alt: "Indoor portrait photography - Chicago" },
+  // Portraits
+  {
+    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 50 05 AM.jpg"),
+    type: "portrait",
+    alt: "Studio portrait with ring light - Chicago portrait photography"
+  },
+  {
+    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 49 14 AM.jpg"),
+    type: "portrait",
+    alt: "Cinematic portrait - Chicago photographer"
+  },
+  {
+    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 49 32 AM.jpg"),
+    type: "portrait",
+    alt: "Lifestyle portrait - Chicago photographer"
+  },
 
-  { src: "assets/img/05-bassist.jpg", type: "music", alt: "Live bassist performance - Chicago music photography" },
-  { src: "assets/img/06-vocalist.jpg", type: "music", alt: "Live vocalist on stage - Chicago concert photography" },
-  { src: "assets/img/07-performance.jpg", type: "music", alt: "Live performance moment - Chicago music photography" }
+  // Music
+  {
+    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 48 07 AM.jpg"),
+    type: "music",
+    alt: "Live bassist performance - Chicago music photography"
+  },
+  {
+    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 48 11 AM.jpg"),
+    type: "music",
+    alt: "Artist portrait - Chicago music photography"
+  },
+  {
+    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 49 45 AM.jpg"),
+    type: "music",
+    alt: "Live performance moment - Chicago concert photography"
+  },
+  {
+    src: "assets/img/" + encodeURIComponent("Photo Jan 17 2026, 10 49 54 AM.jpg"),
+    type: "music",
+    alt: "Concert photography - Chicago"
+  },
+
+  // Extra / Creative
+  {
+    src: "assets/img/" + encodeURIComponent("Photo Jan 25 2023, 4 44 42 AM.jpg"),
+    type: "portrait",
+    alt: "Creative portrait - shallow depth of field"
+  }
 ];
 
 let filtered = [...images];
