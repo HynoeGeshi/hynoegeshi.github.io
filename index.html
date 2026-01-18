@@ -3,175 +3,926 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hynoe Flicks | Chicago Photography & Premium Editing</title>
+  <title>Hynoe Flicks | Chicago Photography + Editing</title>
 
-  <!-- SEO -->
-  <meta name="description" content="Hynoe Flicks — Chicago-based premium photography for portraits, music, events, and brands. Professional editing & retouching available." />
+  <!-- SEO basics -->
+  <meta name="description" content="Hynoe Flicks — luxury photography in Chicago: portraits, music, events, and professional photo editing/retouching. Book a session or request edits." />
   <link rel="canonical" href="https://hynoegeshi.github.io/" />
   <meta name="robots" content="index,follow" />
 
-  <!-- Social -->
-  <meta property="og:title" content="Hynoe Flicks | Chicago Photography & Premium Editing" />
-  <meta property="og:description" content="Premium photography in Chicago + professional editing/retouching." />
+  <!-- Social preview -->
+  <meta property="og:title" content="Hynoe Flicks | Chicago Photography + Editing" />
+  <meta property="og:description" content="Luxury portraits, music, events + professional retouching in Chicago. Book a shoot or request edits." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://hynoegeshi.github.io/" />
   <meta property="og:image" content="https://hynoegeshi.github.io/assets/img/bg.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
+  <!-- LocalBusiness schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Hynoe Flicks",
+    "url": "https://hynoegeshi.github.io/",
+    "image": "https://hynoegeshi.github.io/assets/img/bg.jpg",
     "areaServed": "Chicago, IL",
     "email": "hynoe.flicks@gmail.com",
-    "url": "https://hynoegeshi.github.io/",
     "sameAs": ["https://www.instagram.com/hynoe.flicks"],
-    "description": "Chicago-based premium photography and standalone photo editing/retouching."
+    "description": "Luxury portraits, music and event photography in Chicago. Editing and retouching available as a standalone service."
   }
   </script>
 
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    :root{
+      --bg: #07080b;
+      --panel: rgba(10, 12, 16, .62);
+      --panel2: rgba(10, 12, 16, .82);
+      --text: rgba(255,255,255,.90);
+      --muted: rgba(255,255,255,.70);
+
+      /* “metallic gold” vibe (no bubbly look) */
+      --gold1: #f6e6a8;
+      --gold2: #d9b85c;
+      --gold3: #b8892a;
+
+      --stroke: rgba(255,255,255,.10);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 18px;
+      --radius2: 26px;
+
+      --max: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body { height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      background: var(--bg);
+      overflow-x:hidden;
+    }
+
+    /* Background image + cinematic overlays */
+    .bg{
+      position: fixed; inset:0;
+      background:
+        radial-gradient(1200px 700px at 15% 15%, rgba(246,230,168,.12), transparent 55%),
+        radial-gradient(900px 600px at 85% 20%, rgba(56,189,248,.10), transparent 60%),
+        linear-gradient(to bottom, rgba(0,0,0,.68), rgba(0,0,0,.88)),
+        url("assets/img/bg.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.05) contrast(1.05);
+      transform: translateZ(0);
+      z-index:-3;
+    }
+    .grain{
+      position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity:.30;
+      pointer-events:none;
+      z-index:-2;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width: var(--max); margin:0 auto; padding: 22px 18px 80px; }
+
+    /* Top nav */
+    .nav{
+      position: sticky; top:0;
+      padding: 14px 0;
+      z-index:50;
+      backdrop-filter: blur(14px);
+    }
+    .navbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(10,12,16,.55);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      min-width: 180px;
+    }
+    .logo{
+      width:38px; height:38px; border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 55%),
+        linear-gradient(135deg, rgba(246,230,168,.25), rgba(185,137,42,.12)),
+        rgba(0,0,0,.35);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-30%;
+      background: linear-gradient(115deg, transparent 35%, rgba(246,230,168,.45) 50%, transparent 65%);
+      transform: rotate(10deg);
+      opacity:.45;
+    }
+
+    .brand h1{
+      font-size: 14px;
+      margin:0;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      line-height:1.1;
+    }
+    .brand span{ display:block; color: var(--muted); font-size: 12px; letter-spacing:.06em; text-transform:none; }
+
+    .tabs{
+      display:flex;
+      gap: 6px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .tab{
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: rgba(255,255,255,.82);
+      font-size: 13px;
+      letter-spacing:.02em;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+      background: rgba(255,255,255,.03);
+    }
+    .tab:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.10); }
+    .tab.active{
+      background: rgba(255,255,255,.07);
+      border-color: rgba(246,230,168,.22);
+      color: rgba(255,255,255,.95);
+    }
+
+    .right{
+      display:flex; align-items:center; gap: 10px;
+    }
+
+    .btn{
+      border: 1px solid rgba(246,230,168,.28);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.28), transparent 55%),
+        linear-gradient(135deg, rgba(246,230,168,.25), rgba(185,137,42,.12)),
+        rgba(0,0,0,.30);
+      color: rgba(255,255,255,.95);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 650;
+      font-size: 13px;
+      letter-spacing: .02em;
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+      transition: transform .12s ease, border-color .12s ease, filter .12s ease;
+      display:inline-flex; align-items:center; gap:10px;
+      white-space:nowrap;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(246,230,168,.45);
+      filter: brightness(1.05);
+    }
+    .btn:active{ transform: translateY(0px); }
+
+    .hamburger{
+      display:none;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.92);
+      border-radius: 12px;
+      padding: 10px 10px;
+      line-height:0;
+      cursor:pointer;
+    }
+    .hamburger svg{ width:20px; height:20px; }
+
+    /* Mobile menu */
+    .mobileMenu{
+      display:none;
+      margin-top: 10px;
+      border: 1px solid var(--stroke);
+      background: rgba(10,12,16,.72);
+      border-radius: var(--radius);
+      padding: 10px;
+      box-shadow: var(--shadow);
+    }
+    .mobileMenu .tab{ width:100%; text-align:left; padding: 12px 12px; }
+
+    /* Sections */
+    section{
+      margin-top: 18px;
+      border: 1px solid var(--stroke);
+      background: var(--panel);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .sectionInner{ padding: 22px; }
+
+    .hero{
+      padding: 28px 22px 22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 460px at 25% 10%, rgba(246,230,168,.14), transparent 60%),
+        radial-gradient(900px 520px at 80% 20%, rgba(59,130,246,.10), transparent 60%);
+      pointer-events:none;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      position:relative;
+      z-index:1;
+      align-items:stretch;
+    }
+    .headline{
+      margin:0 0 10px;
+      font-size: 38px;
+      line-height:1.05;
+      letter-spacing:-.02em;
+    }
+    .sub{
+      margin:0 0 18px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height:1.55;
+      max-width: 56ch;
+    }
+
+    .gold{
+      background: linear-gradient(90deg, var(--gold1), var(--gold2), var(--gold3));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow: 0 6px 20px rgba(217,184,92,.10);
+    }
+
+    .heroActions{
+      display:flex; flex-wrap:wrap; gap:10px;
+    }
+    .btnSecondary{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+    }
+
+    .stats{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+      padding: 16px;
+      display:grid;
+      gap: 10px;
+      align-content:start;
+    }
+    .stat{
+      display:flex; align-items:flex-start; gap: 12px;
+      padding: 10px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .dot{
+      width:10px; height:10px; border-radius: 999px;
+      background: linear-gradient(180deg, var(--gold1), var(--gold3));
+      box-shadow: 0 10px 25px rgba(217,184,92,.20);
+      margin-top: 5px;
+    }
+    .stat b{ display:block; font-size: 13px; letter-spacing:.01em; }
+    .stat small{ display:block; color: var(--muted); line-height:1.35; margin-top:2px; }
+
+    .sectionHead{
+      display:flex; align-items:flex-end; justify-content:space-between; gap: 10px;
+      margin-bottom: 14px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+    }
+    .sectionHead p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 62ch;
+      line-height:1.5;
+    }
+
+    /* Portfolio slider */
+    .portfolioGrid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+    }
+
+    .viewer{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+      overflow:hidden;
+      position:relative;
+      min-height: 360px;
+    }
+
+    .viewer img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      transform: translateZ(0);
+    }
+
+    .viewerOverlay{
+      position:absolute; inset:auto 0 0 0;
+      padding: 14px;
+      background: linear-gradient(to top, rgba(0,0,0,.70), rgba(0,0,0,0));
+      display:flex; align-items:center; justify-content:space-between; gap: 10px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(246,230,168,.22);
+      background: rgba(0,0,0,.30);
+      font-size: 12px;
+      color: rgba(255,255,255,.92);
+      letter-spacing:.02em;
+    }
+    .controls{
+      display:flex; gap: 8px; align-items:center;
+    }
+    .iconBtn{
+      width:40px; height:40px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      cursor:pointer;
+      display:grid; place-items:center;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      color: rgba(255,255,255,.90);
+    }
+    .iconBtn:hover{ transform: translateY(-1px); border-color: rgba(246,230,168,.22); }
+    .iconBtn svg{ width:18px; height:18px; }
+
+    .thumbs{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+      padding: 10px;
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      align-content:start;
+    }
+    .thumb{
+      aspect-ratio: 4 / 3;
+      border-radius: 14px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      cursor:pointer;
+      position:relative;
+      transition: transform .12s ease, border-color .12s ease;
+    }
+    .thumb:hover{ transform: translateY(-2px); border-color: rgba(246,230,168,.22); }
+    .thumb img{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
+    }
+    .thumb.active{
+      border-color: rgba(246,230,168,.40);
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+
+    /* Cards for Services/Editing */
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      padding: 16px;
+      display:grid;
+      gap: 10px;
+      min-height: 170px;
+    }
+    .card h3{
+      margin:0;
+      font-size: 15px;
+      letter-spacing:.02em;
+    }
+    .card p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .card ul{
+      margin:0;
+      padding-left: 18px;
+      color: rgba(255,255,255,.82);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .sectionCtaRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      flex-wrap:wrap;
+    }
+    .mini{
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 65ch;
+    }
+
+    /* Contact */
+    .contactGrid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 12px;
+    }
+    .contactPanel{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      padding: 16px;
+      display:grid;
+      gap: 10px;
+    }
+    .contactPanel label{
+      display:block;
+      font-size: 12px;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+      margin-bottom: 6px;
+    }
+    .contactPanel input, .contactPanel textarea{
+      width:100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding: 12px 12px;
+      color: rgba(255,255,255,.92);
+      outline:none;
+      font-size: 14px;
+    }
+    .contactPanel textarea{ min-height: 120px; resize: vertical; }
+    .contactPanel input:focus, .contactPanel textarea:focus{
+      border-color: rgba(246,230,168,.30);
+      box-shadow: 0 0 0 4px rgba(246,230,168,.08);
+    }
+
+    .footer{
+      margin-top: 18px;
+      text-align:center;
+      color: rgba(255,255,255,.65);
+      font-size: 13px;
+      padding: 12px 0 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .portfolioGrid{ grid-template-columns: 1fr; }
+      .viewer{ min-height: 320px; }
+      .cards{ grid-template-columns: 1fr; }
+      .contactGrid{ grid-template-columns: 1fr; }
+      .brand{ min-width:auto; }
+    }
+    @media (max-width: 720px){
+      .tabs{ display:none; }
+      .hamburger{ display:inline-flex; }
+      .mobileMenu{ display:none; }
+      .navbar{ border-radius: 18px; }
+      .headline{ font-size: 32px; }
+      .sub{ font-size: 14px; }
+      .thumbs{ grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 480px){
+      .thumbs{ grid-template-columns: repeat(2, 1fr); }
+      .btn{ width:100%; justify-content:center; }
+      .heroActions{ flex-direction:column; }
+    }
+  </style>
 </head>
 
 <body>
   <div class="bg" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
 
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <a class="brand" href="#top">
-        <span class="brand-mark">HF</span>
-        <span class="brand-text">
-          <span class="brand-name">Hynoe Flicks</span>
-          <span class="brand-sub">Chicago • Photo + Editing</span>
-        </span>
-      </a>
+  <div class="wrap">
 
-      <nav class="nav desktop-nav">
-        <a href="#portfolio">Portfolio</a>
-        <a href="#services">Services</a>
-        <a href="#editing">Editing</a>
-        <a href="#contact">Contact</a>
-      </nav>
+    <!-- NAV -->
+    <div class="nav">
+      <div class="navbar">
+        <a class="brand" href="#home" aria-label="Go to top">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <h1>Hynoe Flicks</h1>
+            <span>Chicago • Photo + Editing</span>
+          </div>
+        </a>
 
-      <!-- ONE Booking Button (essential only) -->
-      <a class="btn btn-gold desktop-only"
-         href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book.%0AType%20(Portrait%2FMusic%2FEvent%2FBrand%2FEditing)%3A%0ADate%20Range%3A%0ALocation%3A%0AReference%20link%20(optional)%3A%0A%0AThanks!">
-        Book
-      </a>
+        <nav class="tabs" aria-label="Primary">
+          <a class="tab active" href="#home">Home</a>
+          <a class="tab" href="#portfolio">Portfolio</a>
+          <a class="tab" href="#services">Services</a>
+          <a class="tab" href="#editing">Editing</a>
+          <a class="tab" href="#contact">Contact</a>
+        </nav>
 
-      <!-- Mobile menu button -->
-      <button class="iconbtn mobile-only" id="menuBtn" aria-label="Open menu">☰</button>
-    </div>
+        <div class="right">
+          <a class="btn" href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book%20a%20session.%0AType%20(Portrait%2FMusic%2FBrand%2FEvent)%3A%0ADate%20or%20range%3A%0ALocation%3A%0AWhat%20you%27re%20aiming%20for%3A%0A%0AThank%20you!">
+            Book
+            <span class="gold">Now</span>
+          </a>
 
-    <!-- Mobile menu panel -->
-    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-      <a href="#portfolio" class="m-link">Portfolio</a>
-      <a href="#services" class="m-link">Services</a>
-      <a href="#editing" class="m-link">Editing</a>
-      <a href="#contact" class="m-link">Contact</a>
-
-      <!-- Same ONE booking button inside menu -->
-      <a class="btn btn-gold"
-         href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book.%0AType%20(Portrait%2FMusic%2FEvent%2FBrand%2FEditing)%3A%0ADate%20Range%3A%0ALocation%3A%0AReference%20link%20(optional)%3A%0A%0AThanks!">
-        Book
-      </a>
-    </div>
-  </header>
-
-  <main id="top" class="hero">
-    <div class="container hero-grid">
-      <section class="hero-left">
-        <h1>Luxury visuals with Chicago energy.</h1>
-        <p class="lead">
-          Portraits • Music • Events • Brand work — plus standalone editing & retouching.
-          Clean, modern, premium.
-        </p>
-
-        <div class="meta-row">
-          <span class="chip">Cinematic color</span>
-          <span class="chip">Premium finish</span>
-          <span class="chip">Chicago-based</span>
+          <button class="hamburger" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
-      </section>
+      </div>
 
-      <aside class="hero-right">
-        <div class="panel">
-          <div class="panel-top">
-            <div class="panel-title">Portfolio</div>
-            <div class="panel-sub">Swipe / tap • Filter by type</div>
+      <div class="mobileMenu" id="mobileMenu" aria-label="Mobile menu">
+        <a class="tab" href="#home">Home</a>
+        <a class="tab" href="#portfolio">Portfolio</a>
+        <a class="tab" href="#services">Services</a>
+        <a class="tab" href="#editing">Editing</a>
+        <a class="tab" href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <section id="home">
+      <div class="hero">
+        <div class="heroGrid">
+          <div>
+            <h2 class="headline">
+              Luxury visuals that feel <span class="gold">iconic</span> — not generic.
+            </h2>
+            <p class="sub">
+              Chicago-based photography for artists, brands, and people who want a premium look.
+              Clean direction, polished delivery, and an experience that feels effortless.
+              <span class="gold">Editing services available</span> even if you didn’t shoot with me.
+            </p>
+
+            <div class="heroActions">
+              <a class="btn" href="#portfolio">View Portfolio</a>
+              <a class="btn btnSecondary" href="mailto:hynoe.flicks@gmail.com?subject=Editing%20Inquiry%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27m%20interested%20in%20editing%20only.%0AType%20(Portrait%2FMusic%2FBrand)%3A%0ANumber%20of%20photos%3A%0AStyle%20(reference%20link%20optional)%3A%0ATurnaround%20needed%3A%0A%0AThanks!">
+                Editing Only
+              </a>
+            </div>
           </div>
 
-          <div class="filter-bar" role="tablist">
-            <button class="pill active" data-filter="all">All</button>
-            <button class="pill" data-filter="portrait">Portraits</button>
-            <button class="pill" data-filter="music">Music</button>
-            <button class="pill" data-filter="city">Chicago</button>
+          <aside class="stats" aria-label="Highlights">
+            <div class="stat">
+              <div class="dot" aria-hidden="true"></div>
+              <div>
+                <b>Premium Direction</b>
+                <small>Posing, movement, and details that elevate the final result.</small>
+              </div>
+            </div>
+            <div class="stat">
+              <div class="dot" aria-hidden="true"></div>
+              <div>
+                <b>Luxury Color + Finish</b>
+                <small>Consistent tones and a polished look designed for high-end clients.</small>
+              </div>
+            </div>
+            <div class="stat">
+              <div class="dot" aria-hidden="true"></div>
+              <div>
+                <b>Chicago Focus</b>
+                <small>Fast coordination across the city—studios, venues, rooftops, and more.</small>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <div class="sectionInner">
+        <div class="sectionHead">
+          <div>
+            <h2>Portfolio</h2>
+            <p>Tap a thumbnail or use arrows. Works smoothly on mobile (swipe supported).</p>
+          </div>
+          <a class="btn btnSecondary" href="mailto:hynoe.flicks@gmail.com?subject=Portfolio%20Question%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%20love%20your%20work.%20I%27m%20interested%20in%20booking%20and%20have%20a%20quick%20question%3A%0A%0A">
+            Booking
+          </a>
+        </div>
+
+        <div class="portfolioGrid">
+          <div class="viewer" aria-label="Featured portfolio image">
+            <img id="heroImg" src="assets/img/p1.jpg" alt="Portfolio image" />
+            <div class="viewerOverlay">
+              <div class="badge" id="caption">Chicago • Premium Visuals</div>
+              <div class="controls">
+                <button class="iconBtn" id="prevBtn" aria-label="Previous image">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button class="iconBtn" id="nextBtn" aria-label="Next image">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div class="slider">
-            <button class="navbtn" id="prevBtn" aria-label="Previous">‹</button>
-            <figure class="frame">
-              <img id="slideImg" alt="Portfolio photo" loading="eager" />
-              <figcaption class="caption">
-                <span class="cap-pill" id="slideType">All</span>
-                <span class="cap-right" id="slideCount">1 / 1</span>
-              </figcaption>
-            </figure>
-            <button class="navbtn" id="nextBtn" aria-label="Next">›</button>
+          <div class="thumbs" id="thumbs" aria-label="Portfolio thumbnails"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="sectionInner">
+        <div class="sectionHead">
+          <div>
+            <h2>Services</h2>
+            <p>Premium photography for brands, artists, events, and portraits — designed to look expensive and feel effortless.</p>
+          </div>
+          <a class="btn" href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Photography%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book%20a%20photo%20session.%0AType%20(Portrait%2FMusic%2FBrand%2FEvent)%3A%0ADate%20or%20range%3A%0ALocation%3A%0AWhat%20you%27re%20aiming%20for%3A%0A%0AThank%20you!">
+            Book Photography
+          </a>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <h3>Portraits</h3>
+            <p>Confident, clean, and elevated. Studio or on-location in Chicago.</p>
+            <ul>
+              <li>Creative direction + posing</li>
+              <li>Luxury color finish</li>
+              <li>Social + campaign ready</li>
+            </ul>
           </div>
 
-          <div class="slider-footer">
-            <div class="dots" id="dots"></div>
-            <button class="ghostbtn" id="toggleAuto">Pause</button>
+          <div class="card">
+            <h3>Music + Live Events</h3>
+            <p>Stage lighting, motion, and moments — captured sharp and cinematic.</p>
+            <ul>
+              <li>Venue-friendly workflow</li>
+              <li>Artist + crowd moments</li>
+              <li>Press / promo ready</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Brand + Lifestyle</h3>
+            <p>Premium visuals for products, pop-ups, and personal brands.</p>
+            <ul>
+              <li>Clean storytelling</li>
+              <li>Consistent set look</li>
+              <li>Polished delivery</li>
+            </ul>
           </div>
         </div>
-      </aside>
-    </div>
-  </main>
 
-  <section id="services" class="section">
-    <div class="container two-col">
-      <div class="box">
-        <h2>Photography</h2>
-        <p>Portraits, music + nightlife, events, and brand content — designed to look upscale and modern.</p>
+        <div class="sectionCtaRow">
+          <div class="mini">
+            No prices listed here by design — inquiry-based so your shoot is tailored to your goal, location, and creative vision.
+          </div>
+        </div>
       </div>
-      <div class="box">
-        <h2>Editing</h2>
-        <p>Standalone editing & retouching for creators who already have photos — premium polish, consistent color.</p>
+    </section>
+
+    <!-- EDITING -->
+    <section id="editing">
+      <div class="sectionInner">
+        <div class="sectionHead">
+          <div>
+            <h2>Editing & Retouching</h2>
+            <p>Need edits only? I offer premium retouching and color work — designed to look clean, natural, and high-end.</p>
+          </div>
+          <a class="btn" href="mailto:hynoe.flicks@gmail.com?subject=Editing%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27m%20interested%20in%20editing%20only.%0AType%20(Portrait%2FMusic%2FBrand)%3A%0ANumber%20of%20photos%3A%0AStyle%20(reference%20link%20optional)%3A%0ATurnaround%20needed%3A%0A%0AThanks!">
+            Book Editing
+          </a>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <h3>Premium Retouch</h3>
+            <p>Texture-preserving retouching with a refined finish.</p>
+            <ul>
+              <li>Skin + detail cleanup</li>
+              <li>Distraction removal</li>
+              <li>Natural, not plastic</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Luxury Color Grade</h3>
+            <p>Cinematic color and consistency across your full set.</p>
+            <ul>
+              <li>Set-wide tone match</li>
+              <li>Mood + contrast control</li>
+              <li>Brand-aligned look</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Delivery That’s Easy</h3>
+            <p>You send files + references. I deliver polished finals.</p>
+            <ul>
+              <li>Clear communication</li>
+              <li>Professional turnaround</li>
+              <li>Export options for web/social</li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="editing" class="section">
-    <div class="container single">
-      <div class="box">
-        <h2>Editing & Retouching (Standalone)</h2>
-        <p>
-          If you only need edits: color grading, cleanup, and premium retouching. Send a reference look and your set.
-        </p>
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="sectionInner">
+        <div class="sectionHead">
+          <div>
+            <h2>Contact</h2>
+            <p>Fastest way to book: send the details below — I’ll respond with availability + next steps.</p>
+          </div>
+          <a class="btn btnSecondary" href="mailto:hynoe.flicks@gmail.com">hynoe.flicks@gmail.com</a>
+        </div>
+
+        <div class="contactGrid">
+          <div class="contactPanel">
+            <div>
+              <label>Your name</label>
+              <input id="name" placeholder="Your name" />
+            </div>
+            <div>
+              <label>What do you need?</label>
+              <input id="type" placeholder="Portrait / Music / Event / Brand / Editing" />
+            </div>
+            <div>
+              <label>Details</label>
+              <textarea id="details" placeholder="Date range, location, vibe, references, and any must-have shots..."></textarea>
+            </div>
+
+            <a class="btn" id="sendBtn" href="#" role="button">Send Booking Email</a>
+            <div class="mini">This opens your email app with a pre-filled message (no forms, no extra accounts).</div>
+          </div>
+
+          <div class="contactPanel">
+            <div class="mini">
+              <b class="gold">Chicago Area</b><br/>
+              Available for portraits, music, events, and brand work across the city + nearby suburbs.
+              <br/><br/>
+              <b class="gold">Instagram</b><br/>
+              @hynoe.flicks
+              <br/><br/>
+              <b class="gold">Quick Tip</b><br/>
+              The best booking emails include: date range, location, references, and goal (press, promo, campaign, personal brand).
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="contact" class="section">
-    <div class="container single">
-      <div class="box">
-        <h2>Contact</h2>
-        <p>Email: <a class="link" href="mailto:hynoe.flicks@gmail.com">hynoe.flicks@gmail.com</a></p>
-        <p>Instagram: <a class="link" href="https://www.instagram.com/hynoe.flicks" target="_blank" rel="noopener">@hynoe.flicks</a></p>
-        <p class="muted">Chicago, IL</p>
-      </div>
+    <div class="footer">
+      © <span id="year"></span> Hynoe Flicks • Chicago
     </div>
-  </section>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <span>© <span id="year"></span> Hynoe Flicks</span>
-      <span class="muted">Premium Photo + Editing • Chicago</span>
-    </div>
-  </footer>
+  </div>
 
-  <script src="assets/js/app.js"></script>
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    menuBtn?.addEventListener("click", () => {
+      const open = mobileMenu.style.display === "block";
+      mobileMenu.style.display = open ? "none" : "block";
+      menuBtn.setAttribute("aria-expanded", String(!open));
+    });
+
+    // Active tab highlight (desktop)
+    const tabs = [...document.querySelectorAll(".tabs .tab")];
+    const sections = ["home","portfolio","services","editing","contact"].map(id => document.getElementById(id));
+
+    const setActive = (id) => {
+      tabs.forEach(t => t.classList.toggle("active", t.getAttribute("href") === "#" + id));
+    };
+
+    const obs = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible?.target?.id) setActive(visible.target.id);
+    }, { threshold: [0.35, 0.5, 0.65] });
+
+    sections.forEach(s => s && obs.observe(s));
+
+    // Portfolio data (ensure these files exist in /assets/img/)
+    const portfolio = [
+      { src: "assets/img/p1.jpg", caption: "Chicago • City Energy", alt: "Chicago city scene at night" },
+      { src: "assets/img/p2.jpg", caption: "Music • Stage Presence", alt: "Bassist performing on stage" },
+      { src: "assets/img/p3.jpg", caption: "Portrait • Cinematic Mood", alt: "Portrait with warm lighting" },
+      { src: "assets/img/p4.jpg", caption: "Brand • Clean + Bright", alt: "Woman in yellow dress at a display table" },
+      { src: "assets/img/p5.jpg", caption: "Music • Moment Capture", alt: "Performer on stage leaning forward" },
+      { src: "assets/img/p6.jpg", caption: "Portrait • Editorial Feel", alt: "Woman indoors portrait" },
+      { src: "assets/img/p7.jpg", caption: "Portrait • Shallow Depth", alt: "Close-up portrait with beanie" },
+      { src: "assets/img/p8.jpg", caption: "Action • Lifestyle Motion", alt: "Skater performing a trick" }
+    ];
+
+    let idx = 0;
+    const heroImg = document.getElementById("heroImg");
+    const caption = document.getElementById("caption");
+    const thumbs = document.getElementById("thumbs");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function renderThumbs(){
+      thumbs.innerHTML = "";
+      portfolio.forEach((p, i) => {
+        const t = document.createElement("button");
+        t.className = "thumb" + (i === idx ? " active" : "");
+        t.setAttribute("aria-label", "View image " + (i+1));
+        t.style.border = t.className.includes("active") ? "1px solid rgba(246,230,168,.40)" : "";
+        const im = document.createElement("img");
+        im.src = p.src;
+        im.alt = p.alt;
+        t.appendChild(im);
+        t.addEventListener("click", () => { idx = i; show(); });
+        thumbs.appendChild(t);
+      });
+    }
+
+    function show(){
+      const p = portfolio[idx];
+      heroImg.src = p.src;
+      heroImg.alt = p.alt;
+      caption.textContent = p.caption;
+      [...thumbs.querySelectorAll(".thumb")].forEach((el, i) => el.classList.toggle("active", i === idx));
+    }
+
+    function next(){ idx = (idx + 1) % portfolio.length; show(); renderThumbs(); }
+    function prev(){ idx = (idx - 1 + portfolio.length) % portfolio.length; show(); renderThumbs(); }
+
+    prevBtn?.addEventListener("click", prev);
+    nextBtn?.addEventListener("click", next);
+
+    // Swipe support (mobile)
+    let startX = 0;
+    heroImg?.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    heroImg?.addEventListener("touchend", (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const dx = endX - startX;
+      if (Math.abs(dx) > 40) dx > 0 ? prev() : next();
+    }, { passive: true });
+
+    // Email builder (Contact)
+    const sendBtn = document.getElementById("sendBtn");
+    sendBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      const name = (document.getElementById("name").value || "").trim();
+      const type = (document.getElementById("type").value || "").trim();
+      const details = (document.getElementById("details").value || "").trim();
+
+      const subject = encodeURIComponent("Booking Request - Hynoe Flicks");
+      const body = encodeURIComponent(
+        `Hi Hynoe,\n\n` +
+        `Name: ${name || "(your name)"}\n` +
+        `Service: ${type || "(Portrait / Music / Event / Brand / Editing)"}\n\n` +
+        `Details:\n${details || "(date range, location, vibe, references, goal)"}\n\n` +
+        `Thanks!`
+      );
+
+      window.location.href = `mailto:hynoe.flicks@gmail.com?subject=${subject}&body=${body}`;
+    });
+
+    // Init
+    document.getElementById("year").textContent = new Date().getFullYear();
+    renderThumbs();
+    show();
+  </script>
 </body>
 </html>
