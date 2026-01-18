@@ -2,165 +2,194 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Hynoe Flicks | Chicago Photography + Editing</title>
 
-  <!-- SEO basics -->
   <meta name="description" content="Hynoe Flicks — luxury Chicago photography + standalone editing/retouching. Portraits, music, events, and brand visuals."/>
   <meta name="robots" content="index,follow"/>
-  <meta name="theme-color" content="#1a1410"/>
-
-  <meta property="og:title" content="Hynoe Flicks | Chicago Photography + Editing"/>
-  <meta property="og:description" content="Luxury photography in Chicago + standalone editing/retouching. Book via email."/>
-  <meta property="og:type" content="website"/>
+  <meta name="theme-color" content="#1b1511"/>
 
   <style>
-    /* ===========================
-       THEME: Homey Luxury (Gold + Warm Darks)
-       =========================== */
+    /* ==========================================================
+       RESPONSIVE THEME
+       Mobile (default): LIGHT / airy
+       Desktop (>= 900px): DARKER / warm (not too dark)
+       ========================================================== */
+
     :root{
       --max: 1180px;
 
-      /* Warm dark base (homey) */
-      --dark:#14100d;
-      --dark2:#1b1511;
-      --dark3:#221a14;
+      /* MOBILE DEFAULT (LIGHT) */
+      --bg0:#fff8ee;
+      --bg1:#f6ead6;
+      --surface: rgba(255,255,255,.74);
+      --surface2: rgba(255,255,255,.62);
 
-      /* Cream + beige (luxury warmth) */
-      --cream:#fff6e7;
-      --beige:#f4ead8;
-      --beige2:#efe1c8;
+      --ink:#151518;
+      --muted: rgba(21,21,24,.68);
 
-      /* Metallic gold spectrum */
+      --border: rgba(0,0,0,.10);
+      --borderSoft: rgba(0,0,0,.07);
+
+      /* Metallic gold */
       --g0:#fff2c6;
       --g1:#f4d47f;
       --g2:#d2a146;
       --g3:#a67322;
       --g4:#ffe7a3;
 
-      /* Ink */
-      --ink:#121315;
-      --muted:rgba(18,19,21,.70);
+      --shadow: 0 26px 70px rgba(0,0,0,.12);
+      --shadow2: 0 12px 30px rgba(0,0,0,.10);
+      --shadowGold: 0 22px 60px rgba(210,161,70,.18);
 
-      /* Panels */
-      --panel: rgba(255,246,231,.78);
-      --panel2: rgba(255,246,231,.66);
-      --line: rgba(255,255,255,.14);
-      --line2: rgba(0,0,0,.10);
-
-      /* Radii */
       --r1: 16px;
       --r2: 24px;
       --r3: 32px;
 
-      /* Shadows */
-      --shadow: 0 28px 80px rgba(0,0,0,.22);
-      --shadow2: 0 14px 36px rgba(0,0,0,.18);
-      --shadowGold: 0 20px 60px rgba(210,161,70,.20);
-
-      /* Type */
       --track:.16em;
+
+      --navBg: rgba(255,255,255,.70);
+      --navText: rgba(21,21,24,.92);
+      --tabBg: rgba(0,0,0,.04);
+      --tabText: rgba(0,0,0,.72);
+      --tabActiveBg: rgba(255,242,198,.62);
+      --tabActiveText: rgba(0,0,0,.90);
+
+      --bookHint: rgba(0,0,0,.62);
     }
 
-    *{box-sizing:border-box;}
-    html,body{height:100%; scroll-behavior:smooth;}
+    /* DESKTOP THEME OVERRIDES */
+    @media (min-width: 900px){
+      :root{
+        /* warm dark but readable */
+        --bg0:#1a1410;
+        --bg1:#241b14;
+
+        --surface: rgba(255,246,231,.16);
+        --surface2: rgba(255,246,231,.10);
+
+        --ink: rgba(255,246,231,.94);
+        --muted: rgba(255,246,231,.70);
+
+        --border: rgba(255,255,255,.16);
+        --borderSoft: rgba(255,255,255,.12);
+
+        --shadow: 0 30px 90px rgba(0,0,0,.30);
+        --shadow2: 0 16px 40px rgba(0,0,0,.24);
+
+        --navBg: rgba(20,16,13,.58);
+        --navText: rgba(255,246,231,.92);
+
+        --tabBg: rgba(255,246,231,.06);
+        --tabText: rgba(255,246,231,.78);
+        --tabActiveBg: rgba(244,212,127,.12);
+        --tabActiveText: rgba(255,246,231,.95);
+
+        --bookHint: rgba(255,246,231,.76);
+      }
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; scroll-behavior:smooth; }
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color: var(--ink);
+      background: var(--bg0);
       overflow-x:hidden;
-      background: var(--dark);
     }
-    a{color:inherit; text-decoration:none;}
-    button{font-family:inherit;}
+    a{ color:inherit; text-decoration:none; }
+    button{ font:inherit; color:inherit; }
 
-    /* ===========================
-       BACKGROUND: Expensive gold + warm dark balance
-       - No external files required
-       - Built from gradients + subtle foil sheen
-       =========================== */
+    .wrap{ max-width: var(--max); margin:0 auto; padding: 18px 16px 74px; }
+
+    /* ==========================================================
+       BACKGROUND (Generated)
+       Mobile: brighter gold/beige
+       Desktop: deeper warm dark + gold foil glow
+       ========================================================== */
     .bg{
       position:fixed; inset:0; z-index:-5;
+
+      /* base */
       background:
-        /* warm dark base */
-        radial-gradient(900px 650px at 18% 20%, rgba(255,231,163,.12), transparent 55%),
-        radial-gradient(1100px 750px at 84% 22%, rgba(210,161,70,.12), transparent 60%),
-        radial-gradient(1000px 700px at 50% 78%, rgba(255,242,198,.10), transparent 60%),
-        linear-gradient(180deg, var(--dark2), var(--dark));
+        radial-gradient(1100px 700px at 18% 10%, rgba(255,231,163,.28), transparent 56%),
+        radial-gradient(1000px 700px at 82% 20%, rgba(210,161,70,.18), transparent 60%),
+        radial-gradient(900px 650px at 55% 85%, rgba(255,242,198,.30), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
     }
 
-    /* "Gold foil field" behind content — feels expensive but warm */
+    /* gold foil haze */
     .foil{
       position:fixed; inset:-20%; z-index:-4;
+      pointer-events:none;
+      opacity: .78;
+
       background:
-        /* foil streaks */
         linear-gradient(115deg,
           rgba(255,242,198,.00) 0%,
-          rgba(255,242,198,.00) 30%,
-          rgba(255,242,198,.12) 47%,
-          rgba(255,242,198,.00) 62%,
+          rgba(255,242,198,.00) 32%,
+          rgba(255,242,198,.14) 48%,
+          rgba(255,242,198,.00) 64%,
           rgba(255,242,198,.00) 100%),
         linear-gradient(25deg,
           rgba(244,212,127,.00) 0%,
-          rgba(244,212,127,.10) 44%,
-          rgba(244,212,127,.00) 65%),
-        radial-gradient(1200px 800px at 25% 30%, rgba(244,212,127,.18), transparent 60%),
-        radial-gradient(900px 700px at 70% 65%, rgba(210,161,70,.16), transparent 60%),
-        radial-gradient(900px 700px at 55% 10%, rgba(255,242,198,.12), transparent 55%);
+          rgba(244,212,127,.12) 44%,
+          rgba(244,212,127,.00) 68%),
+        radial-gradient(1200px 800px at 25% 25%, rgba(244,212,127,.20), transparent 62%),
+        radial-gradient(1000px 750px at 74% 65%, rgba(210,161,70,.16), transparent 64%);
       filter: blur(18px);
-      opacity: .85;
       transform: rotate(-2deg);
-      pointer-events:none;
     }
 
-    /* Tiny grain to keep it from feeling flat */
     .grain{
       position:fixed; inset:0; z-index:-3;
       pointer-events:none;
-      opacity:.22;
+      opacity:.20;
       mix-blend-mode: overlay;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
     }
 
-    /* Subtle animated sheen on foil (classy, slow) */
-    .sheen{
-      position:fixed; inset:-30%; z-index:-2;
-      pointer-events:none;
-      opacity:.18;
-      background: linear-gradient(110deg,
-        transparent 30%,
-        rgba(255,255,255,.55) 48%,
-        transparent 65%);
-      transform: translateX(-25%) rotate(8deg);
-      animation: sheen 10s ease-in-out infinite;
-      filter: blur(18px);
-    }
-    @keyframes sheen{
-      0%{ transform: translateX(-28%) rotate(8deg); }
-      50%{ transform: translateX(28%) rotate(8deg); }
-      100%{ transform: translateX(-28%) rotate(8deg); }
+    /* desktop-only subtle sheen (keeps mobile extra calm) */
+    .sheen{ display:none; }
+    @media (min-width: 900px){
+      .sheen{
+        display:block;
+        position:fixed; inset:-30%; z-index:-2;
+        pointer-events:none;
+        opacity:.14;
+        background: linear-gradient(110deg,
+          transparent 30%,
+          rgba(255,255,255,.55) 48%,
+          transparent 65%);
+        transform: translateX(-25%) rotate(8deg);
+        animation: sheen 10.5s ease-in-out infinite;
+        filter: blur(18px);
+      }
+      @keyframes sheen{
+        0%{ transform: translateX(-28%) rotate(8deg); }
+        50%{ transform: translateX(28%) rotate(8deg); }
+        100%{ transform: translateX(-28%) rotate(8deg); }
+      }
     }
 
-    /* ===========================
-       LAYOUT
-       =========================== */
-    .wrap{ max-width: var(--max); margin:0 auto; padding: 18px 16px 70px; }
-
+    /* ==========================================================
+       NAV
+       ========================================================== */
     .topbar{
       position: sticky; top:0; z-index:60;
       padding: 14px 0;
       backdrop-filter: blur(14px);
     }
-
     .nav{
       display:flex; align-items:center; justify-content:space-between;
       gap: 12px;
       padding: 12px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(20,16,13,.55);
+      border: 1px solid var(--border);
+      background: var(--navBg);
       box-shadow: var(--shadow2);
-      color: rgba(255,246,231,.92);
+      color: var(--navText);
     }
 
     .brand{
@@ -169,10 +198,10 @@
     }
     .logo{
       width:42px; height:42px; border-radius: 14px;
-      border: 1px solid rgba(255,242,198,.22);
+      border: 1px solid rgba(210,161,70,.32);
       background:
-        radial-gradient(circle at 25% 25%, rgba(255,255,255,.70), transparent 55%),
-        linear-gradient(135deg, var(--g0), var(--g2), var(--g3), var(--g4));
+        radial-gradient(circle at 22% 22%, rgba(255,255,255,.75), transparent 55%),
+        linear-gradient(135deg, var(--g0), var(--g1), var(--g3), var(--g4));
       box-shadow: var(--shadowGold);
       position:relative; overflow:hidden;
     }
@@ -181,7 +210,7 @@
       position:absolute; inset:-60%;
       background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,.85) 50%, transparent 62%);
       transform: rotate(10deg);
-      opacity:.30;
+      opacity:.26;
     }
 
     .brand h1{
@@ -190,54 +219,51 @@
       letter-spacing: var(--track);
       text-transform: uppercase;
       line-height:1.05;
-      color: rgba(255,246,231,.95);
     }
     .brand span{
       display:block;
       font-size: 12px;
-      color: rgba(255,246,231,.70);
+      opacity:.72;
       letter-spacing:.04em;
       margin-top:2px;
     }
 
     .tabs{
-      display:flex; gap:6px; align-items:center;
-      justify-content:center;
+      display:flex; gap:6px; align-items:center; justify-content:center;
       flex-wrap:wrap;
     }
     .tab{
       padding: 9px 12px;
       border-radius: 999px;
       border: 1px solid transparent;
-      background: rgba(255,246,231,.06);
-      color: rgba(255,246,231,.78);
+      background: var(--tabBg);
+      color: var(--tabText);
       font-size: 13px;
       cursor:pointer;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
       user-select:none;
     }
-    .tab:hover{ transform: translateY(-1px); border-color: rgba(244,212,127,.24); background: rgba(255,246,231,.08); }
+    .tab:hover{ transform: translateY(-1px); border-color: rgba(244,212,127,.28); }
     .tab.active{
+      background: var(--tabActiveBg);
+      color: var(--tabActiveText);
       border-color: rgba(244,212,127,.40);
-      background: rgba(244,212,127,.12);
-      color: rgba(255,246,231,.95);
     }
 
     .actions{ display:flex; gap:10px; align-items:center; }
 
-    /* Buttons */
     .btn{
-      border: 1px solid rgba(244,212,127,.35);
+      border: 1px solid rgba(244,212,127,.38);
       background:
-        radial-gradient(circle at 18% 22%, rgba(255,255,255,.70), transparent 55%),
+        radial-gradient(circle at 18% 22%, rgba(255,255,255,.75), transparent 55%),
         linear-gradient(135deg, var(--g0), var(--g1), var(--g3), var(--g4));
       color: rgba(18,19,21,.92);
       padding: 10px 14px;
       border-radius: 999px;
-      font-weight: 800;
+      font-weight: 820;
       font-size: 13px;
       letter-spacing:.01em;
-      box-shadow: var(--shadowGold), 0 10px 24px rgba(0,0,0,.18);
+      box-shadow: var(--shadowGold), 0 10px 24px rgba(0,0,0,.14);
       transition: transform .12s ease, filter .12s ease;
       display:inline-flex; align-items:center; justify-content:center;
       gap: 10px;
@@ -246,58 +272,83 @@
     .btn:hover{ transform: translateY(-1px); filter: brightness(1.03) contrast(1.02); }
 
     .btn.secondary{
-      border-color: rgba(255,255,255,.14);
-      background: rgba(255,246,231,.08);
-      color: rgba(255,246,231,.88);
-      box-shadow: 0 12px 26px rgba(0,0,0,.22);
+      border-color: var(--border);
+      background: rgba(255,255,255,.55);
+      color: rgba(18,19,21,.86);
+      box-shadow: 0 12px 28px rgba(0,0,0,.10);
       font-weight: 740;
     }
+    @media (min-width: 900px){
+      .btn.secondary{
+        background: rgba(255,246,231,.10);
+        color: rgba(255,246,231,.90);
+        box-shadow: 0 12px 28px rgba(0,0,0,.24);
+      }
+    }
 
-    /* Mobile menu (hamburger) */
+    /* Mobile menu */
     .hamburger{
-      display:none;
+      display:grid;
       width:42px; height:42px;
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,246,231,.06);
-      color: rgba(255,246,231,.92);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.50);
       cursor:pointer;
-      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+      box-shadow: 0 10px 22px rgba(0,0,0,.10);
     }
-    .hamburger svg{ width:18px; height:18px; }
+    .hamburger svg{ width:18px; height:18px; margin:auto; }
+
+    /* desktop: hide hamburger (use tabs + actions) */
+    @media (min-width: 900px){
+      .hamburger{ display:none; }
+    }
+    /* mobile: hide tabs+actions (use hamburger) */
+    @media (max-width: 899px){
+      .tabs{ display:none; }
+      .actions{ display:none; }
+    }
 
     .mobileMenu{
       display:none;
       margin-top: 10px;
       padding: 12px;
       border-radius: 20px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(20,16,13,.72);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.70);
       box-shadow: var(--shadow2);
     }
+    @media (min-width: 900px){
+      .mobileMenu{ display:none !important; }
+    }
     .mobileMenu a{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+      display:flex; justify-content:space-between; align-items:center;
       padding: 12px 12px;
       border-radius: 14px;
-      color: rgba(255,246,231,.90);
-      background: rgba(255,246,231,.06);
-      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(18,19,21,.90);
+      background: rgba(0,0,0,.03);
+      border: 1px solid rgba(0,0,0,.08);
       margin-bottom: 10px;
       font-size: 14px;
     }
     .mobileMenu a:last-child{ margin-bottom:0; }
 
-    /* Sections / cards */
+    /* ==========================================================
+       SECTIONS
+       ========================================================== */
     section{
       margin-top: 18px;
       border-radius: var(--r3);
-      border: 1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(255,246,231,.10), rgba(255,246,231,.06));
+      border: 1px solid var(--border);
+      background: var(--surface);
       box-shadow: var(--shadow);
       overflow:hidden;
     }
+    @media (min-width: 900px){
+      section{
+        background: linear-gradient(180deg, var(--surface), var(--surface2));
+      }
+    }
+
     .inner{ padding: 26px; }
 
     /* Hero */
@@ -307,23 +358,31 @@
       gap: 16px;
       align-items:stretch;
     }
+    @media (max-width: 1020px){
+      .hero{ grid-template-columns: 1fr; }
+    }
 
     .heroCard{
       border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.14);
-      background: var(--panel);
-      box-shadow: 0 24px 60px rgba(0,0,0,.18);
+      border: 1px solid var(--borderSoft);
+      background: rgba(255,255,255,.72);
       padding: 22px;
-      position:relative;
-      overflow:hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,.10);
+      position:relative; overflow:hidden;
+    }
+    @media (min-width: 900px){
+      .heroCard{
+        background: rgba(255,246,231,.12);
+        box-shadow: 0 24px 70px rgba(0,0,0,.26);
+      }
     }
     .heroCard:before{
       content:"";
       position:absolute; inset:-60%;
       background:
-        radial-gradient(500px 350px at 30% 20%, rgba(244,212,127,.26), transparent 60%),
-        radial-gradient(500px 350px at 70% 70%, rgba(210,161,70,.18), transparent 60%),
-        linear-gradient(120deg, rgba(255,255,255,.10), transparent 35%, rgba(255,255,255,.08));
+        radial-gradient(520px 360px at 30% 20%, rgba(244,212,127,.26), transparent 60%),
+        radial-gradient(520px 360px at 70% 70%, rgba(210,161,70,.18), transparent 60%),
+        linear-gradient(120deg, rgba(255,255,255,.12), transparent 35%, rgba(255,255,255,.10));
       transform: rotate(-6deg);
       opacity:.85;
       pointer-events:none;
@@ -332,54 +391,74 @@
 
     .h{
       margin:0 0 12px;
-      font-size: 46px;
+      font-size: 44px;
       line-height:1.04;
       letter-spacing:-.02em;
-      color: rgba(18,19,21,.95);
     }
+    @media (max-width: 520px){ .h{ font-size: 34px; } }
+
     .goldText{
       background: linear-gradient(90deg, var(--g3), var(--g1), var(--g3));
       -webkit-background-clip:text;
       background-clip:text;
       color:transparent;
-      text-shadow: 0 14px 30px rgba(210,161,70,.20);
+      text-shadow: 0 14px 30px rgba(210,161,70,.18);
     }
+
     .lead{
       margin:0 0 18px;
-      color: rgba(18,19,21,.70);
+      color: var(--muted);
       font-size: 15px;
       line-height:1.65;
       max-width: 72ch;
     }
 
     .heroActions{ display:flex; gap:10px; flex-wrap:wrap; }
-    .heroPills{
-      display:grid; gap:10px;
-      border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(20,16,13,.55);
-      padding: 16px;
-      color: rgba(255,246,231,.92);
-      box-shadow: 0 18px 40px rgba(0,0,0,.20);
+    @media (max-width: 520px){
+      .heroActions .btn{ width:100%; }
     }
+
+    .heroPills{
+      display:grid;
+      gap:10px;
+      border-radius: var(--r2);
+      border: 1px solid var(--borderSoft);
+      background: rgba(255,255,255,.70);
+      padding: 16px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.10);
+    }
+    @media (min-width: 900px){
+      .heroPills{
+        background: rgba(20,16,13,.55);
+        color: rgba(255,246,231,.92);
+        box-shadow: 0 18px 46px rgba(0,0,0,.28);
+      }
+    }
+
     .pill{
       display:flex; gap:10px;
       padding: 12px 12px;
       border-radius: 16px;
-      background: rgba(255,246,231,.06);
-      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.03);
+      border: 1px solid rgba(0,0,0,.06);
     }
+    @media (min-width: 900px){
+      .pill{
+        background: rgba(255,246,231,.06);
+        border: 1px solid rgba(255,255,255,.10);
+      }
+    }
+
     .dot{
       width:10px; height:10px; border-radius: 999px;
       margin-top:6px;
       background: linear-gradient(180deg, var(--g1), var(--g3));
-      box-shadow: 0 14px 26px rgba(210,161,70,.25);
+      box-shadow: 0 14px 26px rgba(210,161,70,.22);
       flex:0 0 auto;
     }
     .pill b{ display:block; font-size: 13px; letter-spacing:.01em; }
-    .pill small{ display:block; font-size: 12px; color: rgba(255,246,231,.70); margin-top:2px; line-height:1.4; }
+    .pill small{ display:block; font-size: 12px; opacity:.74; margin-top:2px; line-height:1.4; }
 
-    /* Section heading */
     .sectionHead{
       display:flex; align-items:flex-end; justify-content:space-between;
       gap: 14px; margin-bottom: 14px;
@@ -389,23 +468,13 @@
       font-size: 14px;
       letter-spacing: var(--track);
       text-transform: uppercase;
-      color: rgba(255,246,231,.95);
     }
     .sectionHead p{
       margin:0;
-      color: rgba(255,246,231,.70);
+      color: var(--muted);
       font-size: 13px;
       line-height:1.55;
       max-width: 80ch;
-    }
-
-    /* Inner panels (light) */
-    .panel{
-      border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.14);
-      background: var(--panel2);
-      padding: 18px;
-      box-shadow: 0 18px 46px rgba(0,0,0,.18);
     }
 
     /* Cards grid */
@@ -414,35 +483,40 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
     }
+    @media (max-width: 1020px){
+      .cards{ grid-template-columns: 1fr; }
+    }
     .card{
       border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,246,231,.74);
+      border: 1px solid var(--borderSoft);
+      background: rgba(255,255,255,.74);
       padding: 18px;
-      box-shadow: 0 18px 46px rgba(0,0,0,.14);
+      box-shadow: 0 16px 40px rgba(0,0,0,.10);
       display:grid;
       gap: 10px;
       min-height: 180px;
     }
-    .card h3{ margin:0; font-size: 15px; color: rgba(18,19,21,.92); }
-    .card p{ margin:0; font-size: 13px; color: rgba(18,19,21,.68); line-height:1.6; }
-    .card ul{ margin:0; padding-left: 18px; color: rgba(18,19,21,.76); font-size: 13px; line-height:1.7; }
+    @media (min-width: 900px){
+      .card{
+        background: rgba(255,246,231,.12);
+        box-shadow: 0 18px 46px rgba(0,0,0,.26);
+      }
+    }
+    .card h3{ margin:0; font-size: 15px; }
+    .card p{ margin:0; font-size: 13px; color: var(--muted); line-height:1.6; }
+    .card ul{ margin:0; padding-left: 18px; color: var(--muted); font-size: 13px; line-height:1.7; }
 
-    /* Booking row */
+    /* Booking row reveal */
     .bookRow{
       margin-top: 16px;
       padding-top: 14px;
-      border-top: 1px solid rgba(255,255,255,.14);
+      border-top: 1px solid var(--border);
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap: 12px;
     }
-    .bookHint{
-      color: rgba(255,246,231,.75);
-      font-size: 13px;
-      line-height:1.55;
-    }
+    .bookHint{ color: var(--bookHint); font-size: 13px; line-height:1.55; }
     .bookBtn{
       opacity:0;
       transform: translateY(6px);
@@ -454,6 +528,10 @@
       transform: translateY(0);
       pointer-events:auto;
     }
+    @media (max-width: 520px){
+      .bookRow{ flex-direction:column; align-items:stretch; }
+      .bookBtn{ width:100%; }
+    }
 
     /* Portfolio */
     .portGrid{
@@ -461,26 +539,32 @@
       grid-template-columns: 1.25fr .75fr;
       gap: 14px;
     }
+    @media (max-width: 1020px){
+      .portGrid{ grid-template-columns: 1fr; }
+    }
     .viewer{
       border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,246,231,.20);
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.04);
       overflow:hidden;
       position:relative;
       min-height: 420px;
-      box-shadow: 0 18px 46px rgba(0,0,0,.18);
+      box-shadow: 0 16px 44px rgba(0,0,0,.12);
     }
-    .viewer img{
-      width:100%; height:100%;
-      object-fit: cover;
-      display:block;
-      filter: saturate(1.02) contrast(1.02);
+    @media (min-width: 900px){
+      .viewer{
+        background: rgba(255,246,231,.06);
+        box-shadow: 0 20px 56px rgba(0,0,0,.28);
+      }
     }
+    .viewer img{ width:100%; height:100%; object-fit:cover; display:block; }
+
     .viewerBar{
       position:absolute; inset:auto 0 0 0;
       padding: 14px;
-      background: linear-gradient(to top, rgba(20,16,13,.78), rgba(20,16,13,0));
+      background: linear-gradient(to top, rgba(0,0,0,.60), rgba(0,0,0,0));
       display:flex; align-items:center; justify-content:space-between; gap: 10px;
+      color: rgba(255,246,231,.95);
     }
     .badge{
       border: 1px solid rgba(244,212,127,.35);
@@ -488,79 +572,72 @@
       padding: 8px 10px;
       border-radius: 999px;
       font-size: 12px;
-      color: rgba(255,246,231,.95);
       font-weight: 700;
     }
+
     .iconBtn{
       width:42px; height:42px;
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(20,16,13,.45);
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.22);
       color: rgba(255,246,231,.95);
       cursor:pointer;
       display:grid; place-items:center;
       transition: transform .12s ease, border-color .12s ease;
-      box-shadow: 0 10px 22px rgba(0,0,0,.18);
     }
-    .iconBtn:hover{ transform: translateY(-1px); border-color: rgba(244,212,127,.35); }
+    .iconBtn:hover{ transform: translateY(-1px); border-color: rgba(244,212,127,.38); }
     .iconBtn svg{ width:18px; height:18px; }
 
     .thumbs{
       border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(20,16,13,.52);
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.03);
       padding: 10px;
       display:grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       align-content:start;
-      box-shadow: 0 18px 46px rgba(0,0,0,.18);
+      box-shadow: 0 12px 30px rgba(0,0,0,.10);
     }
+    @media (min-width: 900px){
+      .thumbs{
+        background: rgba(20,16,13,.55);
+        box-shadow: 0 16px 44px rgba(0,0,0,.30);
+      }
+    }
+    @media (max-width: 820px){
+      .thumbs{ grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 520px){
+      .thumbs{ grid-template-columns: repeat(2, 1fr); }
+    }
+
     .thumb{
       border-radius: 16px;
       overflow:hidden;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,246,231,.06);
+      border: 1px solid var(--borderSoft);
+      background: rgba(255,255,255,.40);
       cursor:pointer;
       transition: transform .12s ease, border-color .12s ease;
       aspect-ratio: 4/3;
       padding:0;
     }
-    .thumb:hover{ transform: translateY(-2px); border-color: rgba(244,212,127,.35); }
-    .thumb.active{ border-color: rgba(244,212,127,.52); box-shadow: 0 16px 34px rgba(0,0,0,.18); }
-    .thumb img{ width:100%; height:100%; object-fit: cover; display:block; }
+    @media (min-width: 900px){
+      .thumb{
+        background: rgba(255,246,231,.06);
+        border: 1px solid rgba(255,255,255,.12);
+      }
+    }
+    .thumb:hover{ transform: translateY(-2px); border-color: rgba(244,212,127,.38); }
+    .thumb.active{ border-color: rgba(244,212,127,.55); }
+    .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
 
     /* Footer */
     .footer{
       margin-top: 18px;
       text-align:center;
-      color: rgba(255,246,231,.65);
+      color: var(--muted);
       font-size: 13px;
-    }
-
-    /* ===========================
-       RESPONSIVE
-       =========================== */
-    @media (max-width: 1020px){
-      .hero{ grid-template-columns: 1fr; }
-      .portGrid{ grid-template-columns: 1fr; }
-      .viewer{ min-height: 360px; }
-      .cards{ grid-template-columns: 1fr; }
-    }
-    @media (max-width: 820px){
-      .tabs{ display:none; }
-      .hamburger{ display:grid; place-items:center; }
-      .actions{ display:none; }
-      .nav{ border-radius: 22px; }
-      .h{ font-size: 38px; }
-      .mobileMenu{ display:none; }
-      .thumbs{ grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 520px){
-      .h{ font-size: 34px; }
-      .thumbs{ grid-template-columns: repeat(2, 1fr); }
-      .bookRow{ flex-direction:column; align-items:stretch; }
-      .btn{ width:100%; }
     }
   </style>
 </head>
@@ -598,7 +675,10 @@
 
         <div class="actions">
           <a class="btn secondary" id="editOnly" href="#editing">Editing Only</a>
-          <a class="btn" href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book.%0AService%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">Book Now</a>
+          <a class="btn"
+             href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book.%0AService%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
+            Book Now
+          </a>
         </div>
       </div>
 
@@ -621,10 +701,10 @@
       <div class="inner">
         <div class="hero">
           <div class="heroCard">
-            <h2 class="h">Homey warmth with <span class="goldText">high-end Chicago luxury</span>.</h2>
+            <h2 class="h">Luxury that feels <span class="goldText">warm & welcoming</span>.</h2>
             <p class="lead">
-              Premium photography for portraits, music, events, and brand visuals — plus standalone editing & retouching.
-              Bright where it matters, warm where it counts.
+              Premium photography for portraits, music, events, and brand work — plus standalone editing & retouching.
+              Designed to feel high-end, readable, and easy to scroll.
             </p>
 
             <div class="heroActions">
@@ -634,24 +714,18 @@
             </div>
 
             <div class="bookRow">
-              <div class="bookHint">Click a tab to focus a section — that section’s booking button appears.</div>
-              <a class="btn bookBtn" href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Home%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book.%0AService%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">Book This</a>
+              <div class="bookHint">Tap a tab to focus a section — that section’s booking button appears.</div>
+              <a class="btn bookBtn"
+                 href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Home%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book.%0AService%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
+                Book This
+              </a>
             </div>
           </div>
 
           <aside class="heroPills">
-            <div class="pill">
-              <div class="dot"></div>
-              <div><b>Direction + Confidence</b><small>Guidance that looks natural — never stiff.</small></div>
-            </div>
-            <div class="pill">
-              <div class="dot"></div>
-              <div><b>Luxury Color Finish</b><small>Gold warmth + clean highlights for an expensive feel.</small></div>
-            </div>
-            <div class="pill">
-              <div class="dot"></div>
-              <div><b>Editing Available</b><small>Retouching even if you didn’t shoot with me.</small></div>
-            </div>
+            <div class="pill"><div class="dot"></div><div><b>Direction + Confidence</b><small>Posing and movement that looks natural.</small></div></div>
+            <div class="pill"><div class="dot"></div><div><b>Luxury Color Finish</b><small>Warm gold tones + clean highlights.</small></div></div>
+            <div class="pill"><div class="dot"></div><div><b>Editing Available</b><small>Premium retouching even if I didn’t shoot it.</small></div></div>
           </aside>
         </div>
       </div>
@@ -663,7 +737,7 @@
         <div class="sectionHead">
           <div>
             <h2>Portfolio</h2>
-            <p>Carousel + thumbnails. If you haven’t uploaded images yet, it shows a luxury placeholder instead of breaking.</p>
+            <p>Carousel + thumbnails. If images aren’t uploaded yet, you’ll see a luxury placeholder instead of broken images.</p>
           </div>
         </div>
 
@@ -704,11 +778,10 @@
             <p>Elevated portraits with premium lighting, direction, and a luxury finish.</p>
             <ul>
               <li>Posing & expression guidance</li>
-              <li>Clean, warm highlights</li>
+              <li>Warm highlights, clean tones</li>
               <li>Editorial + social-ready delivery</li>
             </ul>
           </div>
-
           <div class="card">
             <h3>Music + Events</h3>
             <p>Cinematic moments with atmosphere, crisp details, and real emotion.</p>
@@ -718,21 +791,23 @@
               <li>Promo-quality sets</li>
             </ul>
           </div>
-
           <div class="card">
             <h3>Brand + Lifestyle</h3>
-            <p>Consistent premium visuals that make brands feel more expensive.</p>
+            <p>Premium visuals that make brands feel more expensive.</p>
             <ul>
-              <li>Visual consistency across a set</li>
-              <li>High-end color styling</li>
-              <li>Content built for campaigns</li>
+              <li>Consistent set styling</li>
+              <li>High-end color direction</li>
+              <li>Campaign-ready delivery</li>
             </ul>
           </div>
         </div>
 
         <div class="bookRow">
-          <div class="bookHint">To book: send your date range, location, and inspiration references.</div>
-          <a class="btn bookBtn" href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Photography%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book%20a%20shoot.%0AType%20(Portrait%2FMusic%2FBrand%2FEvent)%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">Book This</a>
+          <div class="bookHint">To book: send date range, location, and reference vibe.</div>
+          <a class="btn bookBtn"
+             href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Photography%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book%20a%20shoot.%0AType%20(Portrait%2FMusic%2FBrand%2FEvent)%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
+            Book This
+          </a>
         </div>
       </div>
     </section>
@@ -757,17 +832,15 @@
               <li>High-end polish</li>
             </ul>
           </div>
-
           <div class="card">
             <h3>Luxury Color Grade</h3>
-            <p>Warm gold tones + clean highlights. Consistent across the full set.</p>
+            <p>Warm gold tones + clean highlights. Consistent across a set.</p>
             <ul>
               <li>Tone matching</li>
               <li>Premium warmth</li>
               <li>Post-ready exports</li>
             </ul>
           </div>
-
           <div class="card">
             <h3>How It Works</h3>
             <p>Send images + a reference look. Receive polished finals ready to post.</p>
@@ -780,8 +853,11 @@
         </div>
 
         <div class="bookRow">
-          <div class="bookHint">Editing only: tell me how many photos + the vibe you want.</div>
-          <a class="btn bookBtn" href="mailto:hynoe.flicks@gmail.com?subject=Editing%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27m%20interested%20in%20editing%20only.%0AType%20(Portrait%2FMusic%2FBrand)%3A%0ANumber%20of%20photos%3A%0AReference%20look%20(optional)%3A%0ATurnaround%20needed%3A%0A%0AThanks!">Book This</a>
+          <div class="bookHint">Editing only: tell me how many photos + your desired vibe.</div>
+          <a class="btn bookBtn"
+             href="mailto:hynoe.flicks@gmail.com?subject=Editing%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27m%20interested%20in%20editing%20only.%0AType%20(Portrait%2FMusic%2FBrand)%3A%0ANumber%20of%20photos%3A%0AReference%20look%20(optional)%3A%0ATurnaround%20needed%3A%0A%0AThanks!">
+            Book This
+          </a>
         </div>
       </div>
     </section>
@@ -792,11 +868,11 @@
         <div class="sectionHead">
           <div>
             <h2>Contact</h2>
-            <p>Fastest: email. Add your dates + what you’re trying to create.</p>
+            <p>Fastest: email. Include your dates + what you’re aiming to create.</p>
           </div>
         </div>
 
-        <div class="panel" style="color: rgba(255,246,231,.92); background: rgba(20,16,13,.55);">
+        <div class="card" style="min-height:auto;">
           <div style="font-size:15px; line-height:1.7;">
             <b>Email:</b> hynoe.flicks@gmail.com<br/>
             <b>Instagram:</b> @hynoe.flicks
@@ -804,7 +880,7 @@
         </div>
 
         <div class="bookRow">
-          <div class="bookHint">Send your goal + location + date range.</div>
+          <div class="bookHint">Send goal + location + date range.</div>
           <a class="btn bookBtn" href="mailto:hynoe.flicks@gmail.com?subject=Inquiry%20-%20Hynoe%20Flicks">Book This</a>
         </div>
       </div>
@@ -814,36 +890,27 @@
   </main>
 
   <script>
-    // ===========================
-    // Tabs + Active Section
-    // ===========================
+    // Tabs + Active section
     const tabs = [...document.querySelectorAll(".tab")];
-    const sections = ["home","portfolio","services","editing","contact"].map(id => document.getElementById(id));
+    const ids = ["home","portfolio","services","editing","contact"];
+    const sections = ids.map(id => document.getElementById(id));
 
     function setActive(id){
       sections.forEach(s => s.classList.toggle("active", s && s.id === id));
       tabs.forEach(t => t.classList.toggle("active", t.dataset.target === id));
     }
 
-    tabs.forEach(t => {
-      t.addEventListener("click", () => setActive(t.dataset.target));
-    });
+    tabs.forEach(t => t.addEventListener("click", () => setActive(t.dataset.target)));
 
-    // Editing Only (desktop)
-    document.getElementById("editOnly")?.addEventListener("click", () => setActive("editing"));
-
-    // Active section on scroll (desktop + mobile)
+    // Active section via scroll
     const io = new IntersectionObserver((entries) => {
-      const best = entries
-        .filter(e => e.isIntersecting)
+      const best = entries.filter(e => e.isIntersecting)
         .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
       if(best?.target?.id) setActive(best.target.id);
     }, { threshold:[0.45,0.6,0.75] });
     sections.forEach(s => s && io.observe(s));
 
-    // ===========================
-    // Mobile menu toggle
-    // ===========================
+    // Mobile menu
     const burger = document.getElementById("hamburger");
     const menu = document.getElementById("mobileMenu");
     function toggleMenu(force){
@@ -851,9 +918,8 @@
       menu.style.display = open ? "block" : "none";
       burger.setAttribute("aria-expanded", open ? "true" : "false");
     }
-    burger?.addEventListener("click", () => toggleMenu());
+    burger.addEventListener("click", () => toggleMenu());
 
-    // mobile menu links activate sections + close menu
     [...menu.querySelectorAll("a[data-target]")].forEach(a => {
       a.addEventListener("click", () => {
         setActive(a.dataset.target);
@@ -861,13 +927,12 @@
       });
     });
 
-    // Editing Only (mobile)
+    // Editing only (mobile + desktop)
+    document.getElementById("editOnly")?.addEventListener("click", () => setActive("editing"));
     document.getElementById("mobileEditOnly")?.addEventListener("click", () => setActive("editing"));
 
-    // ===========================
-    // Portfolio (safe placeholders)
-    // ===========================
-    const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231b1511'/%3E%3Cstop offset='0.45' stop-color='%23221a14'/%3E%3Cstop offset='1' stop-color='%23d2a146'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='44' fill='%23fff6e7' opacity='0.75'%3EAdd images to assets/img/%3C/text%3E%3C/svg%3E";
+    // Portfolio safe placeholders
+    const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23241b14'/%3E%3Cstop offset='0.5' stop-color='%231a1410'/%3E%3Cstop offset='1' stop-color='%23d2a146'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='44' fill='%23fff6e7' opacity='0.75'%3EAdd images to assets/img/%3C/text%3E%3C/svg%3E";
 
     const portfolio = [
       { src:"assets/img/p1.jpg", caption:"Chicago • City Energy" },
@@ -914,7 +979,7 @@
     document.getElementById("prev")?.addEventListener("click", () => show(idx-1));
     document.getElementById("next")?.addEventListener("click", () => show(idx+1));
 
-    // Swipe on mobile
+    // Swipe support
     let startX=0;
     heroImg?.addEventListener("touchstart", e => startX = e.touches[0].clientX, {passive:true});
     heroImg?.addEventListener("touchend", e => {
