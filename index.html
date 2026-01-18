@@ -1,429 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hynoe Flicks | Chicago Photography + Editing</title>
-
-  <!-- SEO -->
-  <meta name="description" content="Hynoe Flicks — luxury photography in Chicago: portraits, music, events, brands + standalone photo editing/retouching. Book a session or request edits." />
-  <link rel="canonical" href="https://hynoegeshi.github.io/" />
-  <meta name="robots" content="index,follow" />
-
-  <!-- Social -->
-  <meta property="og:title" content="Hynoe Flicks | Chicago Photography + Editing" />
-  <meta property="og:description" content="Luxury portraits, music, events + premium editing/retouching in Chicago." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://hynoegeshi.github.io/" />
-  <meta property="og:image" content="https://hynoegeshi.github.io/assets/img/bg.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Hynoe Flicks",
-    "url": "https://hynoegeshi.github.io/",
-    "image": "https://hynoegeshi.github.io/assets/img/bg.jpg",
-    "areaServed": "Chicago, IL",
-    "email": "hynoe.flicks@gmail.com",
-    "sameAs": ["https://www.instagram.com/hynoe.flicks"],
-    "description": "Luxury photography in Chicago (portraits, music, events, brand work) plus standalone editing and retouching."
-  }
-  </script>
-
-  <style>
-    :root{
-      --bg: #07080b;
-      --panel: rgba(10, 12, 16, .62);
-      --panel2: rgba(10, 12, 16, .80);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-
-      /* metallic gold */
-      --gold1: #fff2c7;
-      --gold2: #ddb85a;
-      --gold3: #b7892c;
-
-      --stroke: rgba(255,255,255,.10);
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-
-      --radius: 18px;
-      --radius2: 26px;
-
-      --max: 1120px;
-    }
-
-    *{ box-sizing:border-box; }
-    html, body { height:100%; scroll-behavior:smooth; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color: var(--text);
-      background: var(--bg);
-      overflow-x:hidden;
-    }
-
-    /* Classy Chicago background */
-    .bg{
-      position: fixed; inset:0;
-      background:
-        radial-gradient(1200px 700px at 15% 10%, rgba(255,242,199,.10), transparent 55%),
-        radial-gradient(900px 600px at 85% 15%, rgba(56,189,248,.09), transparent 60%),
-        linear-gradient(to bottom, rgba(0,0,0,.68), rgba(0,0,0,.90)),
-        url("assets/img/bg.jpg");
-      background-size: cover;
-      background-position: center;
-      filter: saturate(1.04) contrast(1.05);
-      transform: translateZ(0);
-      z-index:-3;
-    }
-    .grain{
-      position:fixed; inset:0;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-      opacity:.24;
-      pointer-events:none;
-      z-index:-2;
-    }
-
-    .wrap{ max-width: var(--max); margin:0 auto; padding: 22px 18px 80px; }
-    a{ color:inherit; text-decoration:none; }
-
-    /* NAV */
-    .nav{
-      position: sticky; top:0;
-      padding: 14px 0;
-      z-index:50;
-      backdrop-filter: blur(14px);
-    }
-    .navbar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap: 12px;
-      padding: 12px 14px;
-      border: 1px solid var(--stroke);
-      background: rgba(10,12,16,.56);
-      border-radius: 999px;
-      box-shadow: var(--shadow);
-    }
-
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      min-width: 180px;
-    }
-    .logo{
-      width:38px; height:38px; border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.14);
-      background:
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 55%),
-        linear-gradient(135deg, rgba(255,242,199,.22), rgba(183,137,44,.12)),
-        rgba(0,0,0,.35);
-      position:relative;
-      overflow:hidden;
-    }
-    .logo:after{
-      content:"";
-      position:absolute; inset:-35%;
-      background: linear-gradient(115deg, transparent 35%, rgba(255,242,199,.45) 50%, transparent 65%);
-      transform: rotate(10deg);
-      opacity:.45;
-    }
-
-    .brand h1{
-      font-size: 14px;
-      margin:0;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      line-height:1.1;
-    }
-    .brand span{ display:block; color: var(--muted); font-size: 12px; letter-spacing:.06em; }
-
-    .tabs{
-      display:flex;
-      gap: 6px;
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-    .tab{
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      color: rgba(255,255,255,.82);
-      font-size: 13px;
-      letter-spacing:.02em;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      background: rgba(255,255,255,.03);
-      user-select:none;
-      cursor:pointer;
-    }
-    .tab:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.10); }
-    .tab.active{
-      background: rgba(255,255,255,.07);
-      border-color: rgba(255,242,199,.22);
-      color: rgba(255,255,255,.96);
-    }
-
-    .right{ display:flex; align-items:center; gap: 10px; }
-
-    .btn{
-      border: 1px solid rgba(255,242,199,.28);
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.24), transparent 55%),
-        linear-gradient(135deg, rgba(255,242,199,.22), rgba(183,137,44,.12)),
-        rgba(0,0,0,.30);
-      color: rgba(255,255,255,.95);
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-weight: 680;
-      font-size: 13px;
-      letter-spacing: .02em;
-      box-shadow: 0 14px 40px rgba(0,0,0,.35);
-      transition: transform .12s ease, border-color .12s ease, filter .12s ease;
-      display:inline-flex; align-items:center; gap:10px;
-      white-space:nowrap;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,242,199,.45);
-      filter: brightness(1.05);
-    }
-    .btn.secondary{
-      border-color: rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-    }
-
-    /* “booking button for section” — hidden until active */
-    .bookRow{
-      display:flex; align-items:center; justify-content:space-between;
-      gap: 12px;
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(255,255,255,.08);
-    }
-    .bookRow .bookBtn{
-      opacity:0;
-      transform: translateY(6px);
-      pointer-events:none;
-      transition: opacity .18s ease, transform .18s ease, border-color .18s ease;
-      border-color: rgba(255,242,199,.18);
-    }
-    section.active .bookRow .bookBtn{
-      opacity:1;
-      transform: translateY(0);
-      pointer-events:auto;
-      border-color: rgba(255,242,199,.40);
-    }
-
-    /* Layout */
-    section{
-      margin-top: 18px;
-      border: 1px solid var(--stroke);
-      background: var(--panel);
-      border-radius: var(--radius2);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .sectionInner{ padding: 22px; }
-
-    .gold{
-      background: linear-gradient(90deg, var(--gold1), var(--gold2), var(--gold3));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      text-shadow: 0 6px 20px rgba(221,184,90,.12);
-    }
-
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 16px;
-      align-items:stretch;
-    }
-    .headline{
-      margin:0 0 10px;
-      font-size: 38px;
-      line-height:1.05;
-      letter-spacing:-.02em;
-    }
-    .sub{
-      margin:0 0 18px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height:1.55;
-      max-width: 62ch;
-    }
-    .heroActions{ display:flex; gap:10px; flex-wrap:wrap; }
-    .infoBox{
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.25);
-      padding: 16px;
-      display:grid;
-      gap: 10px;
-      align-content:start;
-    }
-    .infoItem{
-      display:flex; gap: 12px;
-      padding: 10px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-    .dot{
-      width:10px; height:10px; border-radius:999px;
-      background: linear-gradient(180deg, var(--gold1), var(--gold3));
-      box-shadow: 0 10px 25px rgba(221,184,90,.22);
-      margin-top: 5px;
-    }
-    .infoItem b{ display:block; font-size: 13px; }
-    .infoItem small{ display:block; color: var(--muted); line-height:1.35; margin-top:2px; }
-
-    .sectionHead{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .sectionHead h2{
-      margin:0;
-      font-size: 18px;
-      letter-spacing:.08em;
-      text-transform: uppercase;
-    }
-    .sectionHead p{
-      margin:0;
-      color: var(--muted);
-      font-size: 13px;
-      max-width: 70ch;
-      line-height:1.5;
-    }
-
-    /* Portfolio */
-    .portfolioGrid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 14px;
-    }
-    .viewer{
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.25);
-      overflow:hidden;
-      position:relative;
-      min-height: 360px;
-    }
-    .viewer img{
-      width:100%; height:100%;
-      object-fit: cover;
-      display:block;
-    }
-    .viewerOverlay{
-      position:absolute; inset:auto 0 0 0;
-      padding: 14px;
-      background: linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0));
-      display:flex; align-items:center; justify-content:space-between; gap: 10px;
-    }
-    .badge{
-      display:inline-flex; align-items:center;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,242,199,.20);
-      background: rgba(0,0,0,.30);
-      font-size: 12px;
-      letter-spacing:.02em;
-    }
-    .controls{ display:flex; gap: 8px; }
-    .iconBtn{
-      width:40px; height:40px;
-      border-radius: 12px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-      cursor:pointer;
-      display:grid; place-items:center;
-      transition: transform .12s ease, border-color .12s ease;
-    }
-    .iconBtn:hover{ transform: translateY(-1px); border-color: rgba(255,242,199,.22); }
-    .iconBtn svg{ width:18px; height:18px; }
-
-    .thumbs{
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.25);
-      padding: 10px;
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      align-content:start;
-    }
-    .thumb{
-      aspect-ratio: 4 / 3;
-      border-radius: 14px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      cursor:pointer;
-      transition: transform .12s ease, border-color .12s ease;
-      padding:0;
-    }
-    .thumb:hover{ transform: translateY(-2px); border-color: rgba(255,242,199,.22); }
-    .thumb img{ width:100%; height:100%; object-fit: cover; display:block; }
-    .thumb.active{
-      border-color: rgba(255,242,199,.40);
-      box-shadow: 0 18px 60px rgba(0,0,0,.35);
-    }
-
-    /* Cards */
-    .cards{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    .card{
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.22);
-      padding: 16px;
-      display:grid;
-      gap: 10px;
-      min-height: 170px;
-    }
-    .card h3{ margin:0; font-size: 15px; }
-    .card p{ margin:0; color: var(--muted); font-size: 13px; line-height:1.55; }
-    .card ul{ margin:0; padding-left: 18px; color: rgba(255,255,255,.82); font-size: 13px; line-height: 1.6; }
-
-    /* Responsive */
-    @media (max-width: 980px){
-      .heroGrid{ grid-template-columns: 1fr; }
-      .portfolioGrid{ grid-template-columns: 1fr; }
-      .viewer{ min-height: 320px; }
-      .cards{ grid-template-columns: 1fr; }
-      .brand{ min-width:auto; }
-    }
-    @media (max-width: 720px){
-      .tabs{ display:none; }
-      .navbar{ border-radius: 18px; }
-      .headline{ font-size: 32px; }
-      .thumbs{ grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 480px){
-      .thumbs{ grid-template-columns: repeat(2, 1fr); }
-      .btn{ width:100%; justify-content:center; }
-      .heroActions{ flex-direction:column; }
-      .bookRow{ flex-direction:column; align-items:stretch; }
-    }
-  </style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Hynoe Flicks | Chicago Photo + Editing</title>
+  <meta name="description" content="Luxury photography in Chicago + standalone photo editing/retouching. Portraits, music, events, brand visuals."/>
+  <meta name="robots" content="index,follow"/>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 
 <body>
   <div class="bg" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <div class="wrap">
-
-    <!-- NAV -->
-    <div class="nav">
-      <div class="navbar">
+  <header class="topbar">
+    <div class="wrap">
+      <div class="nav" role="navigation" aria-label="Primary navigation">
         <a class="brand" href="#home" aria-label="Go to top">
           <div class="logo" aria-hidden="true"></div>
           <div>
@@ -432,104 +24,116 @@
           </div>
         </a>
 
-        <nav class="tabs" aria-label="Primary">
-          <a class="tab active" data-target="home" href="#home">Home</a>
+        <nav class="tabs" aria-label="Tabs">
+          <a class="tab" data-target="home" href="#home" aria-current="true">Home</a>
           <a class="tab" data-target="portfolio" href="#portfolio">Portfolio</a>
           <a class="tab" data-target="services" href="#services">Services</a>
           <a class="tab" data-target="editing" href="#editing">Editing</a>
           <a class="tab" data-target="contact" href="#contact">Contact</a>
         </nav>
 
-        <div class="right">
-          <!-- Main booking (always visible) -->
+        <div class="actions">
+          <a class="btn secondary" id="editOnly" href="#editing">Editing Only</a>
           <a class="btn" href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book.%0AService%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
             Book <span class="gold">Now</span>
           </a>
         </div>
       </div>
     </div>
+  </header>
 
-    <!-- HERO -->
-    <section id="home" class="active">
+  <main class="wrap">
+
+    <!-- HOME -->
+    <section class="section" id="home" data-active="true">
       <div class="sectionInner">
         <div class="heroGrid">
           <div>
-            <h2 class="headline">
-              Chicago visuals with a <span class="gold">luxury finish</span>.
-            </h2>
-            <p class="sub">
-              Premium photography for portraits, music, events, and brand work — plus standalone editing & retouching.
-              Designed to look expensive, feel clean, and deliver a strong mood.
+            <h2 class="h1">Luxury visuals with a <span class="gold">Chicago edge</span>.</h2>
+            <p class="lead">
+              Premium photography for portraits, music, events, and brand work — plus standalone editing and retouching.
+              Clean. Cinematic. Designed to feel expensive without being loud.
             </p>
 
-            <div class="heroActions">
+            <div class="heroRow">
               <a class="btn secondary" href="#portfolio">View Portfolio</a>
-              <!-- Editing Only jumps to Editing tab/section -->
-              <a class="btn" id="editOnlyBtn" href="#editing">Editing Only</a>
+              <a class="btn" href="#services">Explore Services</a>
             </div>
 
             <div class="bookRow">
-              <div class="sub" style="margin:0">
-                Click a tab to focus a section. Its booking button will appear automatically.
+              <div class="bookHint">
+                Tip: Click any tab to focus a section — its booking button becomes available instantly.
               </div>
-              <a class="btn bookBtn"
-                 href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Home%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book.%0AService%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
+              <a class="btn bookBtn" href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Home%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book.%0AService%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
                 Book This
               </a>
             </div>
           </div>
 
-          <aside class="infoBox" aria-label="Highlights">
-            <div class="infoItem">
-              <div class="dot"></div>
-              <div><b>Direction + Experience</b><small>Posing, movement, and clean guidance that elevates results.</small></div>
-            </div>
-            <div class="infoItem">
-              <div class="dot"></div>
-              <div><b>Premium Color + Finish</b><small>Refined tones with a luxury vibe — not overdone.</small></div>
-            </div>
-            <div class="infoItem">
-              <div class="dot"></div>
-              <div><b>Editing Available</b><small>Retouching + grading even if you didn’t shoot with me.</small></div>
+          <aside class="panel">
+            <div class="kpis">
+              <div class="kpi">
+                <div class="kpiDot"></div>
+                <div>
+                  <b>Direction & Confidence</b>
+                  <small>Posing guidance and movement direction that elevates the final set.</small>
+                </div>
+              </div>
+              <div class="kpi">
+                <div class="kpiDot"></div>
+                <div>
+                  <b>Premium Color Finish</b>
+                  <small>Luxury tones with clean contrast — polished, not overcooked.</small>
+                </div>
+              </div>
+              <div class="kpi">
+                <div class="kpiDot"></div>
+                <div>
+                  <b>Editing Available</b>
+                  <small>Standalone retouching + color grading even if you shot elsewhere.</small>
+                </div>
+              </div>
             </div>
           </aside>
+
         </div>
       </div>
     </section>
 
     <!-- PORTFOLIO -->
-    <section id="portfolio">
+    <section class="section" id="portfolio" data-active="false">
       <div class="sectionInner">
         <div class="sectionHead">
           <div>
             <h2>Portfolio</h2>
-            <p>Tap a thumbnail or use arrows. Swipe works on mobile.</p>
+            <p>Tap thumbnails. Click the main image to open a clean lightbox. Swipe works on mobile.</p>
           </div>
         </div>
 
-        <div class="portfolioGrid">
-          <div class="viewer">
-            <img id="heroImg" src="assets/img/p1.jpg" alt="Portfolio image" />
-            <div class="viewerOverlay">
-              <div class="badge" id="caption">Chicago • Premium Visuals</div>
-              <div class="controls">
-                <button class="iconBtn" id="prevBtn" aria-label="Previous image">
+        <div class="portGrid">
+          <div class="viewer" aria-label="Featured portfolio viewer">
+            <img id="heroImg" src="assets/img/p1.jpg" alt="Portfolio image"/>
+            <div class="viewerBar">
+              <div class="badge" id="heroBadge">Portfolio • City Energy</div>
+              <div class="viewerCtrls">
+                <button class="iconBtn" id="prev" aria-label="Previous image">
                   <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
-                <button class="iconBtn" id="nextBtn" aria-label="Next image">
+                <button class="iconBtn" id="next" aria-label="Next image">
                   <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
               </div>
             </div>
           </div>
 
-          <div class="thumbs" id="thumbs"></div>
+          <div class="thumbGrid" id="thumbs" aria-label="Portfolio thumbnails"></div>
         </div>
 
         <div class="bookRow">
-          <div class="sub" style="margin:0">Want this look for your project? Send a quick booking request.</div>
-          <a class="btn bookBtn"
-             href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Portfolio%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book%20based%20on%20your%20portfolio.%0AService%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
+          <div class="bookHint">
+            Want this mood? Tell me your date range, location, and what you’re aiming for.
+          </div>
+          <a class="btn bookBtn" href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Portfolio%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book%20based%20on%20your%20portfolio.%0AType%20(Portrait%2FMusic%2FBrand%2FEvent)%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
             Book This
           </a>
         </div>
@@ -537,49 +141,52 @@
     </section>
 
     <!-- SERVICES -->
-    <section id="services">
+    <section class="section" id="services" data-active="false">
       <div class="sectionInner">
         <div class="sectionHead">
           <div>
             <h2>Services</h2>
-            <p>Premium photography built around your goal — portraits, music, events, brand visuals. No prices shown.</p>
+            <p>Luxury photography built around your goal. No pricing shown.</p>
           </div>
         </div>
 
         <div class="cards">
-          <div class="card">
+          <article class="card">
             <h3>Portraits</h3>
-            <p>Clean, confident, elevated. Studio or on-location in Chicago.</p>
+            <p>Editorial portraits that feel clean, confident, and high-end.</p>
             <ul>
               <li>Creative direction</li>
-              <li>Luxury color finish</li>
-              <li>Campaign-ready results</li>
+              <li>Premium color finish</li>
+              <li>Campaign-ready delivery</li>
             </ul>
-          </div>
-          <div class="card">
+          </article>
+
+          <article class="card">
             <h3>Music + Events</h3>
-            <p>Cinematic stage moments with clean focus and lighting control.</p>
+            <p>Stage presence, venue mood, crowd energy — captured with control.</p>
             <ul>
               <li>Venue-friendly workflow</li>
               <li>Press/promo ready</li>
-              <li>Artist + crowd moments</li>
+              <li>Artist-focused moments</li>
             </ul>
-          </div>
-          <div class="card">
+          </article>
+
+          <article class="card">
             <h3>Brand + Lifestyle</h3>
-            <p>Premium visuals for products, pop-ups, and personal brands.</p>
+            <p>Luxury product/brand imagery with consistent tone and story.</p>
             <ul>
-              <li>Story-first shots</li>
-              <li>Consistent set look</li>
+              <li>Story-first visuals</li>
+              <li>Consistency across sets</li>
               <li>Polished delivery</li>
             </ul>
-          </div>
+          </article>
         </div>
 
         <div class="bookRow">
-          <div class="sub" style="margin:0">Tell me your date range, location, and what you’re aiming for.</div>
-          <a class="btn bookBtn"
-             href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Photography%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book%20a%20photo%20session.%0AType%20(Portrait%2FMusic%2FBrand%2FEvent)%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
+          <div class="bookHint">
+            Book a shoot: include your date range, location, and references.
+          </div>
+          <a class="btn bookBtn" href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Photography%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book%20a%20shoot.%0AType%20(Portrait%2FMusic%2FBrand%2FEvent)%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
             Book This
           </a>
         </div>
@@ -587,49 +194,52 @@
     </section>
 
     <!-- EDITING -->
-    <section id="editing">
+    <section class="section" id="editing" data-active="false">
       <div class="sectionInner">
         <div class="sectionHead">
           <div>
             <h2>Editing</h2>
-            <p>Standalone editing & retouching for creators who already have photos — premium, clean, high-end.</p>
+            <p>Standalone retouching + luxury color grading (even if I didn’t shoot the photos).</p>
           </div>
         </div>
 
         <div class="cards">
-          <div class="card">
+          <article class="card">
             <h3>Premium Retouch</h3>
-            <p>Texture-preserving retouching with a refined finish.</p>
+            <p>Texture-preserving cleanup — refined and natural.</p>
             <ul>
               <li>Skin cleanup (natural)</li>
               <li>Distraction removal</li>
-              <li>High-end polish</li>
+              <li>Luxury polish</li>
             </ul>
-          </div>
-          <div class="card">
+          </article>
+
+          <article class="card">
             <h3>Luxury Color Grade</h3>
-            <p>Consistent tones and mood across a full set.</p>
+            <p>Consistent tones across a full set with a signature mood.</p>
             <ul>
               <li>Tone matching</li>
               <li>Cinematic grade</li>
               <li>Brand-aligned look</li>
             </ul>
-          </div>
-          <div class="card">
-            <h3>Easy Delivery</h3>
-            <p>Send your files + references. I deliver finished results ready to post.</p>
+          </article>
+
+          <article class="card">
+            <h3>Delivery Workflow</h3>
+            <p>Clear process: send files + references — receive finished exports ready to post.</p>
             <ul>
-              <li>Clear communication</li>
-              <li>Professional process</li>
+              <li>Fast communication</li>
+              <li>Professional delivery</li>
               <li>Web/social exports</li>
             </ul>
-          </div>
+          </article>
         </div>
 
         <div class="bookRow">
-          <div class="sub" style="margin:0">Send how many photos + your reference look. I’ll reply with next steps.</div>
-          <a class="btn bookBtn"
-             href="mailto:hynoe.flicks@gmail.com?subject=Editing%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27m%20interested%20in%20editing%20only.%0AType%20(Portrait%2FMusic%2FBrand)%3A%0ANumber%20of%20photos%3A%0AReference%20look%20(optional)%3A%0ATurnaround%20needed%3A%0A%0AThanks!">
+          <div class="bookHint">
+            Editing request: include how many photos + your reference look.
+          </div>
+          <a class="btn bookBtn" href="mailto:hynoe.flicks@gmail.com?subject=Editing%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27m%20interested%20in%20editing%20only.%0AType%20(Portrait%2FMusic%2FBrand)%3A%0ANumber%20of%20photos%3A%0AReference%20look%20(optional)%3A%0ATurnaround%20needed%3A%0A%0AThanks!">
             Book This
           </a>
         </div>
@@ -637,125 +247,45 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact">
+    <section class="section" id="contact" data-active="false">
       <div class="sectionInner">
         <div class="sectionHead">
           <div>
             <h2>Contact</h2>
-            <p>Email + Instagram for fast booking and questions.</p>
+            <p>Fastest route: email. Also available on Instagram.</p>
           </div>
         </div>
 
+        <div class="panel">
+          <p class="lead" style="margin:0;">
+            Email: <span class="gold">hynoe.flicks@gmail.com</span><br/>
+            Instagram: <span class="gold">@hynoe.flicks</span>
+          </p>
+        </div>
+
         <div class="bookRow">
-          <div class="sub" style="margin:0">
-            Email: <b class="gold">hynoe.flicks@gmail.com</b> • Instagram: <b class="gold">@hynoe.flicks</b>
-          </div>
+          <div class="bookHint">Ready? Send a message with your goal + dates.</div>
           <a class="btn bookBtn" href="mailto:hynoe.flicks@gmail.com">Book This</a>
         </div>
       </div>
     </section>
 
-    <div style="margin-top:18px; text-align:center; color: rgba(255,255,255,.65); font-size:13px;">
+    <footer class="footer">
       © <span id="year"></span> Hynoe Flicks • Chicago
-    </div>
+    </footer>
+  </main>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" data-open="false" aria-hidden="true">
+    <div class="lightboxPanel" role="dialog" aria-modal="true" aria-label="Image viewer">
+      <div class="lightboxTop">
+        <div class="title" id="lightboxTitle">Viewing</div>
+        <button class="btn secondary" id="lbClose" type="button">Close</button>
+      </div>
+      <div class="lightboxImg" id="lightboxImg"></div>
+    </div>
   </div>
 
-  <script>
-    // --- Portfolio ---
-    const portfolio = [
-      { src: "assets/img/p1.jpg", caption: "Chicago • City Energy", alt: "Chicago city scene at night" },
-      { src: "assets/img/p2.jpg", caption: "Music • Stage Presence", alt: "Bassist performing on stage" },
-      { src: "assets/img/p3.jpg", caption: "Portrait • Cinematic Mood", alt: "Portrait with warm lighting" },
-      { src: "assets/img/p4.jpg", caption: "Brand • Clean + Bright", alt: "Woman in yellow dress at a display table" },
-      { src: "assets/img/p5.jpg", caption: "Music • Moment Capture", alt: "Performer on stage" },
-      { src: "assets/img/p6.jpg", caption: "Portrait • Editorial Feel", alt: "Woman indoors portrait" },
-      { src: "assets/img/p7.jpg", caption: "Portrait • Shallow Depth", alt: "Close-up portrait with beanie" },
-      { src: "assets/img/p8.jpg", caption: "Action • Lifestyle Motion", alt: "Skater performing a trick" }
-    ];
-
-    let idx = 0;
-    const heroImg = document.getElementById("heroImg");
-    const caption = document.getElementById("caption");
-    const thumbs = document.getElementById("thumbs");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-
-    function renderThumbs(){
-      if(!thumbs) return;
-      thumbs.innerHTML = "";
-      portfolio.forEach((p, i) => {
-        const t = document.createElement("button");
-        t.className = "thumb" + (i === idx ? " active" : "");
-        t.setAttribute("aria-label", "View image " + (i+1));
-        const im = document.createElement("img");
-        im.src = p.src;
-        im.alt = p.alt;
-        t.appendChild(im);
-        t.addEventListener("click", () => { idx = i; show(); renderThumbs(); });
-        thumbs.appendChild(t);
-      });
-    }
-
-    function show(){
-      if(!heroImg) return;
-      const p = portfolio[idx];
-      heroImg.src = p.src;
-      heroImg.alt = p.alt;
-      if(caption) caption.textContent = p.caption;
-    }
-
-    function next(){ idx = (idx + 1) % portfolio.length; show(); renderThumbs(); }
-    function prev(){ idx = (idx - 1 + portfolio.length) % portfolio.length; show(); renderThumbs(); }
-
-    prevBtn?.addEventListener("click", prev);
-    nextBtn?.addEventListener("click", next);
-
-    // Swipe support (mobile)
-    let startX = 0;
-    heroImg?.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
-    heroImg?.addEventListener("touchend", (e) => {
-      const endX = e.changedTouches[0].clientX;
-      const dx = endX - startX;
-      if (Math.abs(dx) > 40) dx > 0 ? prev() : next();
-    }, { passive: true });
-
-    // --- Tabs: when clicked, that section becomes active so its booking button shows ---
-    const sections = ["home","portfolio","services","editing","contact"].map(id => document.getElementById(id));
-    const tabs = [...document.querySelectorAll(".tabs .tab")];
-
-    function setActiveSection(id){
-      sections.forEach(s => s?.classList.toggle("active", s.id === id));
-      tabs.forEach(t => t.classList.toggle("active", t.dataset.target === id));
-    }
-
-    // Click tab behavior
-    tabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        const id = tab.dataset.target;
-        setActiveSection(id);
-      });
-    });
-
-    // If user scrolls manually, auto-activate the most visible section
-    const io = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter(e => e.isIntersecting)
-        .sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible?.target?.id) setActiveSection(visible.target.id);
-    }, { threshold: [0.4, 0.55, 0.7] });
-
-    sections.forEach(s => s && io.observe(s));
-
-    // Editing Only button should activate Editing section + tab
-    document.getElementById("editOnlyBtn")?.addEventListener("click", () => {
-      setActiveSection("editing");
-    });
-
-    // Init
-    document.getElementById("year").textContent = new Date().getFullYear();
-    renderThumbs(); show();
-    setActiveSection("home");
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
