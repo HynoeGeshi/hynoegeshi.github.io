@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1600" viewBox="0 0 2400 1600">
+  <defs>
+    <linearGradient id="night" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#05060a"/>
+      <stop offset="0.4" stop-color="#070a12"/>
+      <stop offset="0.7" stop-color="#0b1020"/>
+      <stop offset="1" stop-color="#04050a"/>
+    </linearGradient>
+
+    <radialGradient id="glow" cx="70%" cy="30%" r="55%">
+      <stop offset="0" stop-color="#1b2a55" stop-opacity="0.55"/>
+      <stop offset="0.6" stop-color="#0a0f1d" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff3c8"/>
+      <stop offset="0.25" stop-color="#f2d07b"/>
+      <stop offset="0.5" stop-color="#b9852b"/>
+      <stop offset="0.75" stop-color="#f0d07f"/>
+      <stop offset="1" stop-color="#fff3c8"/>
+    </linearGradient>
+
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="24" result="b"/>
+      <feColorMatrix in="b" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 .85 0"/>
+      <feBlend mode="screen"/>
+    </filter>
+
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+      <feColorMatrix type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.10 0"/>
+    </filter>
+  </defs>
+
+  <!-- Base -->
+  <rect width="2400" height="1600" fill="url(#night)"/>
+  <rect width="2400" height="1600" fill="url(#glow)"/>
+
+  <!-- City-like vertical hints -->
+  <g opacity="0.16">
+    <rect x="240" y="260" width="120" height="980" fill="#7aa2ff"/>
+    <rect x="420" y="340" width="72" height="850" fill="#6f91ff"/>
+    <rect x="610" y="280" width="180" height="1010" fill="#90b2ff"/>
+    <rect x="880" y="420" width="110" height="820" fill="#7aa2ff"/>
+    <rect x="1100" y="250" width="220" height="1050" fill="#9fc0ff"/>
+    <rect x="1440" y="360" width="140" height="860" fill="#7aa2ff"/>
+    <rect x="1640" y="300" width="220" height="960" fill="#9fc0ff"/>
+    <rect x="1930" y="450" width="120" height="780" fill="#7aa2ff"/>
+  </g>
+
+  <!-- Metallic gold streaks -->
+  <g filter="url(#soft)" opacity="0.7">
+    <path d="M-80 980 C 420 820, 760 1120, 1200 980 S 2050 760, 2520 920"
+          stroke="url(#gold)" stroke-width="18" fill="none" opacity="0.9"/>
+    <path d="M-160 1080 C 520 920, 820 1280, 1320 1100 S 2160 860, 2600 1040"
+          stroke="url(#gold)" stroke-width="10" fill="none" opacity="0.55"/>
+    <path d="M-120 720 C 520 560, 920 820, 1400 720 S 2140 520, 2560 660"
+          stroke="url(#gold)" stroke-width="8" fill="none" opacity="0.35"/>
+  </g>
+
+  <!-- Subtle bokeh -->
+  <g opacity="0.22">
+    <circle cx="340" cy="1240" r="22" fill="#fff3c8" opacity="0.4"/>
+    <circle cx="520" cy="1180" r="10" fill="#f2d07b" opacity="0.35"/>
+    <circle cx="1690" cy="360" r="18" fill="#7aa2ff" opacity="0.35"/>
+    <circle cx="1880" cy="420" r="10" fill="#fff" opacity="0.2"/>
+    <circle cx="2060" cy="1220" r="16" fill="#f2d07b" opacity="0.25"/>
+  </g>
+
+  <!-- Grain -->
+  <rect width="2400" height="1600" filter="url(#grain)" opacity="1"/>
+</svg>
