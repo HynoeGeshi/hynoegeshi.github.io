@@ -10,55 +10,40 @@
   <meta name="theme-color" content="#0b0a0f"/>
 
   <style>
-    /* ==========================================================
-       THEME: Jazz Lounge Nightlife (activity themed + luxury)
-       ========================================================== */
-
     :root{
       --max: 1180px;
 
-      --night0:#0b0a0f;     /* velvet */
-      --night1:#0f0e16;     /* midnight */
-      --night2:#141326;     /* blue-black */
+      --night0:#0b0a0f;
+      --night1:#0f0e16;
 
       --ink: rgba(255,246,231,.94);
       --muted: rgba(255,246,231,.72);
 
       --surface: rgba(255,246,231,.12);
       --surface2: rgba(255,246,231,.09);
-      --panelLight: rgba(255,246,231,.16);
 
       --border: rgba(255,255,255,.14);
-      --borderSoft: rgba(255,255,255,.10);
 
-      /* Brass */
       --brass0:#fff2c6;
       --brass1:#f2d07b;
-      --brass2:#d2a146;
       --brass3:#a67322;
       --brass4:#ffe7a3;
 
-      /* Stage lights / nightlife accents */
-      --neonV: rgba(122, 92, 255, .22);   /* violet */
-      --neonB: rgba(58, 160, 255, .18);   /* blue */
-      --neonA: rgba(255, 184, 108, .22);  /* amber */
+      --neonV: rgba(122, 92, 255, .22);
+      --neonB: rgba(58, 160, 255, .18);
+      --neonA: rgba(255, 184, 108, .22);
 
       --shadow: 0 30px 90px rgba(0,0,0,.42);
       --shadow2: 0 16px 44px rgba(0,0,0,.32);
       --shadowBrass: 0 20px 70px rgba(210,161,70,.18);
 
-      --r1: 16px;
       --r2: 24px;
       --r3: 32px;
+
       --track: .16em;
 
       --navBg: rgba(10, 9, 14, .62);
       --navText: rgba(255,246,231,.94);
-
-      --tabBg: rgba(255,246,231,.06);
-      --tabText: rgba(255,246,231,.78);
-      --tabActiveBg: rgba(242,208,123,.12);
-      --tabActiveText: rgba(255,246,231,.96);
 
       --hint: rgba(255,246,231,.74);
     }
@@ -67,7 +52,6 @@
       :root{
         --surface: rgba(255,246,231,.10);
         --surface2: rgba(255,246,231,.06);
-        --panelLight: rgba(255,246,231,.12);
       }
     }
 
@@ -85,11 +69,7 @@
 
     .wrap{ max-width: var(--max); margin:0 auto; padding: 18px 16px 76px; }
 
-    /* ==========================================================
-       BACKGROUND: "Activity themed" nightlife motion
-       - spotlight pools + bokeh + subtle soundwave lines
-       - no external assets
-       ========================================================== */
+    /* Nightlife activity background */
     .bg{
       position:fixed; inset:0; z-index:-7;
       background:
@@ -99,12 +79,8 @@
         radial-gradient(900px 720px at 40% 35%, var(--neonV), transparent 66%),
         linear-gradient(180deg, var(--night1), var(--night0));
     }
-
-    /* Bokeh particles (the “activity” feel) */
     .bokeh{
-      position:fixed; inset:0; z-index:-6;
-      pointer-events:none;
-      opacity:.55;
+      position:fixed; inset:0; z-index:-6; pointer-events:none; opacity:.55;
       background:
         radial-gradient(circle at 12% 35%, rgba(242,208,123,.16) 0 30px, transparent 32px),
         radial-gradient(circle at 26% 60%, rgba(58,160,255,.14) 0 26px, transparent 28px),
@@ -115,17 +91,10 @@
       filter: blur(1px);
       animation: bokehFloat 18s ease-in-out infinite;
     }
-    @keyframes bokehFloat{
-      0%{ transform: translateY(0px); }
-      50%{ transform: translateY(-18px); }
-      100%{ transform: translateY(0px); }
-    }
+    @keyframes bokehFloat{ 0%{transform:translateY(0)} 50%{transform:translateY(-18px)} 100%{transform:translateY(0)} }
 
-    /* Soundwave / music lines (very subtle) */
     .waves{
-      position:fixed; inset:-10% -10%; z-index:-5;
-      pointer-events:none;
-      opacity:.20;
+      position:fixed; inset:-10% -10%; z-index:-5; pointer-events:none; opacity:.18;
       background:
         repeating-linear-gradient(
           90deg,
@@ -138,83 +107,26 @@
       transform: rotate(-2deg);
       animation: wavesShift 14s linear infinite;
     }
-    @keyframes wavesShift{
-      0%{ background-position: 0 0; }
-      100%{ background-position: 120px 0; }
-    }
-
-    /* Brass foil haze */
-    .foil{
-      position:fixed; inset:-20%; z-index:-4;
-      pointer-events:none;
-      opacity:.65;
-      background:
-        linear-gradient(115deg,
-          rgba(255,242,198,.00) 0%,
-          rgba(255,242,198,.00) 32%,
-          rgba(255,242,198,.12) 48%,
-          rgba(255,242,198,.00) 64%,
-          rgba(255,242,198,.00) 100%),
-        linear-gradient(25deg,
-          rgba(242,208,123,.00) 0%,
-          rgba(242,208,123,.10) 44%,
-          rgba(242,208,123,.00) 70%),
-        radial-gradient(1200px 800px at 22% 28%, rgba(242,208,123,.16), transparent 62%),
-        radial-gradient(1000px 750px at 72% 70%, rgba(210,161,70,.14), transparent 64%);
-      filter: blur(18px);
-      transform: rotate(-2deg);
-    }
+    @keyframes wavesShift{ 0%{background-position:0 0} 100%{background-position:120px 0} }
 
     .grain{
       position:fixed; inset:0; z-index:-3;
-      pointer-events:none;
-      opacity:.16;
-      mix-blend-mode: overlay;
+      pointer-events:none; opacity:.16; mix-blend-mode: overlay;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
     }
 
-    .sheen{ display:none; }
-    @media (min-width: 900px){
-      .sheen{
-        display:block;
-        position:fixed; inset:-30%; z-index:-2;
-        pointer-events:none;
-        opacity:.12;
-        background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.55) 48%, transparent 65%);
-        transform: translateX(-25%) rotate(8deg);
-        animation: sheen 11.5s ease-in-out infinite;
-        filter: blur(18px);
-      }
-      @keyframes sheen{
-        0%{ transform: translateX(-28%) rotate(8deg); }
-        50%{ transform: translateX(28%) rotate(8deg); }
-        100%{ transform: translateX(-28%) rotate(8deg); }
-      }
-    }
-
-    /* ==========================================================
-       NAV
-       ========================================================== */
-    .topbar{
-      position: sticky; top:0; z-index:60;
-      padding: 14px 0;
-      backdrop-filter: blur(14px);
-    }
+    /* Nav */
+    .topbar{ position: sticky; top:0; z-index:60; padding: 14px 0; backdrop-filter: blur(14px); }
     .nav{
       display:flex; align-items:center; justify-content:space-between;
-      gap: 12px;
-      padding: 12px 14px;
+      gap: 12px; padding: 12px 14px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--navBg);
       box-shadow: var(--shadow2);
       color: var(--navText);
     }
-
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      min-width: 220px;
-    }
+    .brand{ display:flex; align-items:center; gap:10px; min-width: 220px; }
     .logo{
       width:42px; height:42px; border-radius: 14px;
       border: 1px solid rgba(242,208,123,.28);
@@ -225,41 +137,22 @@
       position:relative; overflow:hidden;
     }
     .logo:after{
-      content:"";
-      position:absolute; inset:-60%;
+      content:""; position:absolute; inset:-60%;
       background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,.85) 50%, transparent 62%);
-      transform: rotate(10deg);
-      opacity:.24;
+      transform: rotate(10deg); opacity:.22;
     }
+    .brand h1{ margin:0; font-size:13px; letter-spacing: var(--track); text-transform: uppercase; line-height:1.05; }
+    .brand span{ display:block; font-size:12px; opacity:.74; letter-spacing:.04em; margin-top:2px; }
 
-    .brand h1{
-      margin:0;
-      font-size: 13px;
-      letter-spacing: var(--track);
-      text-transform: uppercase;
-      line-height:1.05;
-    }
-    .brand span{
-      display:block;
-      font-size: 12px;
-      opacity:.74;
-      letter-spacing:.04em;
-      margin-top:2px;
-    }
-
-    .tabs{
-      display:flex; gap:6px; align-items:center; justify-content:center;
-      flex-wrap:wrap;
-    }
+    .tabs{ display:flex; gap:6px; align-items:center; justify-content:center; flex-wrap:wrap; }
     .tab{
       padding: 9px 12px;
       border-radius: 999px;
       border: 1px solid transparent;
       background: rgba(255,246,231,.06);
       color: rgba(255,246,231,.78);
-      font-size: 13px;
-      cursor:pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      font-size: 13px; cursor:pointer;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
       user-select:none;
     }
     .tab:hover{ transform: translateY(-1px); border-color: rgba(242,208,123,.24); }
@@ -281,15 +174,12 @@
       border-radius: 999px;
       font-weight: 820;
       font-size: 13px;
-      letter-spacing:.01em;
       box-shadow: var(--shadowBrass), 0 10px 24px rgba(0,0,0,.20);
       transition: transform .12s ease, filter .12s ease;
       display:inline-flex; align-items:center; justify-content:center;
-      gap: 10px;
-      white-space:nowrap;
+      gap: 10px; white-space:nowrap;
     }
     .btn:hover{ transform: translateY(-1px); filter: brightness(1.03) contrast(1.02); }
-
     .btn.secondary{
       border-color: rgba(255,255,255,.14);
       background: rgba(255,246,231,.08);
@@ -299,23 +189,15 @@
     }
 
     .hamburger{
-      display:grid;
-      width:42px; height:42px;
-      border-radius: 14px;
+      display:grid; width:42px; height:42px; border-radius:14px;
       border: 1px solid var(--border);
       background: rgba(255,246,231,.06);
       cursor:pointer;
       box-shadow: 0 10px 22px rgba(0,0,0,.22);
     }
     .hamburger svg{ width:18px; height:18px; margin:auto; }
-
-    @media (min-width: 900px){
-      .hamburger{ display:none; }
-    }
-    @media (max-width: 899px){
-      .tabs{ display:none; }
-      .actions{ display:none; }
-    }
+    @media (min-width: 900px){ .hamburger{ display:none; } }
+    @media (max-width: 899px){ .tabs{ display:none; } .actions{ display:none; } }
 
     .mobileMenu{
       display:none;
@@ -338,9 +220,7 @@
     }
     .mobileMenu a:last-child{ margin-bottom:0; }
 
-    /* ==========================================================
-       SECTIONS
-       ========================================================== */
+    /* Sections */
     section{
       margin-top: 18px;
       border-radius: var(--r3);
@@ -351,17 +231,15 @@
     }
     .inner{ padding: 26px; }
 
+    /* Hero */
     .hero{
       display:grid;
       grid-template-columns: 1.35fr .65fr;
       gap: 16px;
       align-items:stretch;
     }
-    @media (max-width: 1020px){
-      .hero{ grid-template-columns: 1fr; }
-    }
+    @media (max-width: 1020px){ .hero{ grid-template-columns: 1fr; } }
 
-    /* ===== Improved Header / About vibe ===== */
     .heroCard{
       border-radius: var(--r2);
       border: 1px solid rgba(255,255,255,.14);
@@ -371,13 +249,11 @@
       position:relative; overflow:hidden;
     }
     .heroCard:before{
-      content:"";
-      position:absolute; inset:-60%;
+      content:""; position:absolute; inset:-60%;
       background:
         radial-gradient(520px 360px at 20% 25%, rgba(242,208,123,.22), transparent 62%),
         radial-gradient(520px 360px at 75% 35%, rgba(58,160,255,.14), transparent 64%),
-        radial-gradient(520px 360px at 65% 80%, rgba(122,92,255,.16), transparent 66%),
-        linear-gradient(120deg, rgba(255,255,255,.10), transparent 35%, rgba(255,255,255,.08));
+        radial-gradient(520px 360px at 65% 80%, rgba(122,92,255,.16), transparent 66%);
       transform: rotate(-6deg);
       opacity:.88;
       pointer-events:none;
@@ -385,9 +261,7 @@
     .heroCard > *{ position:relative; z-index:1; }
 
     .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
+      display:inline-flex; align-items:center; gap:10px;
       padding: 8px 12px;
       border-radius: 999px;
       border: 1px solid rgba(242,208,123,.24);
@@ -405,22 +279,21 @@
       box-shadow: 0 10px 18px rgba(210,161,70,.20);
     }
 
+    /* SHORTER HEADER */
     .h{
       margin:0 0 10px;
-      font-size: 44px;
-      line-height:1.04;
+      font-size: 40px;
+      line-height:1.06;
       letter-spacing:-.02em;
     }
-    @media (max-width: 520px){ .h{ font-size: 34px; } }
+    @media (max-width: 520px){ .h{ font-size: 32px; } }
 
     .brassText{
       background: linear-gradient(90deg, var(--brass3), var(--brass1), var(--brass3));
-      -webkit-background-clip:text;
-      background-clip:text;
+      -webkit-background-clip:text; background-clip:text;
       color:transparent;
       text-shadow: 0 14px 30px rgba(210,161,70,.18);
     }
-
     .lead{
       margin:0 0 16px;
       color: var(--muted);
@@ -428,25 +301,18 @@
       line-height:1.65;
       max-width: 74ch;
     }
-
     .heroActions{ display:flex; gap:10px; flex-wrap:wrap; }
-    @media (max-width: 520px){
-      .heroActions .btn{ width:100%; }
-    }
+    @media (max-width: 520px){ .heroActions .btn{ width:100%; } }
 
     .heroPills{
-      display:grid;
-      gap:10px;
+      display:grid; gap:10px;
       border-radius: var(--r2);
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(10,9,14,.56);
       padding: 16px;
       box-shadow: 0 18px 46px rgba(0,0,0,.32);
     }
-    @media (max-width: 520px){
-      .heroPills{ background: rgba(255,246,231,.10); }
-    }
-
+    @media (max-width: 520px){ .heroPills{ background: rgba(255,246,231,.10); } }
     .pill{
       display:flex; gap:10px;
       padding: 12px 12px;
@@ -457,60 +323,37 @@
     @media (max-width: 520px){
       .pill{ background: rgba(255,246,231,.10); border-color: rgba(255,255,255,.14); }
     }
-
     .dot{
-      width:10px; height:10px; border-radius: 999px;
+      width:10px; height:10px; border-radius:999px;
       margin-top:6px;
       background: linear-gradient(180deg, var(--brass1), var(--brass3));
       box-shadow: 0 14px 26px rgba(210,161,70,.22);
       flex:0 0 auto;
     }
-    .pill b{ display:block; font-size: 13px; letter-spacing:.01em; }
+    .pill b{ display:block; font-size: 13px; }
     .pill small{ display:block; font-size: 12px; opacity:.74; margin-top:2px; line-height:1.4; }
 
-    .sectionHead{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap: 14px; margin-bottom: 14px;
-    }
-    .sectionHead h2{
-      margin:0;
-      font-size: 14px;
-      letter-spacing: var(--track);
-      text-transform: uppercase;
-    }
-    .sectionHead p{
-      margin:0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height:1.55;
-      max-width: 80ch;
-    }
+    .sectionHead{ display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin-bottom:14px; }
+    .sectionHead h2{ margin:0; font-size:14px; letter-spacing: var(--track); text-transform: uppercase; }
+    .sectionHead p{ margin:0; color: var(--muted); font-size:13px; line-height:1.55; max-width: 80ch; }
 
-    .cards{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    @media (max-width: 1020px){
-      .cards{ grid-template-columns: 1fr; }
-    }
+    .cards{ display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; }
+    @media (max-width: 1020px){ .cards{ grid-template-columns: 1fr; } }
     .card{
       border-radius: var(--r2);
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,246,231,.12);
       padding: 18px;
       box-shadow: 0 18px 46px rgba(0,0,0,.28);
-      display:grid;
-      gap: 10px;
+      display:grid; gap: 10px;
       min-height: 180px;
     }
-    @media (max-width: 520px){
-      .card{ background: rgba(255,246,231,.16); }
-    }
-    .card h3{ margin:0; font-size: 15px; }
-    .card p{ margin:0; font-size: 13px; color: var(--muted); line-height:1.6; }
-    .card ul{ margin:0; padding-left: 18px; color: var(--muted); font-size: 13px; line-height:1.7; }
+    @media (max-width: 520px){ .card{ background: rgba(255,246,231,.16); } }
+    .card h3{ margin:0; font-size:15px; }
+    .card p{ margin:0; font-size:13px; color: var(--muted); line-height:1.6; }
+    .card ul{ margin:0; padding-left:18px; color: var(--muted); font-size:13px; line-height:1.7; }
 
+    /* FIXED: booking buttons only depend on "active" which is now stable */
     .bookRow{
       margin-top: 16px;
       padding-top: 14px;
@@ -538,13 +381,8 @@
     }
 
     /* Portfolio */
-    .portGrid{
-      display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 14px;
-    }
+    .portGrid{ display:grid; grid-template-columns: 1.25fr .75fr; gap:14px; }
     @media (max-width: 1020px){ .portGrid{ grid-template-columns: 1fr; } }
-
     .viewer{
       border-radius: var(--r2);
       border: 1px solid rgba(255,255,255,.14);
@@ -555,9 +393,7 @@
       box-shadow: 0 22px 60px rgba(0,0,0,.34);
     }
     @media (max-width: 520px){ .viewer{ min-height: 320px; } }
-
     .viewer img{ width:100%; height:100%; object-fit:cover; display:block; }
-
     .viewerBar{
       position:absolute; inset:auto 0 0 0;
       padding: 14px;
@@ -598,7 +434,6 @@
     }
     @media (max-width: 820px){ .thumbs{ grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 520px){ .thumbs{ grid-template-columns: repeat(2, 1fr); } }
-
     .thumb{
       border-radius: 16px;
       overflow:hidden;
@@ -613,12 +448,7 @@
     .thumb.active{ border-color: rgba(242,208,123,.56); }
     .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    .footer{
-      margin-top: 18px;
-      text-align:center;
-      color: rgba(255,246,231,.64);
-      font-size: 13px;
-    }
+    .footer{ margin-top:18px; text-align:center; color: rgba(255,246,231,.64); font-size:13px; }
   </style>
 </head>
 
@@ -626,9 +456,7 @@
   <div class="bg"></div>
   <div class="bokeh"></div>
   <div class="waves"></div>
-  <div class="foil"></div>
   <div class="grain"></div>
-  <div class="sheen"></div>
 
   <header class="topbar">
     <div class="wrap">
@@ -683,16 +511,14 @@
       <div class="inner">
         <div class="hero">
           <div class="heroCard">
-            <div class="kicker"><span class="kickerDot"></span> passionate photographer • chicago</div>
+            <div class="kicker"><span class="kickerDot"></span> passionate • chicago</div>
 
-            <h2 class="h">
-              I’m a passionate photographer who loves capturing
-              <span class="brassText">music, motion, and real energy</span>.
-            </h2>
+            <!-- SHORTER HEADER -->
+            <h2 class="h">Passionate shots with <span class="brassText">music + motion</span>.</h2>
 
             <p class="lead">
-              Think jazz-lounge luxury with nightlife edge — clean images, warm tones, and a vibe that feels alive.
-              I shoot portraits, music, events, and brand content. And if you just need edits, I offer retouching + color too.
+              Jazz-lounge luxury with nightlife energy — clean images, warm tones, and a vibe that feels alive.
+              I shoot portraits, music, events, and brand content. Need edits only? I do that too.
             </p>
 
             <div class="heroActions">
@@ -702,7 +528,7 @@
             </div>
 
             <div class="bookRow">
-              <div class="bookHint">Pick a section from the tabs — its booking button shows up.</div>
+              <div class="bookHint">Pick a section — its booking button stays visible while you’re there.</div>
               <a class="btn bookBtn"
                  href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Home%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20love%20to%20book.%0AWhat%20are%20we%20shooting%3F%0ADate%20range%3A%0ALocation%3A%0AVibe%20or%20references%3A%0A%0AThanks!">
                 Book This
@@ -711,9 +537,9 @@
           </div>
 
           <aside class="heroPills">
-            <div class="pill"><div class="dot"></div><div><b>Guidance that feels easy</b><small>Natural direction so it never looks stiff.</small></div></div>
-            <div class="pill"><div class="dot"></div><div><b>Night-friendly quality</b><small>Clubs, venues, streets — sharp, clean, controlled.</small></div></div>
-            <div class="pill"><div class="dot"></div><div><b>Editing available</b><small>Retouch + color grading for a premium finish.</small></div></div>
+            <div class="pill"><div class="dot"></div><div><b>Easy direction</b><small>Natural guidance, no awkward posing.</small></div></div>
+            <div class="pill"><div class="dot"></div><div><b>Night-ready quality</b><small>Clubs, venues, streets — sharp and clean.</small></div></div>
+            <div class="pill"><div class="dot"></div><div><b>Editing available</b><small>Retouch + color for a premium finish.</small></div></div>
           </aside>
         </div>
       </div>
@@ -725,7 +551,7 @@
         <div class="sectionHead">
           <div>
             <h2>Portfolio</h2>
-            <p>Carousel + thumbnails. If images aren’t uploaded yet, you’ll see a clean placeholder instead of broken boxes.</p>
+            <p>Carousel + thumbnails. If images aren’t uploaded yet, you’ll see a placeholder (no broken image boxes).</p>
           </div>
         </div>
 
@@ -747,6 +573,14 @@
 
           <div class="thumbs" id="thumbs"></div>
         </div>
+
+        <div class="bookRow">
+          <div class="bookHint">Like the vibe? Tap book and tell me your vision.</div>
+          <a class="btn bookBtn"
+             href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Portfolio%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27m%20interested%20in%20booking.%0ADate%20range%3A%0ALocation%3A%0AVibe%2Frefs%3A%0A%0AThanks!">
+            Book This
+          </a>
+        </div>
       </div>
     </section>
 
@@ -756,7 +590,7 @@
         <div class="sectionHead">
           <div>
             <h2>Services</h2>
-            <p>Luxury look, chill process. No prices listed — just book and we’ll plan it.</p>
+            <p>Luxury look, chill process. No prices listed — we’ll plan around what you need.</p>
           </div>
         </div>
 
@@ -791,7 +625,7 @@
         </div>
 
         <div class="bookRow">
-          <div class="bookHint">Booking tip: include dates, location, and the vibe you want.</div>
+          <div class="bookHint">Send dates + location + the vibe. I’ll reply with next steps.</div>
           <a class="btn bookBtn"
              href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Photography%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20love%20to%20book%20a%20shoot.%0AType%20(Portrait%2FMusic%2FBrand%2FEvent)%3A%0ADate%20range%3A%0ALocation%3A%0AVibe%2Frefs%3A%0A%0AThanks!">
             Book This
@@ -806,7 +640,7 @@
         <div class="sectionHead">
           <div>
             <h2>Editing</h2>
-            <p>Need the look without a shoot? Send your photos — I’ll handle the polish.</p>
+            <p>Just need edits? Send your set — I’ll handle retouch + color.</p>
           </div>
         </div>
 
@@ -822,7 +656,7 @@
           </div>
           <div class="card">
             <h3>Color Grade</h3>
-            <p>Brass warmth, deep shadows, clean highlights — consistent across your set.</p>
+            <p>Warm brass tones, deep shadows, clean highlights.</p>
             <ul>
               <li>Tone matching</li>
               <li>Cinematic color</li>
@@ -831,17 +665,17 @@
           </div>
           <div class="card">
             <h3>Simple Workflow</h3>
-            <p>Send files + a reference vibe. You’ll get finished images ready to post.</p>
+            <p>Send files + a reference vibe. You’ll get finals ready to post.</p>
             <ul>
               <li>Easy intake</li>
               <li>Clear communication</li>
-              <li>Professional delivery</li>
+              <li>Pro delivery</li>
             </ul>
           </div>
         </div>
 
         <div class="bookRow">
-          <div class="bookHint">Editing only: tell me how many photos + the vibe you’re going for.</div>
+          <div class="bookHint">Editing only: tell me how many photos + your reference look.</div>
           <a class="btn bookBtn"
              href="mailto:hynoe.flicks@gmail.com?subject=Editing%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27m%20interested%20in%20editing%20only.%0AType%20(Portrait%2FMusic%2FBrand)%3A%0ANumber%20of%20photos%3A%0AReference%20look%20(optional)%3A%0ATurnaround%3A%0A%0AThanks!">
             Book This
@@ -878,7 +712,7 @@
   </main>
 
   <script>
-    // Tabs + active section reveal
+    // --------- ACTIVE SECTION (stable scroll spy) ----------
     const tabs = [...document.querySelectorAll(".tab")];
     const ids = ["home","portfolio","services","editing","contact"];
     const sections = ids.map(id => document.getElementById(id));
@@ -887,15 +721,41 @@
       sections.forEach(s => s.classList.toggle("active", s && s.id === id));
       tabs.forEach(t => t.classList.toggle("active", t.dataset.target === id));
     }
+
+    // Make clicks set active immediately and stay stable while scrolling
     tabs.forEach(t => t.addEventListener("click", () => setActive(t.dataset.target)));
 
-    // Scroll-based highlight
-    const io = new IntersectionObserver((entries) => {
-      const best = entries.filter(e => e.isIntersecting)
-        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if(best?.target?.id) setActive(best.target.id);
-    }, { threshold:[0.45,0.6,0.75] });
-    sections.forEach(s => s && io.observe(s));
+    // Stable scroll spy:
+    // - Keeps a section active until the next one clearly takes over.
+    // - Uses a top "activation line" so buttons don't flicker.
+    const activationOffset = 140; // px from top
+    let ticking = false;
+
+    function updateActiveFromScroll(){
+      const y = window.scrollY;
+      let bestId = "home";
+
+      for (const s of sections){
+        const top = s.offsetTop;
+        if (y + activationOffset >= top) bestId = s.id;
+      }
+      setActive(bestId);
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!ticking){
+        ticking = true;
+        requestAnimationFrame(updateActiveFromScroll);
+      }
+    }, { passive:true });
+
+    // If page loads with a hash (e.g. #editing), activate it
+    function activateFromHash(){
+      const h = (location.hash || "").replace("#","");
+      if (ids.includes(h)) setActive(h);
+    }
+    window.addEventListener("hashchange", activateFromHash);
 
     // Mobile menu
     const burger = document.getElementById("hamburger");
@@ -906,6 +766,7 @@
       burger.setAttribute("aria-expanded", open ? "true" : "false");
     }
     burger.addEventListener("click", () => toggleMenu());
+
     [...menu.querySelectorAll("a[data-target]")].forEach(a => {
       a.addEventListener("click", () => {
         setActive(a.dataset.target);
@@ -917,7 +778,7 @@
     document.getElementById("editOnly")?.addEventListener("click", () => setActive("editing"));
     document.getElementById("mobileEditOnly")?.addEventListener("click", () => setActive("editing"));
 
-    // Portfolio with safe placeholders
+    // --------- PORTFOLIO ----------
     const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230b0a0f'/%3E%3Cstop offset='0.55' stop-color='%23141326'/%3E%3Cstop offset='1' stop-color='%23d2a146'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='44' fill='%23fff4df' opacity='0.75'%3EAdd images to assets/img/%3C/text%3E%3C/svg%3E";
 
     const portfolio = [
@@ -976,7 +837,8 @@
     document.getElementById("year").textContent = new Date().getFullYear();
     renderThumbs();
     show(0);
-    setActive("home");
+    activateFromHash();
+    updateActiveFromScroll();
   </script>
 </body>
 </html>
