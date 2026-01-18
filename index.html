@@ -3,89 +3,84 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Hynoe Flicks | Chicago Photography + Editing</title>
+  <title>Hynoe Flicks | Chicago Nightlife Photography + Editing</title>
 
-  <meta name="description" content="Hynoe Flicks — luxury Chicago photography + standalone editing/retouching. Portraits, music, events, and brand visuals."/>
+  <!-- SEO basics -->
+  <meta name="description" content="Hynoe Flicks — Chicago nightlife photography with a jazz-luxury feel + standalone editing/retouching. Portraits, music, events, and brand visuals."/>
   <meta name="robots" content="index,follow"/>
-  <meta name="theme-color" content="#1b1511"/>
+  <meta name="theme-color" content="#0b0a0f"/>
 
   <style>
     /* ==========================================================
-       RESPONSIVE THEME
-       Mobile (default): LIGHT / airy
-       Desktop (>= 900px): DARKER / warm (not too dark)
+       THEME: Jazz Lounge Nightlife (vibey + luxury)
+       Mobile: slightly lighter panels for easy scrolling
+       Desktop: deeper, moodier lounge tone (not too dark)
        ========================================================== */
 
     :root{
       --max: 1180px;
 
-      /* MOBILE DEFAULT (LIGHT) */
-      --bg0:#fff8ee;
-      --bg1:#f6ead6;
-      --surface: rgba(255,255,255,.74);
-      --surface2: rgba(255,255,255,.62);
+      /* Core lounge colors */
+      --night0:#0b0a0f;     /* deep velvet */
+      --night1:#0f0e16;     /* midnight navy */
+      --night2:#141326;     /* blue-black */
+      --espresso:#15100d;   /* warm depth */
+      --cream:#fff4df;      /* warm text highlight */
 
-      --ink:#151518;
-      --muted: rgba(21,21,24,.68);
+      /* Brass / gold */
+      --brass0:#fff2c6;
+      --brass1:#f2d07b;
+      --brass2:#d2a146;
+      --brass3:#a67322;
+      --brass4:#ffe7a3;
 
-      --border: rgba(0,0,0,.10);
-      --borderSoft: rgba(0,0,0,.07);
+      /* Accent "neon" (subtle, classy) */
+      --neonA: rgba(122, 92, 255, .22);   /* violet */
+      --neonB: rgba(58, 160, 255, .18);   /* blue */
+      --neonC: rgba(255, 184, 108, .22);  /* amber */
 
-      /* Metallic gold */
-      --g0:#fff2c6;
-      --g1:#f4d47f;
-      --g2:#d2a146;
-      --g3:#a67322;
-      --g4:#ffe7a3;
+      /* Text (mobile default: more readable) */
+      --ink: rgba(255,246,231,.94);
+      --muted: rgba(255,246,231,.72);
 
-      --shadow: 0 26px 70px rgba(0,0,0,.12);
-      --shadow2: 0 12px 30px rgba(0,0,0,.10);
-      --shadowGold: 0 22px 60px rgba(210,161,70,.18);
+      /* Surfaces (mobile default = brighter panels) */
+      --surface: rgba(255,246,231,.12);
+      --surface2: rgba(255,246,231,.09);
+      --panelLight: rgba(255,246,231,.16);
+
+      --border: rgba(255,255,255,.14);
+      --borderSoft: rgba(255,255,255,.10);
+
+      --shadow: 0 30px 90px rgba(0,0,0,.42);
+      --shadow2: 0 16px 44px rgba(0,0,0,.32);
+      --shadowBrass: 0 20px 70px rgba(210,161,70,.18);
 
       --r1: 16px;
       --r2: 24px;
       --r3: 32px;
+      --track: .16em;
 
-      --track:.16em;
+      /* Nav */
+      --navBg: rgba(14, 12, 18, .62);
+      --navText: rgba(255,246,231,.94);
 
-      --navBg: rgba(255,255,255,.70);
-      --navText: rgba(21,21,24,.92);
-      --tabBg: rgba(0,0,0,.04);
-      --tabText: rgba(0,0,0,.72);
-      --tabActiveBg: rgba(255,242,198,.62);
-      --tabActiveText: rgba(0,0,0,.90);
+      /* Tabs */
+      --tabBg: rgba(255,246,231,.06);
+      --tabText: rgba(255,246,231,.78);
+      --tabActiveBg: rgba(242,208,123,.12);
+      --tabActiveText: rgba(255,246,231,.96);
 
-      --bookHint: rgba(0,0,0,.62);
+      /* Booking hint */
+      --hint: rgba(255,246,231,.74);
     }
 
-    /* DESKTOP THEME OVERRIDES */
+    /* Desktop gets moodier, panels slightly darker (still readable) */
     @media (min-width: 900px){
       :root{
-        /* warm dark but readable */
-        --bg0:#1a1410;
-        --bg1:#241b14;
-
-        --surface: rgba(255,246,231,.16);
-        --surface2: rgba(255,246,231,.10);
-
-        --ink: rgba(255,246,231,.94);
-        --muted: rgba(255,246,231,.70);
-
-        --border: rgba(255,255,255,.16);
-        --borderSoft: rgba(255,255,255,.12);
-
-        --shadow: 0 30px 90px rgba(0,0,0,.30);
-        --shadow2: 0 16px 40px rgba(0,0,0,.24);
-
-        --navBg: rgba(20,16,13,.58);
-        --navText: rgba(255,246,231,.92);
-
-        --tabBg: rgba(255,246,231,.06);
-        --tabText: rgba(255,246,231,.78);
-        --tabActiveBg: rgba(244,212,127,.12);
-        --tabActiveText: rgba(255,246,231,.95);
-
-        --bookHint: rgba(255,246,231,.76);
+        --surface: rgba(255,246,231,.10);
+        --surface2: rgba(255,246,231,.06);
+        --panelLight: rgba(255,246,231,.12);
+        --navBg: rgba(10, 9, 14, .62);
       }
     }
 
@@ -95,75 +90,71 @@
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color: var(--ink);
-      background: var(--bg0);
+      background: var(--night0);
       overflow-x:hidden;
     }
     a{ color:inherit; text-decoration:none; }
     button{ font:inherit; color:inherit; }
 
-    .wrap{ max-width: var(--max); margin:0 auto; padding: 18px 16px 74px; }
+    .wrap{ max-width: var(--max); margin:0 auto; padding: 18px 16px 76px; }
 
     /* ==========================================================
-       BACKGROUND (Generated)
-       Mobile: brighter gold/beige
-       Desktop: deeper warm dark + gold foil glow
+       BACKGROUND: Jazz lounge / nightlife
+       - stage lights (violet/blue/amber)
+       - warm brass haze
+       - soft grain
        ========================================================== */
     .bg{
-      position:fixed; inset:0; z-index:-5;
-
-      /* base */
+      position:fixed; inset:0; z-index:-6;
       background:
-        radial-gradient(1100px 700px at 18% 10%, rgba(255,231,163,.28), transparent 56%),
-        radial-gradient(1000px 700px at 82% 20%, rgba(210,161,70,.18), transparent 60%),
-        radial-gradient(900px 650px at 55% 85%, rgba(255,242,198,.30), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
+        radial-gradient(900px 650px at 18% 12%, rgba(210,161,70,.12), transparent 58%),
+        radial-gradient(1100px 700px at 85% 18%, var(--neonB), transparent 60%),
+        radial-gradient(1000px 750px at 55% 90%, rgba(255,184,108,.10), transparent 62%),
+        radial-gradient(900px 700px at 40% 35%, var(--neonA), transparent 62%),
+        linear-gradient(180deg, var(--night1), var(--night0));
     }
 
-    /* gold foil haze */
+    /* Brass foil haze (expensive warm glow) */
     .foil{
-      position:fixed; inset:-20%; z-index:-4;
+      position:fixed; inset:-20%; z-index:-5;
       pointer-events:none;
-      opacity: .78;
-
+      opacity:.70;
       background:
         linear-gradient(115deg,
           rgba(255,242,198,.00) 0%,
           rgba(255,242,198,.00) 32%,
-          rgba(255,242,198,.14) 48%,
+          rgba(255,242,198,.12) 48%,
           rgba(255,242,198,.00) 64%,
           rgba(255,242,198,.00) 100%),
         linear-gradient(25deg,
-          rgba(244,212,127,.00) 0%,
-          rgba(244,212,127,.12) 44%,
-          rgba(244,212,127,.00) 68%),
-        radial-gradient(1200px 800px at 25% 25%, rgba(244,212,127,.20), transparent 62%),
-        radial-gradient(1000px 750px at 74% 65%, rgba(210,161,70,.16), transparent 64%);
+          rgba(242,208,123,.00) 0%,
+          rgba(242,208,123,.10) 44%,
+          rgba(242,208,123,.00) 70%),
+        radial-gradient(1200px 800px at 22% 28%, rgba(242,208,123,.16), transparent 62%),
+        radial-gradient(1000px 750px at 72% 70%, rgba(210,161,70,.14), transparent 64%);
       filter: blur(18px);
       transform: rotate(-2deg);
     }
 
     .grain{
-      position:fixed; inset:0; z-index:-3;
+      position:fixed; inset:0; z-index:-4;
       pointer-events:none;
-      opacity:.20;
+      opacity:.18;
       mix-blend-mode: overlay;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.30'/%3E%3C/svg%3E");
     }
 
-    /* desktop-only subtle sheen (keeps mobile extra calm) */
+    /* Slow sheen on desktop only (subtle) */
     .sheen{ display:none; }
     @media (min-width: 900px){
       .sheen{
         display:block;
-        position:fixed; inset:-30%; z-index:-2;
+        position:fixed; inset:-30%; z-index:-3;
         pointer-events:none;
-        opacity:.14;
-        background: linear-gradient(110deg,
-          transparent 30%,
-          rgba(255,255,255,.55) 48%,
-          transparent 65%);
+        opacity:.12;
+        background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.55) 48%, transparent 65%);
         transform: translateX(-25%) rotate(8deg);
-        animation: sheen 10.5s ease-in-out infinite;
+        animation: sheen 11.5s ease-in-out infinite;
         filter: blur(18px);
       }
       @keyframes sheen{
@@ -198,11 +189,11 @@
     }
     .logo{
       width:42px; height:42px; border-radius: 14px;
-      border: 1px solid rgba(210,161,70,.32);
+      border: 1px solid rgba(242,208,123,.28);
       background:
-        radial-gradient(circle at 22% 22%, rgba(255,255,255,.75), transparent 55%),
-        linear-gradient(135deg, var(--g0), var(--g1), var(--g3), var(--g4));
-      box-shadow: var(--shadowGold);
+        radial-gradient(circle at 22% 22%, rgba(255,255,255,.70), transparent 55%),
+        linear-gradient(135deg, var(--brass0), var(--brass1), var(--brass3), var(--brass4));
+      box-shadow: var(--shadowBrass);
       position:relative; overflow:hidden;
     }
     .logo:after{
@@ -210,7 +201,7 @@
       position:absolute; inset:-60%;
       background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,.85) 50%, transparent 62%);
       transform: rotate(10deg);
-      opacity:.26;
+      opacity:.24;
     }
 
     .brand h1{
@@ -223,7 +214,7 @@
     .brand span{
       display:block;
       font-size: 12px;
-      opacity:.72;
+      opacity:.74;
       letter-spacing:.04em;
       margin-top:2px;
     }
@@ -243,27 +234,28 @@
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
       user-select:none;
     }
-    .tab:hover{ transform: translateY(-1px); border-color: rgba(244,212,127,.28); }
+    .tab:hover{ transform: translateY(-1px); border-color: rgba(242,208,123,.24); }
     .tab.active{
       background: var(--tabActiveBg);
       color: var(--tabActiveText);
-      border-color: rgba(244,212,127,.40);
+      border-color: rgba(242,208,123,.40);
     }
 
     .actions{ display:flex; gap:10px; align-items:center; }
 
+    /* Brass button */
     .btn{
-      border: 1px solid rgba(244,212,127,.38);
+      border: 1px solid rgba(242,208,123,.34);
       background:
-        radial-gradient(circle at 18% 22%, rgba(255,255,255,.75), transparent 55%),
-        linear-gradient(135deg, var(--g0), var(--g1), var(--g3), var(--g4));
+        radial-gradient(circle at 18% 22%, rgba(255,255,255,.70), transparent 55%),
+        linear-gradient(135deg, var(--brass0), var(--brass1), var(--brass3), var(--brass4));
       color: rgba(18,19,21,.92);
       padding: 10px 14px;
       border-radius: 999px;
       font-weight: 820;
       font-size: 13px;
       letter-spacing:.01em;
-      box-shadow: var(--shadowGold), 0 10px 24px rgba(0,0,0,.14);
+      box-shadow: var(--shadowBrass), 0 10px 24px rgba(0,0,0,.20);
       transition: transform .12s ease, filter .12s ease;
       display:inline-flex; align-items:center; justify-content:center;
       gap: 10px;
@@ -272,18 +264,11 @@
     .btn:hover{ transform: translateY(-1px); filter: brightness(1.03) contrast(1.02); }
 
     .btn.secondary{
-      border-color: var(--border);
-      background: rgba(255,255,255,.55);
-      color: rgba(18,19,21,.86);
-      box-shadow: 0 12px 28px rgba(0,0,0,.10);
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,246,231,.08);
+      color: rgba(255,246,231,.90);
+      box-shadow: 0 12px 28px rgba(0,0,0,.26);
       font-weight: 740;
-    }
-    @media (min-width: 900px){
-      .btn.secondary{
-        background: rgba(255,246,231,.10);
-        color: rgba(255,246,231,.90);
-        box-shadow: 0 12px 28px rgba(0,0,0,.24);
-      }
     }
 
     /* Mobile menu */
@@ -292,17 +277,15 @@
       width:42px; height:42px;
       border-radius: 14px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.50);
+      background: rgba(255,246,231,.06);
       cursor:pointer;
-      box-shadow: 0 10px 22px rgba(0,0,0,.10);
+      box-shadow: 0 10px 22px rgba(0,0,0,.22);
     }
     .hamburger svg{ width:18px; height:18px; margin:auto; }
 
-    /* desktop: hide hamburger (use tabs + actions) */
     @media (min-width: 900px){
       .hamburger{ display:none; }
     }
-    /* mobile: hide tabs+actions (use hamburger) */
     @media (max-width: 899px){
       .tabs{ display:none; }
       .actions{ display:none; }
@@ -314,19 +297,16 @@
       padding: 12px;
       border-radius: 20px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,.70);
+      background: rgba(10,9,14,.72);
       box-shadow: var(--shadow2);
-    }
-    @media (min-width: 900px){
-      .mobileMenu{ display:none !important; }
     }
     .mobileMenu a{
       display:flex; justify-content:space-between; align-items:center;
       padding: 12px 12px;
       border-radius: 14px;
-      color: rgba(18,19,21,.90);
-      background: rgba(0,0,0,.03);
-      border: 1px solid rgba(0,0,0,.08);
+      color: rgba(255,246,231,.92);
+      background: rgba(255,246,231,.06);
+      border: 1px solid rgba(255,255,255,.10);
       margin-bottom: 10px;
       font-size: 14px;
     }
@@ -339,16 +319,10 @@
       margin-top: 18px;
       border-radius: var(--r3);
       border: 1px solid var(--border);
-      background: var(--surface);
+      background: linear-gradient(180deg, var(--surface), var(--surface2));
       box-shadow: var(--shadow);
       overflow:hidden;
     }
-    @media (min-width: 900px){
-      section{
-        background: linear-gradient(180deg, var(--surface), var(--surface2));
-      }
-    }
-
     .inner{ padding: 26px; }
 
     /* Hero */
@@ -364,27 +338,23 @@
 
     .heroCard{
       border-radius: var(--r2);
-      border: 1px solid var(--borderSoft);
-      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,246,231,.14);
       padding: 22px;
-      box-shadow: 0 20px 50px rgba(0,0,0,.10);
+      box-shadow: 0 24px 70px rgba(0,0,0,.30);
       position:relative; overflow:hidden;
     }
-    @media (min-width: 900px){
-      .heroCard{
-        background: rgba(255,246,231,.12);
-        box-shadow: 0 24px 70px rgba(0,0,0,.26);
-      }
-    }
+    /* stage light flare */
     .heroCard:before{
       content:"";
       position:absolute; inset:-60%;
       background:
-        radial-gradient(520px 360px at 30% 20%, rgba(244,212,127,.26), transparent 60%),
-        radial-gradient(520px 360px at 70% 70%, rgba(210,161,70,.18), transparent 60%),
-        linear-gradient(120deg, rgba(255,255,255,.12), transparent 35%, rgba(255,255,255,.10));
+        radial-gradient(520px 360px at 20% 25%, rgba(242,208,123,.22), transparent 62%),
+        radial-gradient(520px 360px at 75% 35%, rgba(58,160,255,.14), transparent 64%),
+        radial-gradient(520px 360px at 65% 80%, rgba(122,92,255,.16), transparent 66%),
+        linear-gradient(120deg, rgba(255,255,255,.10), transparent 35%, rgba(255,255,255,.08));
       transform: rotate(-6deg);
-      opacity:.85;
+      opacity:.88;
       pointer-events:none;
     }
     .heroCard > *{ position:relative; z-index:1; }
@@ -397,8 +367,8 @@
     }
     @media (max-width: 520px){ .h{ font-size: 34px; } }
 
-    .goldText{
-      background: linear-gradient(90deg, var(--g3), var(--g1), var(--g3));
+    .brassText{
+      background: linear-gradient(90deg, var(--brass3), var(--brass1), var(--brass3));
       -webkit-background-clip:text;
       background-clip:text;
       color:transparent;
@@ -410,7 +380,7 @@
       color: var(--muted);
       font-size: 15px;
       line-height:1.65;
-      max-width: 72ch;
+      max-width: 74ch;
     }
 
     .heroActions{ display:flex; gap:10px; flex-wrap:wrap; }
@@ -422,37 +392,30 @@
       display:grid;
       gap:10px;
       border-radius: var(--r2);
-      border: 1px solid var(--borderSoft);
-      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(10,9,14,.56);
       padding: 16px;
-      box-shadow: 0 16px 40px rgba(0,0,0,.10);
+      box-shadow: 0 18px 46px rgba(0,0,0,.32);
     }
-    @media (min-width: 900px){
-      .heroPills{
-        background: rgba(20,16,13,.55);
-        color: rgba(255,246,231,.92);
-        box-shadow: 0 18px 46px rgba(0,0,0,.28);
-      }
+    @media (max-width: 520px){
+      .heroPills{ background: rgba(255,246,231,.10); }
     }
 
     .pill{
       display:flex; gap:10px;
       padding: 12px 12px;
       border-radius: 16px;
-      background: rgba(0,0,0,.03);
-      border: 1px solid rgba(0,0,0,.06);
+      background: rgba(255,246,231,.06);
+      border: 1px solid rgba(255,255,255,.10);
     }
-    @media (min-width: 900px){
-      .pill{
-        background: rgba(255,246,231,.06);
-        border: 1px solid rgba(255,255,255,.10);
-      }
+    @media (max-width: 520px){
+      .pill{ background: rgba(255,246,231,.10); border-color: rgba(255,255,255,.14); }
     }
 
     .dot{
       width:10px; height:10px; border-radius: 999px;
       margin-top:6px;
-      background: linear-gradient(180deg, var(--g1), var(--g3));
+      background: linear-gradient(180deg, var(--brass1), var(--brass3));
       box-shadow: 0 14px 26px rgba(210,161,70,.22);
       flex:0 0 auto;
     }
@@ -477,7 +440,7 @@
       max-width: 80ch;
     }
 
-    /* Cards grid */
+    /* Cards */
     .cards{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -488,19 +451,16 @@
     }
     .card{
       border-radius: var(--r2);
-      border: 1px solid var(--borderSoft);
-      background: rgba(255,255,255,.74);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,246,231,.12);
       padding: 18px;
-      box-shadow: 0 16px 40px rgba(0,0,0,.10);
+      box-shadow: 0 18px 46px rgba(0,0,0,.28);
       display:grid;
       gap: 10px;
       min-height: 180px;
     }
-    @media (min-width: 900px){
-      .card{
-        background: rgba(255,246,231,.12);
-        box-shadow: 0 18px 46px rgba(0,0,0,.26);
-      }
+    @media (max-width: 520px){
+      .card{ background: rgba(255,246,231,.16); }
     }
     .card h3{ margin:0; font-size: 15px; }
     .card p{ margin:0; font-size: 13px; color: var(--muted); line-height:1.6; }
@@ -510,13 +470,13 @@
     .bookRow{
       margin-top: 16px;
       padding-top: 14px;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(255,255,255,.14);
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap: 12px;
     }
-    .bookHint{ color: var(--bookHint); font-size: 13px; line-height:1.55; }
+    .bookHint{ color: var(--hint); font-size: 13px; line-height:1.55; }
     .bookBtn{
       opacity:0;
       transform: translateY(6px);
@@ -539,104 +499,81 @@
       grid-template-columns: 1.25fr .75fr;
       gap: 14px;
     }
-    @media (max-width: 1020px){
-      .portGrid{ grid-template-columns: 1fr; }
-    }
+    @media (max-width: 1020px){ .portGrid{ grid-template-columns: 1fr; } }
+
     .viewer{
       border-radius: var(--r2);
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,.04);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,246,231,.06);
       overflow:hidden;
       position:relative;
       min-height: 420px;
-      box-shadow: 0 16px 44px rgba(0,0,0,.12);
+      box-shadow: 0 22px 60px rgba(0,0,0,.34);
     }
-    @media (min-width: 900px){
-      .viewer{
-        background: rgba(255,246,231,.06);
-        box-shadow: 0 20px 56px rgba(0,0,0,.28);
-      }
-    }
+    @media (max-width: 520px){ .viewer{ min-height: 320px; } }
+
     .viewer img{ width:100%; height:100%; object-fit:cover; display:block; }
 
     .viewerBar{
       position:absolute; inset:auto 0 0 0;
       padding: 14px;
-      background: linear-gradient(to top, rgba(0,0,0,.60), rgba(0,0,0,0));
+      background: linear-gradient(to top, rgba(0,0,0,.64), rgba(0,0,0,0));
       display:flex; align-items:center; justify-content:space-between; gap: 10px;
-      color: rgba(255,246,231,.95);
     }
     .badge{
-      border: 1px solid rgba(244,212,127,.35);
-      background: rgba(244,212,127,.14);
+      border: 1px solid rgba(242,208,123,.35);
+      background: rgba(242,208,123,.12);
       padding: 8px 10px;
       border-radius: 999px;
       font-size: 12px;
       font-weight: 700;
+      color: rgba(255,246,231,.95);
     }
-
     .iconBtn{
       width:42px; height:42px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.22);
+      background: rgba(0,0,0,.24);
       color: rgba(255,246,231,.95);
       cursor:pointer;
       display:grid; place-items:center;
       transition: transform .12s ease, border-color .12s ease;
     }
-    .iconBtn:hover{ transform: translateY(-1px); border-color: rgba(244,212,127,.38); }
+    .iconBtn:hover{ transform: translateY(-1px); border-color: rgba(242,208,123,.38); }
     .iconBtn svg{ width:18px; height:18px; }
 
     .thumbs{
       border-radius: var(--r2);
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,.03);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(10,9,14,.54);
       padding: 10px;
       display:grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       align-content:start;
-      box-shadow: 0 12px 30px rgba(0,0,0,.10);
+      box-shadow: 0 18px 50px rgba(0,0,0,.32);
     }
-    @media (min-width: 900px){
-      .thumbs{
-        background: rgba(20,16,13,.55);
-        box-shadow: 0 16px 44px rgba(0,0,0,.30);
-      }
-    }
-    @media (max-width: 820px){
-      .thumbs{ grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 520px){
-      .thumbs{ grid-template-columns: repeat(2, 1fr); }
-    }
+    @media (max-width: 820px){ .thumbs{ grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 520px){ .thumbs{ grid-template-columns: repeat(2, 1fr); } }
 
     .thumb{
       border-radius: 16px;
       overflow:hidden;
-      border: 1px solid var(--borderSoft);
-      background: rgba(255,255,255,.40);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,246,231,.06);
       cursor:pointer;
       transition: transform .12s ease, border-color .12s ease;
       aspect-ratio: 4/3;
       padding:0;
     }
-    @media (min-width: 900px){
-      .thumb{
-        background: rgba(255,246,231,.06);
-        border: 1px solid rgba(255,255,255,.12);
-      }
-    }
-    .thumb:hover{ transform: translateY(-2px); border-color: rgba(244,212,127,.38); }
-    .thumb.active{ border-color: rgba(244,212,127,.55); }
+    .thumb:hover{ transform: translateY(-2px); border-color: rgba(242,208,123,.38); }
+    .thumb.active{ border-color: rgba(242,208,123,.56); }
     .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    /* Footer */
     .footer{
       margin-top: 18px;
       text-align:center;
-      color: var(--muted);
+      color: rgba(255,246,231,.64);
       font-size: 13px;
     }
   </style>
@@ -655,7 +592,7 @@
           <div class="logo"></div>
           <div>
             <h1>Hynoe Flicks</h1>
-            <span>Chicago • Photo + Editing</span>
+            <span>Chicago • Nightlife • Portraits • Editing</span>
           </div>
         </a>
 
@@ -676,7 +613,7 @@
         <div class="actions">
           <a class="btn secondary" id="editOnly" href="#editing">Editing Only</a>
           <a class="btn"
-             href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book.%0AService%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
+             href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20love%20to%20book.%0AWhat%20are%20we%20shooting%3F%0ADate%20range%3A%0ALocation%3A%0AVibe%20or%20references%3A%0A%0AThanks!">
             Book Now
           </a>
         </div>
@@ -701,31 +638,31 @@
       <div class="inner">
         <div class="hero">
           <div class="heroCard">
-            <h2 class="h">Luxury that feels <span class="goldText">warm & welcoming</span>.</h2>
+            <h2 class="h">Nightlife energy. <span class="brassText">Jazz-lounge luxury.</span></h2>
             <p class="lead">
-              Premium photography for portraits, music, events, and brand work — plus standalone editing & retouching.
-              Designed to feel high-end, readable, and easy to scroll.
+              I shoot portraits, music, events, and brand content with a clean finish and a moody, high-end vibe.
+              Want edits only? I’ve got you — retouching and color grading available too.
             </p>
 
             <div class="heroActions">
-              <a class="btn secondary" href="#portfolio">View Portfolio</a>
-              <a class="btn secondary" href="#services">Services</a>
+              <a class="btn secondary" href="#portfolio">See the Work</a>
+              <a class="btn secondary" href="#services">What I Shoot</a>
               <a class="btn secondary" href="#editing">Editing</a>
             </div>
 
             <div class="bookRow">
-              <div class="bookHint">Tap a tab to focus a section — that section’s booking button appears.</div>
+              <div class="bookHint">Pick a section from the tabs — its booking button shows up right away.</div>
               <a class="btn bookBtn"
-                 href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Home%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book.%0AService%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
+                 href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Home%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20love%20to%20book.%0AWhat%20are%20we%20shooting%3F%0ADate%20range%3A%0ALocation%3A%0AVibe%20or%20references%3A%0A%0AThanks!">
                 Book This
               </a>
             </div>
           </div>
 
           <aside class="heroPills">
-            <div class="pill"><div class="dot"></div><div><b>Direction + Confidence</b><small>Posing and movement that looks natural.</small></div></div>
-            <div class="pill"><div class="dot"></div><div><b>Luxury Color Finish</b><small>Warm gold tones + clean highlights.</small></div></div>
-            <div class="pill"><div class="dot"></div><div><b>Editing Available</b><small>Premium retouching even if I didn’t shoot it.</small></div></div>
+            <div class="pill"><div class="dot"></div><div><b>Guidance that feels easy</b><small>Natural direction so your photos don’t look forced.</small></div></div>
+            <div class="pill"><div class="dot"></div><div><b>Low-light confidence</b><small>Clubs, venues, night streets — crisp and clean.</small></div></div>
+            <div class="pill"><div class="dot"></div><div><b>Editing available</b><small>Premium retouch + color for your set.</small></div></div>
           </aside>
         </div>
       </div>
@@ -737,7 +674,7 @@
         <div class="sectionHead">
           <div>
             <h2>Portfolio</h2>
-            <p>Carousel + thumbnails. If images aren’t uploaded yet, you’ll see a luxury placeholder instead of broken images.</p>
+            <p>Carousel + thumbnails. If images aren’t uploaded yet, you’ll see a clean placeholder instead of broken boxes.</p>
           </div>
         </div>
 
@@ -768,44 +705,44 @@
         <div class="sectionHead">
           <div>
             <h2>Services</h2>
-            <p>High-end photography in Chicago — no prices shown.</p>
+            <p>Luxury look, chill process. No prices listed here — just book and we’ll plan it.</p>
           </div>
         </div>
 
         <div class="cards">
           <div class="card">
             <h3>Portraits</h3>
-            <p>Elevated portraits with premium lighting, direction, and a luxury finish.</p>
+            <p>Clean, premium portraits — studio energy or nightlife glow.</p>
             <ul>
-              <li>Posing & expression guidance</li>
-              <li>Warm highlights, clean tones</li>
-              <li>Editorial + social-ready delivery</li>
+              <li>Direction + posing help</li>
+              <li>Luxury color finish</li>
+              <li>Finals ready for posting</li>
             </ul>
           </div>
           <div class="card">
             <h3>Music + Events</h3>
-            <p>Cinematic moments with atmosphere, crisp details, and real emotion.</p>
+            <p>Stage moments, venue mood, crowd energy — captured with control.</p>
             <ul>
-              <li>Stage & crowd moments</li>
-              <li>Low-light confidence</li>
-              <li>Promo-quality sets</li>
+              <li>Low-light sharpness</li>
+              <li>Press / promo-ready</li>
+              <li>Fast, smooth workflow</li>
             </ul>
           </div>
           <div class="card">
             <h3>Brand + Lifestyle</h3>
-            <p>Premium visuals that make brands feel more expensive.</p>
+            <p>Premium content that makes your brand feel more expensive.</p>
             <ul>
               <li>Consistent set styling</li>
-              <li>High-end color direction</li>
-              <li>Campaign-ready delivery</li>
+              <li>Clean + cinematic tone</li>
+              <li>Built for campaigns</li>
             </ul>
           </div>
         </div>
 
         <div class="bookRow">
-          <div class="bookHint">To book: send date range, location, and reference vibe.</div>
+          <div class="bookHint">Booking tip: include dates, location, and the vibe you want.</div>
           <a class="btn bookBtn"
-             href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Photography%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20like%20to%20book%20a%20shoot.%0AType%20(Portrait%2FMusic%2FBrand%2FEvent)%3A%0ADate%20range%3A%0ALocation%3A%0AGoal%2FReferences%3A%0A%0AThanks!">
+             href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Photography%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20love%20to%20book%20a%20shoot.%0AType%20(Portrait%2FMusic%2FBrand%2FEvent)%3A%0ADate%20range%3A%0ALocation%3A%0AVibe%2Frefs%3A%0A%0AThanks!">
             Book This
           </a>
         </div>
@@ -818,34 +755,34 @@
         <div class="sectionHead">
           <div>
             <h2>Editing</h2>
-            <p>Standalone editing & retouching — for anyone who only needs premium edits.</p>
+            <p>Need the look without a shoot? Send your photos — I’ll handle the polish.</p>
           </div>
         </div>
 
         <div class="cards">
           <div class="card">
             <h3>Premium Retouch</h3>
-            <p>Texture-preserving retouching that stays natural and expensive.</p>
+            <p>Texture-preserving cleanup that stays natural and high-end.</p>
             <ul>
-              <li>Natural skin cleanup</li>
+              <li>Skin cleanup (natural)</li>
               <li>Distraction removal</li>
-              <li>High-end polish</li>
+              <li>Luxury polish</li>
             </ul>
           </div>
           <div class="card">
-            <h3>Luxury Color Grade</h3>
-            <p>Warm gold tones + clean highlights. Consistent across a set.</p>
+            <h3>Color Grade</h3>
+            <p>Brass warmth, deep shadows, clean highlights — consistent across your set.</p>
             <ul>
               <li>Tone matching</li>
-              <li>Premium warmth</li>
-              <li>Post-ready exports</li>
+              <li>Cinematic color</li>
+              <li>Export for web/social</li>
             </ul>
           </div>
           <div class="card">
-            <h3>How It Works</h3>
-            <p>Send images + a reference look. Receive polished finals ready to post.</p>
+            <h3>Simple Workflow</h3>
+            <p>Send files + a reference vibe. You’ll get finished images ready to post.</p>
             <ul>
-              <li>Simple intake</li>
+              <li>Easy intake</li>
               <li>Clear communication</li>
               <li>Professional delivery</li>
             </ul>
@@ -853,9 +790,9 @@
         </div>
 
         <div class="bookRow">
-          <div class="bookHint">Editing only: tell me how many photos + your desired vibe.</div>
+          <div class="bookHint">Editing only: tell me how many photos + the vibe you’re going for.</div>
           <a class="btn bookBtn"
-             href="mailto:hynoe.flicks@gmail.com?subject=Editing%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27m%20interested%20in%20editing%20only.%0AType%20(Portrait%2FMusic%2FBrand)%3A%0ANumber%20of%20photos%3A%0AReference%20look%20(optional)%3A%0ATurnaround%20needed%3A%0A%0AThanks!">
+             href="mailto:hynoe.flicks@gmail.com?subject=Editing%20Request%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27m%20interested%20in%20editing%20only.%0AType%20(Portrait%2FMusic%2FBrand)%3A%0ANumber%20of%20photos%3A%0AReference%20look%20(optional)%3A%0ATurnaround%3A%0A%0AThanks!">
             Book This
           </a>
         </div>
@@ -868,7 +805,7 @@
         <div class="sectionHead">
           <div>
             <h2>Contact</h2>
-            <p>Fastest: email. Include your dates + what you’re aiming to create.</p>
+            <p>Fastest: email. Tell me what we’re shooting, where, and when.</p>
           </div>
         </div>
 
@@ -880,7 +817,7 @@
         </div>
 
         <div class="bookRow">
-          <div class="bookHint">Send goal + location + date range.</div>
+          <div class="bookHint">Send your goal + location + date range.</div>
           <a class="btn bookBtn" href="mailto:hynoe.flicks@gmail.com?subject=Inquiry%20-%20Hynoe%20Flicks">Book This</a>
         </div>
       </div>
@@ -890,7 +827,7 @@
   </main>
 
   <script>
-    // Tabs + Active section
+    // Tabs + active section reveal
     const tabs = [...document.querySelectorAll(".tab")];
     const ids = ["home","portfolio","services","editing","contact"];
     const sections = ids.map(id => document.getElementById(id));
@@ -899,10 +836,9 @@
       sections.forEach(s => s.classList.toggle("active", s && s.id === id));
       tabs.forEach(t => t.classList.toggle("active", t.dataset.target === id));
     }
-
     tabs.forEach(t => t.addEventListener("click", () => setActive(t.dataset.target)));
 
-    // Active section via scroll
+    // Scroll-based highlight
     const io = new IntersectionObserver((entries) => {
       const best = entries.filter(e => e.isIntersecting)
         .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
@@ -919,7 +855,6 @@
       burger.setAttribute("aria-expanded", open ? "true" : "false");
     }
     burger.addEventListener("click", () => toggleMenu());
-
     [...menu.querySelectorAll("a[data-target]")].forEach(a => {
       a.addEventListener("click", () => {
         setActive(a.dataset.target);
@@ -927,22 +862,22 @@
       });
     });
 
-    // Editing only (mobile + desktop)
+    // Editing-only jump (desktop + mobile)
     document.getElementById("editOnly")?.addEventListener("click", () => setActive("editing"));
     document.getElementById("mobileEditOnly")?.addEventListener("click", () => setActive("editing"));
 
-    // Portfolio safe placeholders
-    const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23241b14'/%3E%3Cstop offset='0.5' stop-color='%231a1410'/%3E%3Cstop offset='1' stop-color='%23d2a146'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='44' fill='%23fff6e7' opacity='0.75'%3EAdd images to assets/img/%3C/text%3E%3C/svg%3E";
+    // Portfolio with safe placeholders
+    const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230b0a0f'/%3E%3Cstop offset='0.55' stop-color='%23141326'/%3E%3Cstop offset='1' stop-color='%23d2a146'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='44' fill='%23fff4df' opacity='0.75'%3EAdd images to assets/img/%3C/text%3E%3C/svg%3E";
 
     const portfolio = [
-      { src:"assets/img/p1.jpg", caption:"Chicago • City Energy" },
-      { src:"assets/img/p2.jpg", caption:"Music • Stage Presence" },
-      { src:"assets/img/p3.jpg", caption:"Portrait • Cinematic Mood" },
-      { src:"assets/img/p4.jpg", caption:"Brand • Clean + Warm" },
-      { src:"assets/img/p5.jpg", caption:"Music • Moment Capture" },
-      { src:"assets/img/p6.jpg", caption:"Portrait • Editorial Feel" },
-      { src:"assets/img/p7.jpg", caption:"Portrait • Close Detail" },
-      { src:"assets/img/p8.jpg", caption:"Lifestyle • Motion" }
+      { src:"assets/img/p1.jpg", caption:"Late Night • City Glow" },
+      { src:"assets/img/p2.jpg", caption:"Live Music • Stage Mood" },
+      { src:"assets/img/p3.jpg", caption:"Portrait • Lounge Lighting" },
+      { src:"assets/img/p4.jpg", caption:"Brand • Clean Luxury" },
+      { src:"assets/img/p5.jpg", caption:"Event • Energy" },
+      { src:"assets/img/p6.jpg", caption:"Portrait • Editorial" },
+      { src:"assets/img/p7.jpg", caption:"Details • Close" },
+      { src:"assets/img/p8.jpg", caption:"Motion • Lifestyle" }
     ];
 
     const heroImg = document.getElementById("heroImg");
@@ -954,14 +889,12 @@
       imgEl.src = src;
       imgEl.onerror = () => { imgEl.src = placeholder; };
     }
-
     function show(i){
       idx = (i + portfolio.length) % portfolio.length;
       safeLoad(heroImg, portfolio[idx].src);
       badge.textContent = portfolio[idx].caption;
       [...thumbs.children].forEach((b, n) => b.classList.toggle("active", n === idx));
     }
-
     function renderThumbs(){
       thumbs.innerHTML = "";
       portfolio.forEach((p, i) => {
@@ -979,7 +912,7 @@
     document.getElementById("prev")?.addEventListener("click", () => show(idx-1));
     document.getElementById("next")?.addEventListener("click", () => show(idx+1));
 
-    // Swipe support
+    // Swipe
     let startX=0;
     heroImg?.addEventListener("touchstart", e => startX = e.touches[0].clientX, {passive:true});
     heroImg?.addEventListener("touchend", e => {
