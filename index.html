@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Hynoe Flicks | Chicago Nightlife Photography + Editing</title>
 
+  <!-- SEO basics -->
   <meta name="description" content="Hynoe Flicks — Chicago nightlife photography with jazz-luxury energy + standalone editing/retouching. Portraits, music, events, and brand visuals."/>
   <meta name="robots" content="index,follow"/>
   <meta name="theme-color" content="#0b0a0f"/>
@@ -279,7 +280,6 @@
       box-shadow: 0 10px 18px rgba(210,161,70,.20);
     }
 
-    /* SHORTER HEADER */
     .h{
       margin:0 0 10px;
       font-size: 40px;
@@ -353,7 +353,7 @@
     .card p{ margin:0; font-size:13px; color: var(--muted); line-height:1.6; }
     .card ul{ margin:0; padding-left:18px; color: var(--muted); font-size:13px; line-height:1.7; }
 
-    /* FIXED: booking buttons only depend on "active" which is now stable */
+    /* booking buttons show only for active section */
     .bookRow{
       margin-top: 16px;
       padding-top: 14px;
@@ -485,10 +485,8 @@
 
         <div class="actions">
           <a class="btn secondary" id="editOnly" href="#editing">Editing Only</a>
-          <a class="btn"
-             href="mailto:<a class="btn bookBtn" href="booking.html?service=Editing%20Only">Book This</a>
-
-          </a>
+          <!-- MAIN BOOK BUTTON NOW GOES TO booking.html -->
+          <a class="btn" href="booking.html">Book Now</a>
         </div>
       </div>
 
@@ -499,8 +497,7 @@
         <a data-target="editing" href="#editing">Editing <span>›</span></a>
         <a data-target="contact" href="#contact">Contact <span>›</span></a>
         <a data-target="editing" href="#editing" id="mobileEditOnly">Editing Only <span>›</span></a>
-        <a href="mailto:<a class="btn bookBtn" href="booking.html?service=Editing%20Only">Book This</a>
- <span>›</span></a>
+        <a href="booking.html">Book Now <span>›</span></a>
       </div>
     </div>
   </header>
@@ -514,7 +511,6 @@
           <div class="heroCard">
             <div class="kicker"><span class="kickerDot"></span> passionate • chicago</div>
 
-            <!-- SHORTER HEADER -->
             <h2 class="h">Passionate shots with <span class="brassText">music + motion</span>.</h2>
 
             <p class="lead">
@@ -530,10 +526,8 @@
 
             <div class="bookRow">
               <div class="bookHint">Pick a section — its booking button stays visible while you’re there.</div>
-              <a class="btn bookBtn"
-                 href="mailto:<a class="btn bookBtn" href="booking.html?service=Editing%20Only">Book This</a>
-
-              </a>
+              <!-- HOME BOOK -> booking.html -->
+              <a class="btn bookBtn" href="booking.html">Book This</a>
             </div>
           </div>
 
@@ -577,10 +571,8 @@
 
         <div class="bookRow">
           <div class="bookHint">Like the vibe? Tap book and tell me your vision.</div>
-          <a class="btn bookBtn"
-             href="mailto:<a class="btn bookBtn" href="booking.html?service=Editing%20Only">Book This</a>
-
-          </a>
+          <!-- PORTFOLIO BOOK -> booking.html -->
+          <a class="btn bookBtn" href="booking.html">Book This</a>
         </div>
       </div>
     </section>
@@ -627,10 +619,8 @@
 
         <div class="bookRow">
           <div class="bookHint">Send dates + location + the vibe. I’ll reply with next steps.</div>
-          <a class="btn bookBtn"
-             href="mailto:<a class="btn bookBtn" href="booking.html?service=Editing%20Only">Book This</a>
-
-          </a>
+          <!-- SERVICES BOOK -> booking.html -->
+          <a class="btn bookBtn" href="booking.html">Book This</a>
         </div>
       </div>
     </section>
@@ -677,10 +667,8 @@
 
         <div class="bookRow">
           <div class="bookHint">Editing only: tell me how many photos + your reference look.</div>
-          <a class="btn bookBtn"
-             href="mailto:<a class="btn bookBtn" href="booking.html?service=Editing%20Only">Book This</a>
-
-          </a>
+          <!-- EDITING BOOK -> booking.html (preselect Editing Only) -->
+          <a class="btn bookBtn" href="booking.html?service=Editing%20Only">Book This</a>
         </div>
       </div>
     </section>
@@ -704,7 +692,8 @@
 
         <div class="bookRow">
           <div class="bookHint">Send your goal + location + date range.</div>
-          <a class="btn bookBtn" href="mailto:<a class="btn bookBtn" href="booking.html?service=Editing%20Only">Book This</a>
+          <!-- CONTACT BOOK -> booking.html -->
+          <a class="btn bookBtn" href="booking.html">Book This</a>
         </div>
       </div>
     </section>
@@ -723,19 +712,14 @@
       tabs.forEach(t => t.classList.toggle("active", t.dataset.target === id));
     }
 
-    // Make clicks set active immediately and stay stable while scrolling
     tabs.forEach(t => t.addEventListener("click", () => setActive(t.dataset.target)));
 
-    // Stable scroll spy:
-    // - Keeps a section active until the next one clearly takes over.
-    // - Uses a top "activation line" so buttons don't flicker.
     const activationOffset = 140; // px from top
     let ticking = false;
 
     function updateActiveFromScroll(){
       const y = window.scrollY;
       let bestId = "home";
-
       for (const s of sections){
         const top = s.offsetTop;
         if (y + activationOffset >= top) bestId = s.id;
@@ -751,7 +735,6 @@
       }
     }, { passive:true });
 
-    // If page loads with a hash (e.g. #editing), activate it
     function activateFromHash(){
       const h = (location.hash || "").replace("#","");
       if (ids.includes(h)) setActive(h);
@@ -782,6 +765,7 @@
     // --------- PORTFOLIO ----------
     const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230b0a0f'/%3E%3Cstop offset='0.55' stop-color='%23141326'/%3E%3Cstop offset='1' stop-color='%23d2a146'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='44' fill='%23fff4df' opacity='0.75'%3EAdd images to assets/img/%3C/text%3E%3C/svg%3E";
 
+    /* You can rename these once your images are uploaded */
     const portfolio = [
       { src:"assets/img/p1.jpg", caption:"Late Night • City Glow" },
       { src:"assets/img/p2.jpg", caption:"Live Music • Stage Mood" },
