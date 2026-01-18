@@ -1,24 +1,16 @@
-// Hynoe Flicks - Portfolio Carousel
-// Put your portfolio images in: assets/img/
-// Long filenames are fine (spaces/commas) because we URL-encode them.
+// IMPORTANT:
+// Put your background image at: assets/img/bg.jpg
+// Put portfolio images at: assets/img/01.jpg, 02.jpg, 03.jpg... (recommended)
 
 const images = [
-  // City / Chicago (optional: add more if you want)
-  { file: "Photo Oct 31 2024, 4 43 35 AM.jpg", type: "city", alt: "Chicago skyline at night - city photography" },
-
-  // Music
-  { file: "Photo Jan 17 2026, 10 48 07 AM.jpg", type: "music", alt: "Live bassist performance - Chicago music photography" },
-  { file: "Photo Jan 17 2026, 10 49 45 AM.jpg", type: "music", alt: "Live performance moment - Chicago concert photography" },
-  { file: "Photo Jan 17 2026, 10 49 54 AM.jpg", type: "music", alt: "Concert photography - Chicago" },
-
-  // Portraits
-  { file: "Photo Jan 17 2026, 10 50 05 AM.jpg", type: "portrait", alt: "Studio portrait with ring light - Chicago portrait photography" },
-  { file: "Photo Jan 17 2026, 10 49 14 AM.jpg", type: "portrait", alt: "Cinematic portrait - Chicago photographer" },
-  { file: "Photo Jan 17 2026, 10 49 32 AM.jpg", type: "portrait", alt: "Lifestyle portrait - Chicago photographer" },
-  { file: "Photo Jan 25 2023, 4 44 42 AM.jpg", type: "portrait", alt: "Creative portrait - shallow depth of field" }
+  { file: "01.jpg", type: "music", alt: "Music photography in Chicago" },
+  { file: "02.jpg", type: "portrait", alt: "Portrait photography in Chicago" },
+  { file: "03.jpg", type: "portrait", alt: "Cinematic portrait photography" },
+  { file: "04.jpg", type: "music", alt: "Live performance photography" },
+  { file: "05.jpg", type: "city", alt: "Chicago city photography" }
 ].map(x => ({
   ...x,
-  src: "assets/img/" + encodeURIComponent(x.file)
+  src: "assets/img/" + x.file
 }));
 
 let filtered = [...images];
@@ -36,8 +28,8 @@ const nextBtn = document.getElementById("nextBtn");
 const toggleAutoBtn = document.getElementById("toggleAuto");
 const dotsEl = document.getElementById("dots");
 
-function getTypeLabel(t){
-  if (t === "portrait") return "Portrait";
+function label(t){
+  if (t === "portrait") return "Portraits";
   if (t === "music") return "Music";
   if (t === "city") return "Chicago";
   return "All";
@@ -48,7 +40,6 @@ function renderDots() {
   filtered.forEach((_, i) => {
     const b = document.createElement("button");
     b.className = "dot" + (i === index ? " active" : "");
-    b.setAttribute("aria-label", `Go to slide ${i + 1}`);
     b.addEventListener("click", () => {
       index = i;
       show();
@@ -65,31 +56,48 @@ function show() {
   if (index >= filtered.length) index = 0;
 
   const item = filtered[index];
+
+  imgEl.onerror = () => {
+    imgEl.onerror = null;
+    imgEl.alt = "Image not found. Check filename in assets/img/";
+    imgEl.src =
+      "data:image/svg+xml;charset=utf-8," +
+      encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'>
+        <rect width='100%' height='100%' fill='black'/>
+        <text x='50%' y='45%' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='42' font-family='Arial'>
+          Image not found
+        </text>
+        <text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='26' font-family='Arial'>
+          Put images in assets/img/ and match filenames in app.js
+        </text>
+      </svg>`);
+  };
+
   imgEl.src = item.src;
-  imgEl.alt = item.alt || `Portfolio photo ${index + 1}`;
+  imgEl.alt = item.alt || "Portfolio photo";
+
   countEl.textContent = `${index + 1} / ${filtered.length}`;
-  typeEl.textContent = getTypeLabel(item.type);
+  typeEl.textContent = label(item.type);
+
   renderDots();
 }
 
-function next() { index += 1; show(); }
-function prev() { index -= 1; show(); }
+function next(){ index++; show(); }
+function prev(){ index--; show(); }
 
 prevBtn.addEventListener("click", () => { prev(); restartAutoplay(); });
 nextBtn.addEventListener("click", () => { next(); restartAutoplay(); });
 
-function startAutoplay() {
+function startAutoplay(){
   stopAutoplay();
   if (!autoplay) return;
   timer = setInterval(next, 4500);
 }
-
-function stopAutoplay() {
+function stopAutoplay(){
   if (timer) clearInterval(timer);
   timer = null;
 }
-
-function restartAutoplay() {
+function restartAutoplay(){
   if (autoplay) startAutoplay();
 }
 
@@ -99,39 +107,14 @@ toggleAutoBtn.addEventListener("click", () => {
   startAutoplay();
 });
 
-// Keyboard controls
-window.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowLeft") { prev(); restartAutoplay(); }
-  if (e.key === "ArrowRight") { next(); restartAutoplay(); }
-});
-
-// Swipe (mobile)
-let startX = 0;
-imgEl.addEventListener("touchstart", (e) => {
-  startX = e.touches[0].clientX;
-}, { passive: true });
-
-imgEl.addEventListener("touchend", (e) => {
-  const endX = e.changedTouches[0].clientX;
-  const dx = endX - startX;
-  if (Math.abs(dx) > 40) {
-    if (dx > 0) prev();
-    else next();
-    restartAutoplay();
-  }
-}, { passive: true });
-
 // Filters
-const filterButtons = document.querySelectorAll(".filter-bar .pill");
-filterButtons.forEach(btn => {
+document.querySelectorAll(".filter-bar .pill").forEach(btn => {
   btn.addEventListener("click", () => {
-    filterButtons.forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".filter-bar .pill").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
     const type = btn.dataset.filter;
-    filtered = type === "all"
-      ? [...images]
-      : images.filter(img => img.type === type);
+    filtered = (type === "all") ? [...images] : images.filter(i => i.type === type);
 
     index = 0;
     show();
@@ -139,9 +122,33 @@ filterButtons.forEach(btn => {
   });
 });
 
+// Swipe
+let sx = 0;
+imgEl.addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive:true });
+imgEl.addEventListener("touchend", e => {
+  const dx = e.changedTouches[0].clientX - sx;
+  if (Math.abs(dx) > 40) {
+    dx > 0 ? prev() : next();
+    restartAutoplay();
+  }
+}, { passive:true });
+
+// Mobile menu
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+if (menuBtn && mobileMenu) {
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("open");
+    mobileMenu.setAttribute("aria-hidden", mobileMenu.classList.contains("open") ? "false" : "true");
+  });
+
+  mobileMenu.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => mobileMenu.classList.remove("open"));
+  });
+}
+
 // Footer year
 document.getElementById("year").textContent = new Date().getFullYear();
 
-// Init
 show();
 startAutoplay();
