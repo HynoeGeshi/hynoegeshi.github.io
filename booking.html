@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Book | Hynoe Flicks</title>
+  <meta name="description" content="Book a shoot or request editing with Hynoe Flicks in Chicago."/>
+  <meta name="theme-color" content="#0b0a0f"/>
+
+  <style>
+    :root{
+      --night0:#0b0a0f; --night1:#0f0e16;
+      --ink: rgba(255,246,231,.94);
+      --muted: rgba(255,246,231,.72);
+      --border: rgba(255,255,255,.14);
+      --surface: rgba(255,246,231,.12);
+      --surface2: rgba(255,246,231,.08);
+      --brass0:#fff2c6; --brass1:#f2d07b; --brass3:#a67322; --brass4:#ffe7a3;
+      --neonV: rgba(122, 92, 255, .22);
+      --neonB: rgba(58, 160, 255, .18);
+      --neonA: rgba(255, 184, 108, .22);
+      --shadow: 0 30px 90px rgba(0,0,0,.42);
+      --shadow2: 0 16px 44px rgba(0,0,0,.32);
+      --shadowBrass: 0 20px 70px rgba(210,161,70,.18);
+      --r2: 24px; --r3: 32px;
+      --max: 980px;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color: var(--ink);
+      background: var(--night0);
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width: var(--max); margin:0 auto; padding: 18px 16px 64px; }
+
+    /* Background */
+    .bg{
+      position:fixed; inset:0; z-index:-7;
+      background:
+        radial-gradient(950px 680px at 18% 12%, rgba(210,161,70,.12), transparent 58%),
+        radial-gradient(1000px 700px at 85% 18%, var(--neonB), transparent 62%),
+        radial-gradient(900px 740px at 55% 92%, rgba(255,184,108,.10), transparent 64%),
+        radial-gradient(900px 720px at 40% 35%, var(--neonV), transparent 66%),
+        linear-gradient(180deg, var(--night1), var(--night0));
+    }
+    .bokeh{
+      position:fixed; inset:0; z-index:-6; pointer-events:none; opacity:.55;
+      background:
+        radial-gradient(circle at 12% 35%, rgba(242,208,123,.16) 0 30px, transparent 32px),
+        radial-gradient(circle at 26% 60%, rgba(58,160,255,.14) 0 26px, transparent 28px),
+        radial-gradient(circle at 44% 22%, rgba(255,184,108,.14) 0 22px, transparent 24px),
+        radial-gradient(circle at 62% 48%, rgba(122,92,255,.12) 0 30px, transparent 32px),
+        radial-gradient(circle at 78% 30%, rgba(242,208,123,.12) 0 24px, transparent 26px),
+        radial-gradient(circle at 88% 70%, rgba(255,184,108,.12) 0 32px, transparent 34px);
+      filter: blur(1px);
+      animation: float 18s ease-in-out infinite;
+    }
+    @keyframes float{ 0%{transform:translateY(0)} 50%{transform:translateY(-18px)} 100%{transform:translateY(0)} }
+
+    .top{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(10, 9, 14, .62);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow2);
+      margin-bottom: 14px;
+    }
+    .brand{
+      display:flex; gap:10px; align-items:center;
+    }
+    .logo{
+      width:42px; height:42px; border-radius: 14px;
+      border: 1px solid rgba(242,208,123,.28);
+      background:
+        radial-gradient(circle at 22% 22%, rgba(255,255,255,.70), transparent 55%),
+        linear-gradient(135deg, var(--brass0), var(--brass1), var(--brass3), var(--brass4));
+      box-shadow: var(--shadowBrass);
+    }
+    .brand h1{
+      margin:0;
+      font-size: 13px;
+      letter-spacing:.14em;
+      text-transform: uppercase;
+      line-height:1.05;
+    }
+    .brand span{
+      display:block;
+      font-size: 12px;
+      opacity:.74;
+      margin-top:2px;
+    }
+
+    .btn{
+      border: 1px solid rgba(242,208,123,.34);
+      background:
+        radial-gradient(circle at 18% 22%, rgba(255,255,255,.70), transparent 55%),
+        linear-gradient(135deg, var(--brass0), var(--brass1), var(--brass3), var(--brass4));
+      color: rgba(18,19,21,.92);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 820;
+      font-size: 13px;
+      box-shadow: var(--shadowBrass), 0 10px 24px rgba(0,0,0,.20);
+      display:inline-flex; align-items:center; justify-content:center;
+      gap: 10px;
+      cursor:pointer;
+    }
+    .btn.secondary{
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,246,231,.08);
+      color: rgba(255,246,231,.90);
+      box-shadow: 0 12px 28px rgba(0,0,0,.26);
+      font-weight: 740;
+    }
+
+    .panel{
+      border-radius: var(--r3);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--surface), var(--surface2));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .inner{ padding: 22px; }
+    h2{
+      margin:0 0 8px;
+      font-size: 28px;
+      letter-spacing:-.02em;
+    }
+    p{ margin:0 0 14px; color: var(--muted); line-height:1.6; }
+
+    form{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 760px){
+      form{ grid-template-columns: 1fr; }
+      h2{ font-size: 24px; }
+    }
+
+    label{ display:block; font-size:12px; opacity:.80; margin: 2px 0 6px; letter-spacing:.04em; }
+    input, select, textarea{
+      width:100%;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(10,9,14,.45);
+      color: var(--ink);
+      padding: 12px 12px;
+      outline:none;
+      box-shadow: 0 12px 24px rgba(0,0,0,.18);
+    }
+    textarea{ min-height: 120px; resize: vertical; grid-column: 1 / -1; }
+
+    .row{ grid-column: 1 / -1; display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+    .hint{ font-size:12px; color: rgba(255,246,231,.72); line-height:1.5; }
+    .status{
+      margin-top: 10px;
+      font-size: 13px;
+      color: rgba(255,246,231,.86);
+      min-height: 20px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(242,208,123,.24);
+      background: rgba(242,208,123,.10);
+      font-size: 12px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: linear-gradient(180deg, var(--brass1), var(--brass3));
+      box-shadow: 0 10px 18px rgba(210,161,70,.20);
+    }
+    .footer{
+      margin-top: 14px;
+      text-align:center;
+      font-size: 12px;
+      opacity:.65;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="bokeh"></div>
+
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="index.html">
+        <div class="logo"></div>
+        <div>
+          <h1>Hynoe Flicks</h1>
+          <span>Booking Request</span>
+        </div>
+      </a>
+      <a class="btn secondary" href="index.html">Back</a>
+    </div>
+
+    <div class="panel">
+      <div class="inner">
+        <div class="pill"><span class="dot"></span>Chicago • Nightlife • Portraits • Editing</div>
+        <h2>Let’s lock in your vibe.</h2>
+        <p>Fill this out and it sends straight to your email. (No prices shown — we’ll plan around your needs.)</p>
+
+        <form id="bookingForm">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" autocomplete="name" required />
+          </div>
+
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+
+          <div>
+            <label for="service">Service</label>
+            <select id="service" name="service" required>
+              <option value="">Select one…</option>
+              <option>Portraits</option>
+              <option>Music + Events</option>
+              <option>Brand + Lifestyle</option>
+              <option>Editing Only</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="dateRange">Date range</label>
+            <input id="dateRange" name="dateRange" placeholder="e.g., Feb 3–5 or next weekend" required />
+          </div>
+
+          <div>
+            <label for="location">Location</label>
+            <input id="location" name="location" placeholder="Chicago neighborhood / venue / studio" required />
+          </div>
+
+          <div>
+            <label for="budgetNote">Budget note (optional)</label>
+            <input id="budgetNote" name="budgetNote" placeholder="Optional — helps plan the shoot" />
+          </div>
+
+          <textarea id="details" name="details" placeholder="Tell me the vibe + any references (links, mood, colors, outfits, etc.)"></textarea>
+
+          <div class="row">
+            <div class="hint">
+              Pro tip: include links to references (Instagram, Pinterest, or a moodboard) for the fastest response.
+            </div>
+
+            <button class="btn" type="submit" id="sendBtn">Send Request</button>
+          </div>
+        </form>
+
+        <div class="status" id="status"></div>
+      </div>
+    </div>
+
+    <div class="footer">© <span id="year"></span> Hynoe Flicks • Chicago</div>
+  </div>
+
+  <!-- EmailJS (client-side email sending) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ========= EMAILJS SETUP =========
+    // 1) Create an EmailJS account
+    // 2) Add an email service (Gmail/Outlook)
+    // 3) Create an email template
+    // 4) Paste your IDs below:
+    const EMAILJS_PUBLIC_KEY = "PASTE_PUBLIC_KEY_HERE";
+    const EMAILJS_SERVICE_ID = "PASTE_SERVICE_ID_HERE";
+    const EMAILJS_TEMPLATE_ID = "PASTE_TEMPLATE_ID_HERE";
+
+    // If you haven't set keys yet, the page will still work (it just won't send).
+    if (EMAILJS_PUBLIC_KEY && !EMAILJS_PUBLIC_KEY.includes("PASTE_")) {
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    }
+
+    const form = document.getElementById("bookingForm");
+    const statusEl = document.getElementById("status");
+    const sendBtn = document.getElementById("sendBtn");
+
+    function setStatus(msg, ok=true){
+      statusEl.textContent = msg;
+      statusEl.style.opacity = "1";
+      statusEl.style.color = ok ? "rgba(255,246,231,.88)" : "rgba(255,210,210,.92)";
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // If keys are not set, fall back to opening a pre-filled email draft
+      const keysReady =
+        EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID &&
+        !EMAILJS_PUBLIC_KEY.includes("PASTE_") &&
+        !EMAILJS_SERVICE_ID.includes("PASTE_") &&
+        !EMAILJS_TEMPLATE_ID.includes("PASTE_");
+
+      const data = new FormData(form);
+      const payload = Object.fromEntries(data.entries());
+
+      if (!keysReady) {
+        // Fallback: open email draft (still inside your site UX, but uses user mail app to send)
+        const subject = encodeURIComponent("Booking Request - Hynoe Flicks");
+        const body = encodeURIComponent(
+          `Name: ${payload.name}\n`+
+          `Email: ${payload.email}\n`+
+          `Service: ${payload.service}\n`+
+          `Date range: ${payload.dateRange}\n`+
+          `Location: ${payload.location}\n`+
+          `Budget note: ${payload.budgetNote || ""}\n\n`+
+          `Details:\n${payload.details || ""}\n`
+        );
+        window.location.href = `mailto:hynoe.flicks@gmail.com?subject=${subject}&body=${body}`;
+        return;
+      }
+
+      try{
+        sendBtn.disabled = true;
+        sendBtn.textContent = "Sending…";
+        setStatus("Sending your request…");
+
+        // Send via EmailJS to YOUR email
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          to_email: "hynoe.flicks@gmail.com",
+          from_name: payload.name,
+          reply_to: payload.email,
+          service: payload.service,
+          date_range: payload.dateRange,
+          location: payload.location,
+          budget_note: payload.budgetNote || "",
+          details: payload.details || ""
+        });
+
+        setStatus("Sent! I’ll reply soon.");
+        form.reset();
+      } catch(err){
+        console.error(err);
+        setStatus("Hmm — it didn’t send. Try again, or the fallback email draft will work.", false);
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.textContent = "Send Request";
+      }
+    });
+
+    // Preselect service if linked with ?service=Editing%20Only etc.
+    const params = new URLSearchParams(location.search);
+    const svc = params.get("service");
+    if (svc) document.getElementById("service").value = svc;
+  </script>
+</body>
+</html>
