@@ -1,154 +1,150 @@
-// IMPORTANT:
-// Put your background image at: assets/img/bg.jpg
-// Put portfolio images at: assets/img/01.jpg, 02.jpg, 03.jpg... (recommended)
+/* ==========================================
+   Hynoe Flicks — Luxury Site Logic
+   ========================================== */
 
-const images = [
-  { file: "01.jpg", type: "music", alt: "Music photography in Chicago" },
-  { file: "02.jpg", type: "portrait", alt: "Portrait photography in Chicago" },
-  { file: "03.jpg", type: "portrait", alt: "Cinematic portrait photography" },
-  { file: "04.jpg", type: "music", alt: "Live performance photography" },
-  { file: "05.jpg", type: "city", alt: "Chicago city photography" }
-].map(x => ({
-  ...x,
-  src: "assets/img/" + x.file
-}));
+const $ = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
 
-let filtered = [...images];
-let index = 0;
+const sections = ["home","portfolio","services","editing","contact"];
+const sectionEls = sections.map(id => document.getElementById(id)).filter(Boolean);
 
-let autoplay = true;
-let timer = null;
+function setActive(id){
+  // Mark sections
+  sectionEls.forEach(s => s.dataset.active = (s.id === id) ? "true" : "false";
 
-const imgEl = document.getElementById("slideImg");
-const countEl = document.getElementById("slideCount");
-const typeEl = document.getElementById("slideType");
-
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const toggleAutoBtn = document.getElementById("toggleAuto");
-const dotsEl = document.getElementById("dots");
-
-function label(t){
-  if (t === "portrait") return "Portraits";
-  if (t === "music") return "Music";
-  if (t === "city") return "Chicago";
-  return "All";
-}
-
-function renderDots() {
-  dotsEl.innerHTML = "";
-  filtered.forEach((_, i) => {
-    const b = document.createElement("button");
-    b.className = "dot" + (i === index ? " active" : "");
-    b.addEventListener("click", () => {
-      index = i;
-      show();
-      restartAutoplay();
-    });
-    dotsEl.appendChild(b);
+  // Mark tabs (desktop)
+  $$(".tab").forEach(t => {
+    const on = t.dataset.target === id;
+    t.setAttribute("aria-current", on ? "true" : "false");
   });
 }
 
-function show() {
-  if (!filtered.length) return;
-
-  if (index < 0) index = filtered.length - 1;
-  if (index >= filtered.length) index = 0;
-
-  const item = filtered[index];
-
-  imgEl.onerror = () => {
-    imgEl.onerror = null;
-    imgEl.alt = "Image not found. Check filename in assets/img/";
-    imgEl.src =
-      "data:image/svg+xml;charset=utf-8," +
-      encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'>
-        <rect width='100%' height='100%' fill='black'/>
-        <text x='50%' y='45%' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='42' font-family='Arial'>
-          Image not found
-        </text>
-        <text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='26' font-family='Arial'>
-          Put images in assets/img/ and match filenames in app.js
-        </text>
-      </svg>`);
-  };
-
-  imgEl.src = item.src;
-  imgEl.alt = item.alt || "Portfolio photo";
-
-  countEl.textContent = `${index + 1} / ${filtered.length}`;
-  typeEl.textContent = label(item.type);
-
-  renderDots();
+function scrollToId(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-function next(){ index++; show(); }
-function prev(){ index--; show(); }
-
-prevBtn.addEventListener("click", () => { prev(); restartAutoplay(); });
-nextBtn.addEventListener("click", () => { next(); restartAutoplay(); });
-
-function startAutoplay(){
-  stopAutoplay();
-  if (!autoplay) return;
-  timer = setInterval(next, 4500);
-}
-function stopAutoplay(){
-  if (timer) clearInterval(timer);
-  timer = null;
-}
-function restartAutoplay(){
-  if (autoplay) startAutoplay();
-}
-
-toggleAutoBtn.addEventListener("click", () => {
-  autoplay = !autoplay;
-  toggleAutoBtn.textContent = autoplay ? "Pause" : "Play";
-  startAutoplay();
-});
-
-// Filters
-document.querySelectorAll(".filter-bar .pill").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".filter-bar .pill").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    const type = btn.dataset.filter;
-    filtered = (type === "all") ? [...images] : images.filter(i => i.type === type);
-
-    index = 0;
-    show();
-    restartAutoplay();
+/* Tabs click */
+$$(".tab").forEach(t => {
+  t.addEventListener("click", (e) => {
+    e.preventDefault();
+    const id = t.dataset.target;
+    setActive(id);
+    scrollToId(id);
   });
 });
 
-// Swipe
-let sx = 0;
-imgEl.addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive:true });
-imgEl.addEventListener("touchend", e => {
-  const dx = e.changedTouches[0].clientX - sx;
-  if (Math.abs(dx) > 40) {
-    dx > 0 ? prev() : next();
-    restartAutoplay();
+/* Editing only button should take you to Editing section and activate it */
+const editOnly = $("#editOnly");
+editOnly?.addEventListener("click", (e) => {
+  e.preventDefault();
+  setActive("editing");
+  scrollToId("editing");
+});
+
+/* Active section based on scroll (intersection observer) */
+const io = new IntersectionObserver((entries) => {
+  const best = entries
+    .filter(e => e.isIntersecting)
+    .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+  if(best?.target?.id) setActive(best.target.id);
+}, { threshold: [0.45, 0.6, 0.75] });
+
+sectionEls.forEach(s => io.observe(s));
+
+/* Portfolio gallery */
+const portfolio = [
+  { src: "assets/img/p1.jpg", label: "City Energy", alt: "Chicago city at night" },
+  { src: "assets/img/p2.jpg", label: "Music Presence", alt: "Live music performance" },
+  { src: "assets/img/p3.jpg", label: "Portrait Mood", alt: "Portrait with warm lighting" },
+  { src: "assets/img/p4.jpg", label: "Brand Clean", alt: "Bright brand photo" },
+  { src: "assets/img/p5.jpg", label: "Stage Moment", alt: "Performer on stage" },
+  { src: "assets/img/p6.jpg", label: "Editorial", alt: "Editorial portrait" },
+  { src: "assets/img/p7.jpg", label: "Close Detail", alt: "Close-up portrait" },
+  { src: "assets/img/p8.jpg", label: "Action", alt: "Skater performing a trick" }
+];
+
+let idx = 0;
+const heroImg = $("#heroImg");
+const heroBadge = $("#heroBadge");
+const thumbs = $("#thumbs");
+
+function show(i){
+  idx = (i + portfolio.length) % portfolio.length;
+  const p = portfolio[idx];
+  if(heroImg){
+    heroImg.src = p.src;
+    heroImg.alt = p.alt;
   }
+  if(heroBadge) heroBadge.textContent = `Portfolio • ${p.label}`;
+  if(thumbs){
+    $$(".thumb", thumbs).forEach((t, n) => t.dataset.on = (n === idx) ? "true" : "false");
+  }
+}
+
+function renderThumbs(){
+  if(!thumbs) return;
+  thumbs.innerHTML = "";
+  portfolio.forEach((p, i) => {
+    const b = document.createElement("button");
+    b.className = "thumb";
+    b.type = "button";
+    b.dataset.on = i === idx ? "true" : "false";
+    b.setAttribute("aria-label", `View portfolio image: ${p.label}`);
+    b.innerHTML = `<img loading="lazy" src="${p.src}" alt="${p.alt}">`;
+    b.addEventListener("click", () => show(i));
+    b.addEventListener("dblclick", () => openLightbox(i));
+    thumbs.appendChild(b);
+  });
+}
+
+$("#prev")?.addEventListener("click", () => show(idx - 1));
+$("#next")?.addEventListener("click", () => show(idx + 1));
+
+/* Swipe on mobile */
+let startX = 0;
+heroImg?.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive:true });
+heroImg?.addEventListener("touchend", (e) => {
+  const endX = e.changedTouches[0].clientX;
+  const dx = endX - startX;
+  if(Math.abs(dx) > 40) dx > 0 ? show(idx - 1) : show(idx + 1);
 }, { passive:true });
 
-// Mobile menu
-const menuBtn = document.getElementById("menuBtn");
-const mobileMenu = document.getElementById("mobileMenu");
-if (menuBtn && mobileMenu) {
-  menuBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("open");
-    mobileMenu.setAttribute("aria-hidden", mobileMenu.classList.contains("open") ? "false" : "true");
-  });
+/* Lightbox */
+const lb = $("#lightbox");
+const lbImg = $("#lightboxImg");
+const lbTitle = $("#lightboxTitle");
 
-  mobileMenu.querySelectorAll("a").forEach(a => {
-    a.addEventListener("click", () => mobileMenu.classList.remove("open"));
-  });
+function openLightbox(i){
+  const p = portfolio[i];
+  if(!lb || !lbImg) return;
+  lb.dataset.open = "true";
+  lbImg.innerHTML = `<img src="${p.src}" alt="${p.alt}">`;
+  if(lbTitle) lbTitle.textContent = `Viewing • ${p.label}`;
 }
+function closeLightbox(){
+  if(!lb) return;
+  lb.dataset.open = "false";
+  if(lbImg) lbImg.innerHTML = "";
+}
+$("#lbClose")?.addEventListener("click", closeLightbox);
+lb?.addEventListener("click", (e) => {
+  if(e.target === lb) closeLightbox();
+});
+window.addEventListener("keydown", (e) => {
+  if(e.key === "Escape") closeLightbox();
+  if(e.key === "ArrowLeft") show(idx - 1);
+  if(e.key === "ArrowRight") show(idx + 1);
+});
 
-// Footer year
-document.getElementById("year").textContent = new Date().getFullYear();
+/* Click main image to open lightbox */
+heroImg?.addEventListener("click", () => openLightbox(idx));
 
-show();
-startAutoplay();
+/* Footer year */
+$("#year") && ($("#year").textContent = new Date().getFullYear());
+
+/* Init */
+renderThumbs();
+show(0);
+setActive("home");
