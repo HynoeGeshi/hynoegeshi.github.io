@@ -5,51 +5,43 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Hynoe Flicks | Chicago Nightlife Photography + Editing</title>
 
-  <!-- SEO basics -->
-  <meta name="description" content="Hynoe Flicks — Chicago nightlife photography with a jazz-luxury feel + standalone editing/retouching. Portraits, music, events, and brand visuals."/>
+  <meta name="description" content="Hynoe Flicks — Chicago nightlife photography with jazz-luxury energy + standalone editing/retouching. Portraits, music, events, and brand visuals."/>
   <meta name="robots" content="index,follow"/>
   <meta name="theme-color" content="#0b0a0f"/>
 
   <style>
     /* ==========================================================
-       THEME: Jazz Lounge Nightlife (vibey + luxury)
-       Mobile: slightly lighter panels for easy scrolling
-       Desktop: deeper, moodier lounge tone (not too dark)
+       THEME: Jazz Lounge Nightlife (activity themed + luxury)
        ========================================================== */
 
     :root{
       --max: 1180px;
 
-      /* Core lounge colors */
-      --night0:#0b0a0f;     /* deep velvet */
-      --night1:#0f0e16;     /* midnight navy */
+      --night0:#0b0a0f;     /* velvet */
+      --night1:#0f0e16;     /* midnight */
       --night2:#141326;     /* blue-black */
-      --espresso:#15100d;   /* warm depth */
-      --cream:#fff4df;      /* warm text highlight */
 
-      /* Brass / gold */
-      --brass0:#fff2c6;
-      --brass1:#f2d07b;
-      --brass2:#d2a146;
-      --brass3:#a67322;
-      --brass4:#ffe7a3;
-
-      /* Accent "neon" (subtle, classy) */
-      --neonA: rgba(122, 92, 255, .22);   /* violet */
-      --neonB: rgba(58, 160, 255, .18);   /* blue */
-      --neonC: rgba(255, 184, 108, .22);  /* amber */
-
-      /* Text (mobile default: more readable) */
       --ink: rgba(255,246,231,.94);
       --muted: rgba(255,246,231,.72);
 
-      /* Surfaces (mobile default = brighter panels) */
       --surface: rgba(255,246,231,.12);
       --surface2: rgba(255,246,231,.09);
       --panelLight: rgba(255,246,231,.16);
 
       --border: rgba(255,255,255,.14);
       --borderSoft: rgba(255,255,255,.10);
+
+      /* Brass */
+      --brass0:#fff2c6;
+      --brass1:#f2d07b;
+      --brass2:#d2a146;
+      --brass3:#a67322;
+      --brass4:#ffe7a3;
+
+      /* Stage lights / nightlife accents */
+      --neonV: rgba(122, 92, 255, .22);   /* violet */
+      --neonB: rgba(58, 160, 255, .18);   /* blue */
+      --neonA: rgba(255, 184, 108, .22);  /* amber */
 
       --shadow: 0 30px 90px rgba(0,0,0,.42);
       --shadow2: 0 16px 44px rgba(0,0,0,.32);
@@ -60,27 +52,22 @@
       --r3: 32px;
       --track: .16em;
 
-      /* Nav */
-      --navBg: rgba(14, 12, 18, .62);
+      --navBg: rgba(10, 9, 14, .62);
       --navText: rgba(255,246,231,.94);
 
-      /* Tabs */
       --tabBg: rgba(255,246,231,.06);
       --tabText: rgba(255,246,231,.78);
       --tabActiveBg: rgba(242,208,123,.12);
       --tabActiveText: rgba(255,246,231,.96);
 
-      /* Booking hint */
       --hint: rgba(255,246,231,.74);
     }
 
-    /* Desktop gets moodier, panels slightly darker (still readable) */
     @media (min-width: 900px){
       :root{
         --surface: rgba(255,246,231,.10);
         --surface2: rgba(255,246,231,.06);
         --panelLight: rgba(255,246,231,.12);
-        --navBg: rgba(10, 9, 14, .62);
       }
     }
 
@@ -99,26 +86,68 @@
     .wrap{ max-width: var(--max); margin:0 auto; padding: 18px 16px 76px; }
 
     /* ==========================================================
-       BACKGROUND: Jazz lounge / nightlife
-       - stage lights (violet/blue/amber)
-       - warm brass haze
-       - soft grain
+       BACKGROUND: "Activity themed" nightlife motion
+       - spotlight pools + bokeh + subtle soundwave lines
+       - no external assets
        ========================================================== */
     .bg{
-      position:fixed; inset:0; z-index:-6;
+      position:fixed; inset:0; z-index:-7;
       background:
-        radial-gradient(900px 650px at 18% 12%, rgba(210,161,70,.12), transparent 58%),
-        radial-gradient(1100px 700px at 85% 18%, var(--neonB), transparent 60%),
-        radial-gradient(1000px 750px at 55% 90%, rgba(255,184,108,.10), transparent 62%),
-        radial-gradient(900px 700px at 40% 35%, var(--neonA), transparent 62%),
+        radial-gradient(950px 680px at 18% 12%, rgba(210,161,70,.12), transparent 58%),
+        radial-gradient(1000px 700px at 85% 18%, var(--neonB), transparent 62%),
+        radial-gradient(900px 740px at 55% 92%, rgba(255,184,108,.10), transparent 64%),
+        radial-gradient(900px 720px at 40% 35%, var(--neonV), transparent 66%),
         linear-gradient(180deg, var(--night1), var(--night0));
     }
 
-    /* Brass foil haze (expensive warm glow) */
-    .foil{
-      position:fixed; inset:-20%; z-index:-5;
+    /* Bokeh particles (the “activity” feel) */
+    .bokeh{
+      position:fixed; inset:0; z-index:-6;
       pointer-events:none;
-      opacity:.70;
+      opacity:.55;
+      background:
+        radial-gradient(circle at 12% 35%, rgba(242,208,123,.16) 0 30px, transparent 32px),
+        radial-gradient(circle at 26% 60%, rgba(58,160,255,.14) 0 26px, transparent 28px),
+        radial-gradient(circle at 44% 22%, rgba(255,184,108,.14) 0 22px, transparent 24px),
+        radial-gradient(circle at 62% 48%, rgba(122,92,255,.12) 0 30px, transparent 32px),
+        radial-gradient(circle at 78% 30%, rgba(242,208,123,.12) 0 24px, transparent 26px),
+        radial-gradient(circle at 88% 70%, rgba(255,184,108,.12) 0 32px, transparent 34px);
+      filter: blur(1px);
+      animation: bokehFloat 18s ease-in-out infinite;
+    }
+    @keyframes bokehFloat{
+      0%{ transform: translateY(0px); }
+      50%{ transform: translateY(-18px); }
+      100%{ transform: translateY(0px); }
+    }
+
+    /* Soundwave / music lines (very subtle) */
+    .waves{
+      position:fixed; inset:-10% -10%; z-index:-5;
+      pointer-events:none;
+      opacity:.20;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,246,231,.00) 0px,
+          rgba(255,246,231,.00) 34px,
+          rgba(242,208,123,.12) 35px,
+          rgba(255,246,231,.00) 36px
+        );
+      mask-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,.85), transparent 70%);
+      transform: rotate(-2deg);
+      animation: wavesShift 14s linear infinite;
+    }
+    @keyframes wavesShift{
+      0%{ background-position: 0 0; }
+      100%{ background-position: 120px 0; }
+    }
+
+    /* Brass foil haze */
+    .foil{
+      position:fixed; inset:-20%; z-index:-4;
+      pointer-events:none;
+      opacity:.65;
       background:
         linear-gradient(115deg,
           rgba(255,242,198,.00) 0%,
@@ -137,19 +166,18 @@
     }
 
     .grain{
-      position:fixed; inset:0; z-index:-4;
+      position:fixed; inset:0; z-index:-3;
       pointer-events:none;
-      opacity:.18;
+      opacity:.16;
       mix-blend-mode: overlay;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.30'/%3E%3C/svg%3E");
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
     }
 
-    /* Slow sheen on desktop only (subtle) */
     .sheen{ display:none; }
     @media (min-width: 900px){
       .sheen{
         display:block;
-        position:fixed; inset:-30%; z-index:-3;
+        position:fixed; inset:-30%; z-index:-2;
         pointer-events:none;
         opacity:.12;
         background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.55) 48%, transparent 65%);
@@ -227,8 +255,8 @@
       padding: 9px 12px;
       border-radius: 999px;
       border: 1px solid transparent;
-      background: var(--tabBg);
-      color: var(--tabText);
+      background: rgba(255,246,231,.06);
+      color: rgba(255,246,231,.78);
       font-size: 13px;
       cursor:pointer;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
@@ -236,14 +264,13 @@
     }
     .tab:hover{ transform: translateY(-1px); border-color: rgba(242,208,123,.24); }
     .tab.active{
-      background: var(--tabActiveBg);
-      color: var(--tabActiveText);
+      background: rgba(242,208,123,.12);
+      color: rgba(255,246,231,.96);
       border-color: rgba(242,208,123,.40);
     }
 
     .actions{ display:flex; gap:10px; align-items:center; }
 
-    /* Brass button */
     .btn{
       border: 1px solid rgba(242,208,123,.34);
       background:
@@ -271,7 +298,6 @@
       font-weight: 740;
     }
 
-    /* Mobile menu */
     .hamburger{
       display:grid;
       width:42px; height:42px;
@@ -325,7 +351,6 @@
     }
     .inner{ padding: 26px; }
 
-    /* Hero */
     .hero{
       display:grid;
       grid-template-columns: 1.35fr .65fr;
@@ -336,6 +361,7 @@
       .hero{ grid-template-columns: 1fr; }
     }
 
+    /* ===== Improved Header / About vibe ===== */
     .heroCard{
       border-radius: var(--r2);
       border: 1px solid rgba(255,255,255,.14);
@@ -344,7 +370,6 @@
       box-shadow: 0 24px 70px rgba(0,0,0,.30);
       position:relative; overflow:hidden;
     }
-    /* stage light flare */
     .heroCard:before{
       content:"";
       position:absolute; inset:-60%;
@@ -359,8 +384,29 @@
     }
     .heroCard > *{ position:relative; z-index:1; }
 
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(242,208,123,.24);
+      background: rgba(242,208,123,.10);
+      color: rgba(255,246,231,.90);
+      font-size: 12px;
+      letter-spacing:.06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+    .kickerDot{
+      width:8px; height:8px; border-radius:999px;
+      background: linear-gradient(180deg, var(--brass1), var(--brass3));
+      box-shadow: 0 10px 18px rgba(210,161,70,.20);
+    }
+
     .h{
-      margin:0 0 12px;
+      margin:0 0 10px;
       font-size: 44px;
       line-height:1.04;
       letter-spacing:-.02em;
@@ -376,7 +422,7 @@
     }
 
     .lead{
-      margin:0 0 18px;
+      margin:0 0 16px;
       color: var(--muted);
       font-size: 15px;
       line-height:1.65;
@@ -440,7 +486,6 @@
       max-width: 80ch;
     }
 
-    /* Cards */
     .cards{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -466,7 +511,6 @@
     .card p{ margin:0; font-size: 13px; color: var(--muted); line-height:1.6; }
     .card ul{ margin:0; padding-left: 18px; color: var(--muted); font-size: 13px; line-height:1.7; }
 
-    /* Booking row reveal */
     .bookRow{
       margin-top: 16px;
       padding-top: 14px;
@@ -534,7 +578,6 @@
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.16);
       background: rgba(0,0,0,.24);
-      color: rgba(255,246,231,.95);
       cursor:pointer;
       display:grid; place-items:center;
       transition: transform .12s ease, border-color .12s ease;
@@ -581,6 +624,8 @@
 
 <body>
   <div class="bg"></div>
+  <div class="bokeh"></div>
+  <div class="waves"></div>
   <div class="foil"></div>
   <div class="grain"></div>
   <div class="sheen"></div>
@@ -638,10 +683,16 @@
       <div class="inner">
         <div class="hero">
           <div class="heroCard">
-            <h2 class="h">Nightlife energy. <span class="brassText">Jazz-lounge luxury.</span></h2>
+            <div class="kicker"><span class="kickerDot"></span> passionate photographer • chicago</div>
+
+            <h2 class="h">
+              I’m a passionate photographer who loves capturing
+              <span class="brassText">music, motion, and real energy</span>.
+            </h2>
+
             <p class="lead">
-              I shoot portraits, music, events, and brand content with a clean finish and a moody, high-end vibe.
-              Want edits only? I’ve got you — retouching and color grading available too.
+              Think jazz-lounge luxury with nightlife edge — clean images, warm tones, and a vibe that feels alive.
+              I shoot portraits, music, events, and brand content. And if you just need edits, I offer retouching + color too.
             </p>
 
             <div class="heroActions">
@@ -651,7 +702,7 @@
             </div>
 
             <div class="bookRow">
-              <div class="bookHint">Pick a section from the tabs — its booking button shows up right away.</div>
+              <div class="bookHint">Pick a section from the tabs — its booking button shows up.</div>
               <a class="btn bookBtn"
                  href="mailto:hynoe.flicks@gmail.com?subject=Booking%20Request%20-%20Home%20-%20Hynoe%20Flicks&body=Hi%20Hynoe%2C%0A%0AI%27d%20love%20to%20book.%0AWhat%20are%20we%20shooting%3F%0ADate%20range%3A%0ALocation%3A%0AVibe%20or%20references%3A%0A%0AThanks!">
                 Book This
@@ -660,9 +711,9 @@
           </div>
 
           <aside class="heroPills">
-            <div class="pill"><div class="dot"></div><div><b>Guidance that feels easy</b><small>Natural direction so your photos don’t look forced.</small></div></div>
-            <div class="pill"><div class="dot"></div><div><b>Low-light confidence</b><small>Clubs, venues, night streets — crisp and clean.</small></div></div>
-            <div class="pill"><div class="dot"></div><div><b>Editing available</b><small>Premium retouch + color for your set.</small></div></div>
+            <div class="pill"><div class="dot"></div><div><b>Guidance that feels easy</b><small>Natural direction so it never looks stiff.</small></div></div>
+            <div class="pill"><div class="dot"></div><div><b>Night-friendly quality</b><small>Clubs, venues, streets — sharp, clean, controlled.</small></div></div>
+            <div class="pill"><div class="dot"></div><div><b>Editing available</b><small>Retouch + color grading for a premium finish.</small></div></div>
           </aside>
         </div>
       </div>
@@ -705,7 +756,7 @@
         <div class="sectionHead">
           <div>
             <h2>Services</h2>
-            <p>Luxury look, chill process. No prices listed here — just book and we’ll plan it.</p>
+            <p>Luxury look, chill process. No prices listed — just book and we’ll plan it.</p>
           </div>
         </div>
 
@@ -715,7 +766,7 @@
             <p>Clean, premium portraits — studio energy or nightlife glow.</p>
             <ul>
               <li>Direction + posing help</li>
-              <li>Luxury color finish</li>
+              <li>Warm luxury tones</li>
               <li>Finals ready for posting</li>
             </ul>
           </div>
@@ -764,7 +815,7 @@
             <h3>Premium Retouch</h3>
             <p>Texture-preserving cleanup that stays natural and high-end.</p>
             <ul>
-              <li>Skin cleanup (natural)</li>
+              <li>Natural skin cleanup</li>
               <li>Distraction removal</li>
               <li>Luxury polish</li>
             </ul>
@@ -862,7 +913,7 @@
       });
     });
 
-    // Editing-only jump (desktop + mobile)
+    // Editing-only jump
     document.getElementById("editOnly")?.addEventListener("click", () => setActive("editing"));
     document.getElementById("mobileEditOnly")?.addEventListener("click", () => setActive("editing"));
 
