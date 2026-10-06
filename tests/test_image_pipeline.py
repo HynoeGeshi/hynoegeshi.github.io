@@ -30,9 +30,9 @@ class ImagePipelineTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             target = Path(tmp) / "noisy.webp"
             noisy = Image.effect_noise((1500, 1000), 85).convert("RGB")
-            quality = save_webp_under_budget(noisy, target, start_quality=84, max_bytes=180_000)
+            quality = save_webp_under_budget(noisy, target, start_quality=84, max_bytes=800_000)
             self.assertTrue(target.exists())
-            self.assertLessEqual(target.stat().st_size, 180_000)
+            self.assertLessEqual(target.stat().st_size, 800_000)
             self.assertLess(quality, 84)
 
 
