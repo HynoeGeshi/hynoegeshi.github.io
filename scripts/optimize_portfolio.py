@@ -10,7 +10,9 @@ from PIL import Image, ImageOps
 ROOT = Path(__file__).resolve().parents[1]
 SIZES = {"thumb": 640, "card": 1280, "large": 2200}
 WEBP_QUALITY = {"thumb": 76, "card": 80, "large": 84}
+WEBP_LIMITS = {"thumb": 180_000, "card": 420_000, "large": 950_000}
 JPEG_QUALITY = {"thumb": 78, "card": 82, "large": 86}
+MIN_WEBP_QUALITY = 52
 
 
 def _resized(image: Image.Image, max_width: int) -> Image.Image:
@@ -18,6 +20,26 @@ def _resized(image: Image.Image, max_width: int) -> Image.Image:
         return image.copy()
     ratio = max_width / image.width
     return image.resize((max_width, max(1, round(image.height * ratio))), Image.Resampling.LANCZOS)
+
+
+def save_webp_under_budget(
+    image: Image.Image,
+    target: Path,
+    *,
+    start_quality: int,
+    max_bytes: int,
+) -> int:
+    """Save at the highest tested WebP quality that meets the byte budget."""
+    qualities = list(range(start_quality, MIN_WEBP_QUALITY - 1, -4))
+    if qualities[-1] != MIN_WEBP_QUALITY:
+        qualities.append(MIN_WEBP_QUALITY)
+
+    for quality in qualities:
+        image.save(target, "WEBP", quality=quality, method=6)
+        if target.stat().st_size <= max_bytes:
+            return quality
+
+    return qualities[-1]
 
 
 def build_derivatives(source: Path, output_root: Path, stem: str) -> dict[str, Any]:
@@ -33,12 +55,19 @@ def build_derivatives(source: Path, output_root: Path, stem: str) -> dict[str, A
             resized = _resized(oriented, width)
             webp = out_dir / f"{stem}.webp"
             jpg = out_dir / f"{stem}.jpg"
-            resized.save(webp, "WEBP", quality=WEBP_QUALITY[kind], method=6)
+            used_quality = save_webp_under_budget(
+                resized,
+                webp,
+                start_quality=WEBP_QUALITY[kind],
+                max_bytes=WEBP_LIMITS[kind],
+            )
             resized.save(jpg, "JPEG", quality=JPEG_QUALITY[kind], optimize=True, progressive=True)
             result[kind] = str(webp.relative_to(output_root)).replace("\\", "/")
             result[f"{kind}Jpeg"] = str(jpg.relative_to(output_root)).replace("\\", "/")
             result[f"{kind}Width"] = resized.width
             result[f"{kind}Height"] = resized.height
+            result[f"{kind}WebpQuality"] = used_quality
+            result[f"{kind}Bytes"] = webp.stat().st_size
     return result
 
 
@@ -56,14 +85,16 @@ def process_repo(root: Path = ROOT) -> list[dict[str, Any]]:
 
 
 def check_sizes(root: Path = ROOT) -> list[str]:
-    limits = {"thumb": 180_000, "card": 420_000, "large": 950_000}
     errors: list[str] = []
-    for kind, limit in limits.items():
+    for kind, limit in WEBP_LIMITS.items():
         folder = root / "assets" / "img" / "portfolio" / kind
         if not folder.exists():
             errors.append(f"missing derivative folder: {folder}")
             continue
-        for path in folder.glob("*.webp"):
+        files = list(folder.glob("*.webp"))
+        if len(files) < 8:
+            errors.append(f"{folder.relative_to(root)} has {len(files)} WebP files; expected 8")
+        for path in files:
             size = path.stat().st_size
             if size > limit:
                 errors.append(f"{path.relative_to(root)} is {size} bytes, over {limit}")
