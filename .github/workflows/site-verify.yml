@@ -21,12 +21,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Python structure tests
+      - name: Install test dependencies
+        run: python -m pip install --disable-pip-version-check Pillow
+      - name: Python tests
         run: python -m unittest discover tests -v
       - name: JavaScript tests
-        run: |
-          shopt -s nullglob
-          files=(tests/js/*.test.mjs)
-          if [ ${#files[@]} -gt 0 ]; then npm test; else echo 'No JS tests yet'; fi
+        run: npm test
       - name: Site audit
         run: python scripts/verify_site.py
