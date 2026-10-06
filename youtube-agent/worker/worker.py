@@ -15,7 +15,7 @@ from faster_whisper import WhisperModel
 from supabase import create_client
 from yt_dlp import YoutubeDL
 
-from clip_quality import Candidate, Segment, build_candidates, build_short_metadata, caption_cues, make_title
+from clip_quality import Candidate, Segment, build_candidates, build_short_metadata, caption_cues, make_title, preview_video_bitrate_kbps
 
 load_dotenv()
 
@@ -187,10 +187,13 @@ def render_clip(source: Path, c: Candidate, segments: list[Segment], out: Path, 
         "[bg][fg]overlay=(W-w)/2:(H-h)/2[base];"
         f"[base]subtitles='{escaped}'[v]"
     )
+    duration = max(0.1, c.end - c.start)
+    maxrate_kbps = preview_video_bitrate_kbps(duration)
+    bufsize_kbps = maxrate_kbps * 2
     run([
-        FFMPEG, "-y", "-ss", f"{c.start:.3f}", "-i", str(source), "-t", f"{c.end-c.start:.3f}",
+        FFMPEG, "-y", "-ss", f"{c.start:.3f}", "-i", str(source), "-t", f"{duration:.3f}",
         "-filter_complex", vf, "-map", "[v]", "-map", "0:a?",
-        "-c:v", "h264_nvenc", "-preset", "p5", "-cq", "25", "-maxrate", "10M", "-bufsize", "20M",
+        "-c:v", "h264_nvenc", "-preset", "p5", "-cq", "25", "-maxrate", f"{maxrate_kbps}k", "-bufsize", f"{bufsize_kbps}k",
         "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", str(out),
     ])
 
