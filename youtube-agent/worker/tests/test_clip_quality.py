@@ -78,6 +78,13 @@ class ClipQualityTests(unittest.TestCase):
         self.assertNotIn("this is crazy", title.lower())
         self.assertNotIn("nah this was crazy", title.lower())
 
+    def test_preview_bitrate_budget_stays_below_50_mib_gateway_ceiling(self):
+        self.assertTrue(hasattr(cq, "preview_video_bitrate_kbps"), "preview_video_bitrate_kbps must exist")
+        kbps = cq.preview_video_bitrate_kbps(38.0)
+        projected_bytes = ((kbps + 160) * 1000 / 8) * 38.0
+        self.assertLess(projected_bytes, 45 * 1024 * 1024)
+        self.assertGreaterEqual(kbps, 4000)
+
     def test_short_metadata_links_back_to_source(self):
         self.assertTrue(hasattr(cq, "build_short_metadata"), "build_short_metadata must exist")
         c = Candidate(0, 24, 88, "discovery", "bro no way I found a legendary drop let's go", ["reaction/payoff"], "")
