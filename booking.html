@@ -1,361 +1,129 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Book | Hynoe Flicks</title>
-  <meta name="description" content="Book a shoot or request editing with Hynoe Flicks in Chicago."/>
-  <meta name="theme-color" content="#0b0a0f"/>
-
-  <style>
-    :root{
-      --night0:#0b0a0f; --night1:#0f0e16;
-      --ink: rgba(255,246,231,.94);
-      --muted: rgba(255,246,231,.72);
-      --border: rgba(255,255,255,.14);
-      --surface: rgba(255,246,231,.12);
-      --surface2: rgba(255,246,231,.08);
-      --brass0:#fff2c6; --brass1:#f2d07b; --brass3:#a67322; --brass4:#ffe7a3;
-      --neonV: rgba(122, 92, 255, .22);
-      --neonB: rgba(58, 160, 255, .18);
-      --neonA: rgba(255, 184, 108, .22);
-      --shadow: 0 30px 90px rgba(0,0,0,.42);
-      --shadow2: 0 16px 44px rgba(0,0,0,.32);
-      --shadowBrass: 0 20px 70px rgba(210,161,70,.18);
-      --r2: 24px; --r3: 32px;
-      --max: 980px;
-    }
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color: var(--ink);
-      background: var(--night0);
-      overflow-x:hidden;
-    }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width: var(--max); margin:0 auto; padding: 18px 16px 64px; }
-
-    /* Background */
-    .bg{
-      position:fixed; inset:0; z-index:-7;
-      background:
-        radial-gradient(950px 680px at 18% 12%, rgba(210,161,70,.12), transparent 58%),
-        radial-gradient(1000px 700px at 85% 18%, var(--neonB), transparent 62%),
-        radial-gradient(900px 740px at 55% 92%, rgba(255,184,108,.10), transparent 64%),
-        radial-gradient(900px 720px at 40% 35%, var(--neonV), transparent 66%),
-        linear-gradient(180deg, var(--night1), var(--night0));
-    }
-    .bokeh{
-      position:fixed; inset:0; z-index:-6; pointer-events:none; opacity:.55;
-      background:
-        radial-gradient(circle at 12% 35%, rgba(242,208,123,.16) 0 30px, transparent 32px),
-        radial-gradient(circle at 26% 60%, rgba(58,160,255,.14) 0 26px, transparent 28px),
-        radial-gradient(circle at 44% 22%, rgba(255,184,108,.14) 0 22px, transparent 24px),
-        radial-gradient(circle at 62% 48%, rgba(122,92,255,.12) 0 30px, transparent 32px),
-        radial-gradient(circle at 78% 30%, rgba(242,208,123,.12) 0 24px, transparent 26px),
-        radial-gradient(circle at 88% 70%, rgba(255,184,108,.12) 0 32px, transparent 34px);
-      filter: blur(1px);
-      animation: float 18s ease-in-out infinite;
-    }
-    @keyframes float{ 0%{transform:translateY(0)} 50%{transform:translateY(-18px)} 100%{transform:translateY(0)} }
-
-    .top{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px;
-      padding: 12px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(10, 9, 14, .62);
-      backdrop-filter: blur(14px);
-      box-shadow: var(--shadow2);
-      margin-bottom: 14px;
-    }
-    .brand{
-      display:flex; gap:10px; align-items:center;
-    }
-    .logo{
-      width:42px; height:42px; border-radius: 14px;
-      border: 1px solid rgba(242,208,123,.28);
-      background:
-        radial-gradient(circle at 22% 22%, rgba(255,255,255,.70), transparent 55%),
-        linear-gradient(135deg, var(--brass0), var(--brass1), var(--brass3), var(--brass4));
-      box-shadow: var(--shadowBrass);
-    }
-    .brand h1{
-      margin:0;
-      font-size: 13px;
-      letter-spacing:.14em;
-      text-transform: uppercase;
-      line-height:1.05;
-    }
-    .brand span{
-      display:block;
-      font-size: 12px;
-      opacity:.74;
-      margin-top:2px;
-    }
-
-    .btn{
-      border: 1px solid rgba(242,208,123,.34);
-      background:
-        radial-gradient(circle at 18% 22%, rgba(255,255,255,.70), transparent 55%),
-        linear-gradient(135deg, var(--brass0), var(--brass1), var(--brass3), var(--brass4));
-      color: rgba(18,19,21,.92);
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-weight: 820;
-      font-size: 13px;
-      box-shadow: var(--shadowBrass), 0 10px 24px rgba(0,0,0,.20);
-      display:inline-flex; align-items:center; justify-content:center;
-      gap: 10px;
-      cursor:pointer;
-    }
-    .btn.secondary{
-      border-color: rgba(255,255,255,.14);
-      background: rgba(255,246,231,.08);
-      color: rgba(255,246,231,.90);
-      box-shadow: 0 12px 28px rgba(0,0,0,.26);
-      font-weight: 740;
-    }
-
-    .panel{
-      border-radius: var(--r3);
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, var(--surface), var(--surface2));
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .inner{ padding: 22px; }
-    h2{
-      margin:0 0 8px;
-      font-size: 28px;
-      letter-spacing:-.02em;
-    }
-    p{ margin:0 0 14px; color: var(--muted); line-height:1.6; }
-
-    form{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    @media (max-width: 760px){
-      form{ grid-template-columns: 1fr; }
-      h2{ font-size: 24px; }
-    }
-
-    label{ display:block; font-size:12px; opacity:.80; margin: 2px 0 6px; letter-spacing:.04em; }
-    input, select, textarea{
-      width:100%;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(10,9,14,.45);
-      color: var(--ink);
-      padding: 12px 12px;
-      outline:none;
-      box-shadow: 0 12px 24px rgba(0,0,0,.18);
-    }
-    textarea{ min-height: 120px; resize: vertical; grid-column: 1 / -1; }
-
-    .row{ grid-column: 1 / -1; display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
-    .hint{ font-size:12px; color: rgba(255,246,231,.72); line-height:1.5; }
-    .status{
-      margin-top: 10px;
-      font-size: 13px;
-      color: rgba(255,246,231,.86);
-      min-height: 20px;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(242,208,123,.24);
-      background: rgba(242,208,123,.10);
-      font-size: 12px;
-      margin-bottom: 10px;
-      width: fit-content;
-    }
-    .dot{
-      width:8px; height:8px; border-radius:999px;
-      background: linear-gradient(180deg, var(--brass1), var(--brass3));
-      box-shadow: 0 10px 18px rgba(210,161,70,.20);
-    }
-    .footer{
-      margin-top: 14px;
-      text-align:center;
-      font-size: 12px;
-      opacity:.65;
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Book a Chicago Photo Shoot | Hynoe Flicks</title>
+  <meta name="description" content="Send a Chicago photography or editing request to Hynoe Flicks. Choose the service, date and location, share your vision, then review before sending.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#07070a">
+  <link rel="canonical" href="https://hynoeflicks.com/booking.html">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Hynoe Flicks">
+  <meta property="og:title" content="Book a Shoot | Hynoe Flicks Chicago">
+  <meta property="og:description" content="Send your date, location and vision in a short five-step request.">
+  <meta property="og:url" content="https://hynoeflicks.com/booking.html">
+  <meta property="og:image" content="https://hynoeflicks.com/assets/img/portfolio/large/p3.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Book a Shoot | Hynoe Flicks Chicago">
+  <meta name="twitter:description" content="Send your date, location and vision in a short five-step request.">
+  <meta name="twitter:image" content="https://hynoeflicks.com/assets/img/portfolio/large/p3.jpg">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/booking.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Hynoe Flicks","item":"https://hynoeflicks.com/"},{"@type":"ListItem","position":2,"name":"Book a Shoot","item":"https://hynoeflicks.com/booking.html"}]}
+  </script>
 </head>
 <body>
-  <div class="bg"></div>
-  <div class="bokeh"></div>
-
-  <div class="wrap">
-    <div class="top">
-      <a class="brand" href="index.html">
-        <div class="logo"></div>
-        <div>
-          <h1>Hynoe Flicks</h1>
-          <span>Booking Request</span>
-        </div>
-      </a>
-      <a class="btn secondary" href="index.html">Back</a>
+  <a class="skip-link" href="#main">Skip to booking form</a>
+  <header class="site-header scrolled">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="Hynoe Flicks home"><img src="assets/img/brand/hynoe-flicks-mark.svg" alt="" width="44" height="44"><span class="brand-copy"><span class="brand-name">Hynoe Flicks</span><span class="brand-sub">Chicago • Photography</span></span></a>
+      <nav class="nav-links" aria-label="Primary navigation"><a href="/#portfolio">Portfolio</a><a href="/#services">Services</a><a href="photo-editing-retouching.html">Editing</a><a href="/#about">About</a><a class="button ghost" href="/">Back Home</a></nav>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span></button>
     </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation"><a href="/">Home</a><a href="/#portfolio">Portfolio</a><a href="/#services">Services</a><a href="photo-editing-retouching.html">Editing</a></nav>
+  </header>
 
-    <div class="panel">
-      <div class="inner">
-        <div class="pill"><span class="dot"></span>Chicago • Nightlife • Portraits • Editing</div>
-        <h2>Let’s lock in your vibe.</h2>
-        <p>Fill this out and it sends straight to your email. (No prices shown — we’ll plan around your needs.)</p>
+  <main class="booking-main" id="main">
+    <div class="container booking-shell">
+      <aside class="booking-aside">
+        <span class="eyebrow">Booking request</span>
+        <h1>Tell me what we’re making.</h1>
+        <p>Five short steps. Your answers stay in the form if you go back or if sending ever fails.</p>
+        <div class="booking-progress" aria-label="Booking progress">
+          <div class="progress-step active" data-progress-step><span>1</span><span>Service</span></div>
+          <div class="progress-step" data-progress-step><span>2</span><span>Date + place</span></div>
+          <div class="progress-step" data-progress-step><span>3</span><span>Vision</span></div>
+          <div class="progress-step" data-progress-step><span>4</span><span>Contact</span></div>
+          <div class="progress-step" data-progress-step><span>5</span><span>Review</span></div>
+        </div>
+        <p class="booking-note">Prefer email? <a href="mailto:hynoe.flicks@gmail.com">hynoe.flicks@gmail.com</a></p>
+      </aside>
 
-        <form id="bookingForm">
-          <div>
-            <label for="name">Name</label>
-            <input id="name" name="name" autocomplete="name" required />
-          </div>
+      <section class="booking-card" id="bookingPanel" aria-label="Booking request form">
+        <form id="bookingForm" novalidate>
+          <div class="honeypot" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
 
-          <div>
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" required />
-          </div>
-
-          <div>
-            <label for="service">Service</label>
-            <select id="service" name="service" required>
-              <option value="">Select one…</option>
-              <option>Portraits</option>
-              <option>Music + Events</option>
-              <option>Brand + Lifestyle</option>
-              <option>Editing Only</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="dateRange">Date range</label>
-            <input id="dateRange" name="dateRange" placeholder="e.g., Feb 3–5 or next weekend" required />
-          </div>
-
-          <div>
-            <label for="location">Location</label>
-            <input id="location" name="location" placeholder="Chicago neighborhood / venue / studio" required />
-          </div>
-
-          <div>
-            <label for="budgetNote">Budget note (optional)</label>
-            <input id="budgetNote" name="budgetNote" placeholder="Optional — helps plan the shoot" />
-          </div>
-
-          <textarea id="details" name="details" placeholder="Tell me the vibe + any references (links, mood, colors, outfits, etc.)"></textarea>
-
-          <div class="row">
-            <div class="hint">
-              Pro tip: include links to references (Instagram, Pinterest, or a moodboard) for the fastest response.
+          <div class="booking-step active" data-booking-step="service">
+            <span class="step-kicker">Step 1 of 5</span><h2>What do you need?</h2><p class="step-copy">Pick the closest fit. The details can be adjusted once we talk.</p>
+            <div class="choice-grid">
+              <div class="choice"><input id="servicePortraits" type="radio" name="service" value="Portraits"><label for="servicePortraits"><strong>Portraits</strong><small>Individual, editorial or lifestyle portraits with direction.</small></label></div>
+              <div class="choice"><input id="serviceNightlife" type="radio" name="service" value="Nightlife"><label for="serviceNightlife"><strong>Nightlife</strong><small>Clubs, venues, parties and after-dark atmosphere.</small></label></div>
+              <div class="choice"><input id="serviceMusic" type="radio" name="service" value="Music / Artist Content"><label for="serviceMusic"><strong>Music / Artist Content</strong><small>Live performance, artist promo and content sessions.</small></label></div>
+              <div class="choice"><input id="serviceEvents" type="radio" name="service" value="Events"><label for="serviceEvents"><strong>Events</strong><small>Coverage built around people, details and the room.</small></label></div>
+              <div class="choice"><input id="serviceBrand" type="radio" name="service" value="Brand + Lifestyle"><label for="serviceBrand"><strong>Brand + Lifestyle</strong><small>Campaign, product-adjacent and business visual content.</small></label></div>
+              <div class="choice"><input id="serviceEditing" type="radio" name="service" value="Editing Only"><label for="serviceEditing"><strong>Editing Only</strong><small>Retouching and color for files you already have.</small></label></div>
             </div>
+            <div class="field-error" data-error-for="service" role="alert"></div>
+            <div class="booking-actions"><span></span><div class="right"><button class="button gold" type="button" data-next>Continue</button></div></div>
+          </div>
 
-            <button class="btn" type="submit" id="sendBtn">Send Request</button>
+          <div class="booking-step" data-booking-step="schedule">
+            <span class="step-kicker">Step 2 of 5</span><h2>When and where?</h2><p class="step-copy">A range is fine if the date is not locked yet.</p>
+            <div class="form-grid">
+              <div class="field"><label for="dateRange">Date or date range</label><input id="dateRange" name="dateRange" placeholder="October 12, next weekend, etc." autocomplete="off"><div class="field-error" data-error-for="dateRange" role="alert"></div></div>
+              <div class="field"><label for="location">Location / venue</label><input id="location" name="location" placeholder="Chicago neighborhood, venue, studio…" autocomplete="street-address"><div class="field-error" data-error-for="location" role="alert"></div></div>
+            </div>
+            <div class="booking-actions"><button class="button ghost" type="button" data-back>Back</button><div class="right"><button class="button gold" type="button" data-next>Continue</button></div></div>
+          </div>
+
+          <div class="booking-step" data-booking-step="vision">
+            <span class="step-kicker">Step 3 of 5</span><h2>What should it feel like?</h2><p class="step-copy">References help, but you do not need a full creative brief.</p>
+            <div class="form-grid">
+              <div class="field full"><label for="details">Vision / details</label><textarea id="details" name="details" placeholder="Tell me the vibe, who is involved, what the photos are for, colors, outfits, must-have shots…"></textarea></div>
+              <div class="field full"><label for="references">Reference links</label><input id="references" name="references" type="url" placeholder="Instagram, Pinterest, moodboard or other reference link"></div>
+              <div class="field full"><label for="budgetNote">Budget note <span class="muted">(optional)</span></label><input id="budgetNote" name="budgetNote" placeholder="Optional—useful if you already have a target range"></div>
+            </div>
+            <div class="booking-actions"><button class="button ghost" type="button" data-back>Back</button><div class="right"><button class="button gold" type="button" data-next>Continue</button></div></div>
+          </div>
+
+          <div class="booking-step" data-booking-step="contact">
+            <span class="step-kicker">Step 4 of 5</span><h2>Where should I reply?</h2><p class="step-copy">Only the booking email uses this information. Analytics does not receive your form contents.</p>
+            <div class="form-grid">
+              <div class="field"><label for="name">Name</label><input id="name" name="name" autocomplete="name"><div class="field-error" data-error-for="name" role="alert"></div></div>
+              <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email"><div class="field-error" data-error-for="email" role="alert"></div></div>
+            </div>
+            <div class="booking-actions"><button class="button ghost" type="button" data-back>Back</button><div class="right"><button class="button gold" type="button" data-next>Review Request</button></div></div>
+          </div>
+
+          <div class="booking-step" data-booking-step="review">
+            <span class="step-kicker">Step 5 of 5</span><h2>Check it once, then send.</h2><p class="step-copy">Nothing is charged here. This sends the request so the scope and next steps can be confirmed.</p>
+            <div class="review-list">
+              <div class="review-row"><b>Service</b><span data-review="service"></span></div>
+              <div class="review-row"><b>Date</b><span data-review="dateRange"></span></div>
+              <div class="review-row"><b>Location</b><span data-review="location"></span></div>
+              <div class="review-row"><b>Vision</b><span data-review="details"></span></div>
+              <div class="review-row"><b>References</b><span data-review="references"></span></div>
+              <div class="review-row"><b>Name</b><span data-review="name"></span></div>
+              <div class="review-row"><b>Email</b><span data-review="email"></span></div>
+            </div>
+            <div class="submit-status" id="submitStatus" role="status" aria-live="polite"></div>
+            <div class="booking-actions"><button class="button ghost" type="button" data-back>Back</button><div class="right"><button class="button gold" id="submitBooking" type="submit">Send Request</button></div></div>
           </div>
         </form>
+      </section>
 
-        <div class="status" id="status"></div>
-      </div>
+      <section class="booking-card success-panel" id="successPanel" aria-live="polite">
+        <span class="eyebrow">Request sent</span><h2 tabindex="-1">You’re in.</h2><p>Your Hynoe Flicks request was sent. Keep an eye on the email address you entered for the reply and next steps.</p><a class="button gold" href="/">Back to Hynoe Flicks</a>
+      </section>
     </div>
+  </main>
 
-    <div class="footer">© <span id="year"></span> Hynoe Flicks • Chicago</div>
-  </div>
-
-  <!-- EmailJS (client-side email sending) -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // ========= EMAILJS SETUP =========
-    // 1) Create an EmailJS account
-    // 2) Add an email service (Gmail/Outlook)
-    // 3) Create an email template
-    // 4) Paste your IDs below:
-    const EMAILJS_PUBLIC_KEY = "FgSokmdb81EHSYZkS";
-    const EMAILJS_SERVICE_ID = "service_mp10odw";
-    const EMAILJS_TEMPLATE_ID = "template_h0dss6l";
-
-    // If you haven't set keys yet, the page will still work (it just won't send).
-    if (EMAILJS_PUBLIC_KEY && !EMAILJS_PUBLIC_KEY.includes("PASTE_")) {
-      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-    }
-
-    const form = document.getElementById("bookingForm");
-    const statusEl = document.getElementById("status");
-    const sendBtn = document.getElementById("sendBtn");
-
-    function setStatus(msg, ok=true){
-      statusEl.textContent = msg;
-      statusEl.style.opacity = "1";
-      statusEl.style.color = ok ? "rgba(255,246,231,.88)" : "rgba(255,210,210,.92)";
-    }
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      // If keys are not set, fall back to opening a pre-filled email draft
-      const keysReady =
-        EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID &&
-        !EMAILJS_PUBLIC_KEY.includes("PASTE_") &&
-        !EMAILJS_SERVICE_ID.includes("PASTE_") &&
-        !EMAILJS_TEMPLATE_ID.includes("PASTE_");
-
-      const data = new FormData(form);
-      const payload = Object.fromEntries(data.entries());
-
-      if (!keysReady) {
-        // Fallback: open email draft (still inside your site UX, but uses user mail app to send)
-        const subject = encodeURIComponent("Booking Request - Hynoe Flicks");
-        const body = encodeURIComponent(
-          `Name: ${payload.name}\n`+
-          `Email: ${payload.email}\n`+
-          `Service: ${payload.service}\n`+
-          `Date range: ${payload.dateRange}\n`+
-          `Location: ${payload.location}\n`+
-          `Budget note: ${payload.budgetNote || ""}\n\n`+
-          `Details:\n${payload.details || ""}\n`
-        );
-        window.location.href = `mailto:hynoe.flicks@gmail.com?subject=${subject}&body=${body}`;
-        return;
-      }
-
-      try{
-        sendBtn.disabled = true;
-        sendBtn.textContent = "Sending…";
-        setStatus("Sending your request…");
-
-        // Send via EmailJS to YOUR email
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: "hynoe.flicks@gmail.com",
-          from_name: payload.name,
-          reply_to: payload.email,
-          service: payload.service,
-          date_range: payload.dateRange,
-          location: payload.location,
-          budget_note: payload.budgetNote || "",
-          details: payload.details || ""
-        });
-
-        setStatus("Sent! I’ll reply soon.");
-        form.reset();
-      } catch(err){
-        console.error(err);
-        setStatus("Hmm — it didn’t send. Try again, or the fallback email draft will work.", false);
-      } finally {
-        sendBtn.disabled = false;
-        sendBtn.textContent = "Send Request";
-      }
-    });
-
-    // Preselect service if linked with ?service=Editing%20Only etc.
-    const params = new URLSearchParams(location.search);
-    const svc = params.get("service");
-    if (svc) document.getElementById("service").value = svc;
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+  <script type="module" src="assets/js/site.js"></script>
+  <script type="module" src="assets/js/booking.js"></script>
 </body>
 </html>
