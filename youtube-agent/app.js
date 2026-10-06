@@ -27,7 +27,7 @@ async function loadDashboard(){
     supabase.from('analytics_snapshots').select('*').eq('channel_id',channelId).order('captured_at',{ascending:false}).limit(20),
     supabase.from('recommendations').select('*').eq('channel_id',channelId).eq('status','active').order('created_at',{ascending:false}).limit(20),
     supabase.from('youtube_connections').select('status,connected_at,last_error').eq('channel_id',channelId).maybeSingle(),
-    supabase.rpc('youtube_oauth_config_status',{p_channel_id:channelId})
+    supabase.functions.invoke('youtube-oauth-config',{body:{channel_id:channelId,action:'status'}})
   ]);
   [jobsRes,clipsRes,pubsRes,analyticsRes,recsRes].forEach(r=>{if(r.error)console.warn(r.error)});
   const clips=await hydrateClipUrls(clipsRes.data||[]);
@@ -35,7 +35,7 @@ async function loadDashboard(){
   const conn=connRes.data;
   $('youtube-connection').textContent=conn?.status==='connected'?`YouTube OAuth connected ${fmt(conn.connected_at)}`:conn?.last_error?`YouTube OAuth error: ${conn.last_error}`:'YouTube OAuth: not connected yet';
   $('connect-youtube-btn').textContent=conn?.status==='connected'?'Reconnect @Hynoe YouTube':'Connect @Hynoe YouTube';
-  const cfg=configRes.data?.[0];
+  const cfg=configRes.data;
   status($('oauth-config-status'),cfg?.configured?`Google OAuth client saved (${cfg.client_id_hint||'configured'}).`:'Google OAuth client credentials still need to be saved.',cfg?.configured?'ok':'');
   if(cfg?.configured)$('oauth-setup').open=false;
   showOAuthReturn();
