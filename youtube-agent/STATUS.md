@@ -6,7 +6,15 @@ Canonical channel: https://www.youtube.com/@Hynoe
 
 Supabase project: `bgtxfzvzksgvradodafo` (`us-east-2`, free project)
 
-Security advisor result after schema/OAuth changes: **0 security lints**.
+Fresh security advisor result after OAuth Vault hardening: **0 security lints**.
+
+## Live dashboard
+
+Production Vercel project: `hynoe-youtube-agent`
+
+Production alias: `https://hynoe-youtube-agent.vercel.app`
+
+Latest production deployment is `READY`. Vercel Authentication now applies only to preview deployments; production access is protected by the application's Supabase authentication and RLS model.
 
 ## Implemented
 
@@ -15,17 +23,20 @@ Security advisor result after schema/OAuth changes: **0 security lints**.
 - Worker leases and recoverable job states
 - Transcript, clip candidate, approval, publishing, analytics, learning, and recommendation tables
 - Private clip-preview storage
-- Browser dashboard shell and authentication
+- Browser dashboard authentication
 - Creator account signup + verified-email requirement
 - Manual VOD intake
 - Signed private clip playback
 - Clip edit / approve / reject actions
-- RTX 4070 local worker
-- Faster-Whisper CUDA transcription
+- RTX 4070 local worker source
+- Faster-Whisper CUDA transcription pipeline
 - Candidate scoring and overlap removal
 - FFmpeg/NVENC 1080x1920 rendering with captions
 - Windows worker installer / launchers
 - Private Google OAuth state + token storage
+- Supabase Vault-backed OAuth client-secret storage
+- Authenticated one-time OAuth credential setup inside the dashboard
+- `youtube-oauth-config` Edge Function
 - `youtube-oauth-start` Edge Function
 - `youtube-oauth-callback` Edge Function
   - one-time state validation
@@ -41,33 +52,28 @@ Security advisor result after schema/OAuth changes: **0 security lints**.
   - refreshes Google access token server-side
   - pulls YouTube Analytics performance for published videos
   - writes analytics snapshots back to the learning database
-- Standalone Vercel project created: `hynoe-youtube-agent`
+- Dashboard button to manually sync analytics
+- Dashboard flow where approval immediately attempts the private YouTube upload
 
-## External authorization still required
+## One external authorization still required
 
-### Google / YouTube OAuth credentials
+Google requires the channel owner to create/authorize a real OAuth **Web application** client. The dashboard now handles secure storage, so the Google client ID and client secret do not need to be added to source code or Supabase environment variables.
 
-Google requires a real OAuth Web client owned by the channel owner. These values are intentionally not invented or committed:
+Enable:
 
-- `YOUTUBE_CLIENT_ID`
-- `YOUTUBE_CLIENT_SECRET`
+- YouTube Data API v3
+- YouTube Analytics API
 
-Authorized redirect URI must be:
+Use this exact authorized redirect URI:
 
 `https://bgtxfzvzksgvradodafo.supabase.co/functions/v1/youtube-oauth-callback`
 
-After those secrets are configured in Supabase, the dashboard's **Connect @Hynoe YouTube** button can complete the real channel authorization flow.
-
-### Vercel deployment authorization
-
-The Vercel project was created successfully, but deployment requests currently return `403 Forbidden` because the connected Vercel credential is not authorized for the `hynoe` team scope. Both Git-backed and direct-file deployment attempts hit the same team authorization block.
-
-This is an account authorization issue, not an unfinished application-code issue. The dashboard source remains committed on `docs/hynoe-youtube-agent-spec` under `youtube-agent/`.
+Then paste the Google OAuth Client ID and Client Secret into **One-time Google OAuth setup** in the live dashboard and click **Save encrypted credentials**. The secret is stored in Supabase Vault. Click **Connect @Hynoe YouTube** and authorize the Google account that owns the channel. The callback rejects the connection if the authorized channel ID does not match `@Hynoe`.
 
 ## Current end-to-end state
 
-The software path is now:
+The software path is:
 
 `@Hynoe VOD -> secure queue -> RTX worker -> transcription -> ranked clips -> vertical renders -> private previews -> human approval -> private YouTube upload -> analytics snapshots -> recommendations`
 
-The backend portions of this path are deployed. The two external account authorizations above are what remain before a real end-to-end channel run can be executed.
+Cloud/backend and dashboard portions are deployed. A real end-to-end channel run still requires (1) the Google OAuth authorization above and (2) installing/running the prepared local worker on the creator PC for the GPU media-processing stages.
