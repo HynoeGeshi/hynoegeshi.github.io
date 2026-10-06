@@ -87,12 +87,15 @@ def _quality_score(setup: str, event: str, payoff: str, full: str, duration: flo
         return 0, ["stream/admin chatter"]
     if action < 2:
         return 0, ["no clear gameplay event"]
-    if streamer == 0 and _count(payoff, PAYOFF_CUES) == 0:
+    payoff_count = _count(payoff, PAYOFF_CUES)
+    if payoff_count == 0:
+        return 0, ["no clear payoff/outcome"]
+    if streamer == 0:
         return 0, ["no streamer reaction/payoff"]
 
     setup_score = min(3, _count(setup, SETUP_CUES))
     event_score = min(4, _count(event, EVENT_CUES))
-    payoff_score = min(3, _count(payoff, PAYOFF_CUES))
+    payoff_score = min(3, payoff_count)
     streamer_score = min(2, streamer)
 
     score = 42 + setup_score * 6 + event_score * 6 + payoff_score * 6 + streamer_score * 4
@@ -195,11 +198,38 @@ def make_title(c: Candidate, topic: str | None) -> str:
         lead = "I Found Something I Wasn't Expecting"
     elif "died" in t or "killed me" in t:
         lead = "I Knew This Was Going to End Badly"
+    elif "grenade" in t:
+        lead = "This Grenade Fight Got Out of Hand"
+    elif "enemy" in t and any(x in t for x in ("rush", "coming out", "fight")):
+        lead = "They Wouldn't Stop Rushing Me"
     else:
         pieces = [p.strip(" .!?,-") for p in re.split(r"[.!?]+", c.excerpt) if len(p.strip().split()) >= 3]
         lead = (pieces[-1] if pieces else "This Moment Changed the Run")[:58]
+        if any(vague in lead.lower() for vague in (
+            "this is crazy", "nah this was crazy", "i was not ready for this", "this fight got out of control",
+        )):
+            lead = "This Fight Changed the Run"
         lead = " ".join(w.capitalize() if i == 0 else w for i, w in enumerate(lead.split()))
     return f"{lead} | {topic}" if topic else lead
+
+
+def build_short_metadata(c: Candidate, topic: str | None, source_video_id: str | None) -> dict[str, object]:
+    title = make_title(c, topic)
+    topic_text = (topic or "gaming").strip()
+    lower = topic_text.lower()
+    if "minecraft" in lower:
+        topic_tags = ["Minecraft", "HynoeSMP", "Gaming"]
+    elif "gears" in lower:
+        topic_tags = ["GearsOfWar", "GearsOfWarEDay", "Gaming"]
+    else:
+        topic_tags = [re.sub(r"[^A-Za-z0-9]", "", topic_text) or "Gaming", "Gaming"]
+    hashtags = list(dict.fromkeys(["Hynoe", "Shorts", *topic_tags]))
+    source_line = (
+        f"Watch the full stream: https://www.youtube.com/watch?v={source_video_id}"
+        if source_video_id else "More full streams on @Hynoe."
+    )
+    description = f"{title}\n\n{source_line}\n\n" + " ".join(f"#{tag}" for tag in hashtags)
+    return {"title": title, "description": description, "hashtags": hashtags}
 
 
 def caption_cues(segments: list[Segment], start: float, end: float, max_words: int = 5) -> list[tuple[float, float, str]]:
