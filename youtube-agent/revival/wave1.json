@@ -1,12 +1,14 @@
 {
   "strategy": "controlled-one-at-a-time",
   "channel": "@Hynoe",
+  "source": "Prior approval packages; live revival_queue is authoritative",
   "rules": {
     "max_publications_per_run": 1,
+    "max_new_publications_per_24_hours": 1,
     "protect_public_watch_hours": true,
-    "do_not_publish_duplicates_or_broken_streams": true,
-    "old_server_minecraft_requires_archive_label": true,
-    "non_gaming_shorts": "asset-only"
+    "minimum_canonical_score": 90,
+    "canonical_sync_required": true,
+    "old_server_minecraft_requires_archive_label": true
   },
   "items": [
     {
@@ -14,52 +16,55 @@
       "video_id": "gh_8OauX3MM",
       "game": "Madden NFL 25",
       "title": "Madden NFL 25 on Super Bowl Sunday | Full Stream",
-      "metadata_ready": true,
-      "preserve_current_description": true,
-      "historical": {"views": 156, "watch_minutes": 7636, "average_viewed_pct": 67.53, "subscribers_gained": 0},
-      "reason": "Best combined long-form watch-time and retention signal in the unlisted archive."
+      "description": "Madden NFL 25 on Super Bowl Sunday | Full Stream\n\nFull stream replay from the Hynoe gaming archive.",
+      "playlist": "Sports Games Archive — NBA 2K & Madden | Hynoe",
+      "reason": "First long-form revival after quota reset. Historical proof: 156 views, 7,636 watch-minutes, 67.53% average viewed. Strongest mix of watch time and retention in the unlisted archive. Repackage as an evergreen Madden 25 full-stream replay before publishing.",
+      "prior_score": 78.4,
+      "canonical_analytics_pending": true
     },
     {
       "rank": 2,
       "video_id": "SZAYQLV2Tbk",
       "game": "NBA 2K25",
       "title": "NBA 2K25 MyCareer Became an All-Night Grind",
-      "metadata_ready": true,
-      "preserve_current_description": true,
-      "historical": {"views": 104, "watch_minutes": 4724, "average_viewed_pct": 64.37, "subscribers_gained": 1},
-      "reason": "Excellent watch time and retention with a clear MyCAREER premise."
+      "description": "NBA 2K25 MyCareer Became an All-Night Grind\n\nFull stream replay from the Hynoe gaming archive.",
+      "playlist": "Sports Games Archive — NBA 2K & Madden | Hynoe",
+      "reason": "Historical proof: 104 views, 4,724 watch-minutes, 64.37% average viewed and +1 subscriber. Strong replay premise and strong retention.",
+      "prior_score": 76.6,
+      "canonical_analytics_pending": true
     },
     {
       "rank": 3,
       "video_id": "SqW2ytDc7nE",
       "game": "Black Ops 6",
       "title": "Black Ops 6 Season 2 — Wrecking Noobs & Testing the Update",
-      "metadata_ready": true,
-      "preserve_current_description": true,
-      "historical": {"views": 81, "watch_minutes": 2131, "average_viewed_pct": 71.5, "subscribers_gained": 0},
-      "reason": "Exceptional retention and a specific update-era premise."
+      "description": "Black Ops 6 Season 2 — Wrecking Noobs & Testing the Update\n\nFull stream replay from the Hynoe gaming archive.",
+      "playlist": "Black Ops 6 — Hynoe Archive",
+      "reason": "Historical proof: 81 views, 2,131 watch-minutes and 71.50% average viewed. Excellent retention and a clear update-era premise that can still work as an archive replay.",
+      "prior_score": 74,
+      "canonical_analytics_pending": true
     },
     {
       "rank": 4,
       "video_id": "WxdCtFGemY0",
       "game": "Dying Light 2",
       "title": "Dying Light 2 New Game++ — Giving Everything to the Survivors | Hynoe Archive",
-      "description": "One of the strongest streams from my Dying Light 2 era: a New Game++ run focused on giving everything to the Survivors.\n\nThis is an archive stream from 2022, preserved as part of the Hynoe gaming history.\n\n💬 JOIN THE HYNOE COMMUNITY\nhttps://discord.gg/wYTePCkXd5\n\n💛 SUPPORT THE CHANNEL / STREAM\nhttps://streamlabs.com/hynoe_geshi\n\n#DyingLight2 #DyingLight #Gaming #Hynoe",
-      "metadata_ready": true,
-      "preserve_current_description": false,
-      "historical": {"views": 532, "watch_minutes": 1429, "subscribers_gained": 6, "subscribers_lost": 1},
-      "reason": "Best reach/subscriber-conversion combination from the Dying Light 2 era."
+      "description": "Dying Light 2 New Game++ with everything going to the Survivors. This archive replay comes from my Dying Light 2 era and stays focused on progression, decisions and the grind.\n\n#DyingLight2 #DyingLight #Gaming #Hynoe",
+      "playlist": "Dying Light 2 — Hynoe Archive",
+      "reason": "Historical proof: 532 views, 1,429 watch-minutes and +6 subscribers. Best blend of reach and subscriber conversion from the Dying Light 2 era.",
+      "prior_score": 64.9,
+      "canonical_analytics_pending": true
     },
     {
       "rank": 5,
       "video_id": "NajkTg0jZGg",
       "game": "Forza Horizon 5",
       "title": "Forza Horizon 5 Road to 100% — Finishing Every Race | Hynoe Archive",
-      "description": "I was closing in on 100% completion in Forza Horizon 5 and working through the remaining races.\n\nThis is an archive stream from my original Forza Horizon 5 run, kept because it was one of the stronger discovery/subscriber-conversion streams from that era.\n\n💬 JOIN THE HYNOE COMMUNITY\nhttps://discord.gg/wYTePCkXd5\n\n💛 SUPPORT THE CHANNEL / STREAM\nhttps://streamlabs.com/hynoe_geshi\n\n#ForzaHorizon5 #Forza #Gaming #Hynoe",
-      "metadata_ready": true,
-      "preserve_current_description": false,
-      "historical": {"views": 306, "watch_minutes": 1118, "subscribers_gained": 10},
-      "reason": "Strong historical subscriber conversion; worthwhile variety-gaming test."
+      "description": "Pushing closer to 100% completion in Forza Horizon 5 and finishing the remaining core races. This archive replay is one of the strongest subscriber-converting videos from my Forza era.\n\n#ForzaHorizon5 #Forza #RacingGames #Hynoe",
+      "playlist": "Forza Horizon 5 — Hynoe Archive",
+      "reason": "Historical proof: 306 views, 1,118 watch-minutes and +10 subscribers. Strong subscriber conversion makes this a worthwhile variety-gaming test despite lower retention than the top Madden/2K candidates.",
+      "prior_score": 68.1,
+      "canonical_analytics_pending": true
     }
   ]
 }
