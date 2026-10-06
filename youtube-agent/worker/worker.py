@@ -15,7 +15,7 @@ from faster_whisper import WhisperModel
 from supabase import create_client
 from yt_dlp import YoutubeDL
 
-from clip_quality import Candidate, Segment, build_candidates, caption_cues, make_title
+from clip_quality import Candidate, Segment, build_candidates, build_short_metadata, caption_cues, make_title
 
 load_dotenv()
 
@@ -30,7 +30,7 @@ FFPROBE = os.getenv("FFPROBE_BIN", "ffprobe")
 WHISPER_MODEL = os.getenv("WHISPER_MODEL", "large-v3")
 WHISPER_COMPUTE = os.getenv("WHISPER_COMPUTE_TYPE", "float16")
 MAX_CLIPS = int(os.getenv("MAX_CLIPS", "8"))
-MIN_CLIP_SCORE = int(os.getenv("MIN_CLIP_SCORE", "70"))
+MIN_CLIP_SCORE = int(os.getenv("MIN_CLIP_SCORE", "76"))
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 WORK_DIR.mkdir(parents=True, exist_ok=True)
@@ -226,7 +226,8 @@ def upload_candidates(source: Path, job: dict[str, Any], segments: list[Segment]
             supabase.storage.from_("clip-previews").upload(
                 storage_path, fh, {"content-type": "video/mp4", "upsert": "false"}
             )
-        title = make_title(c, job.get("game_topic"))
+        metadata = build_short_metadata(c, job.get("game_topic"), job.get("youtube_video_id"))
+        title = str(metadata["title"])
         supabase.table("clip_candidates").insert({
             "id": clip_id,
             "channel_id": job["channel_id"],
@@ -240,8 +241,8 @@ def upload_candidates(source: Path, job: dict[str, Any], segments: list[Segment]
             "transcript_excerpt": c.excerpt,
             "hook": make_title(c, None),
             "title": title,
-            "description": f"A real moment from Hynoe's {job.get('game_topic') or 'gaming'} stream. Source: @Hynoe",
-            "hashtags": ["Hynoe", "gaming", "shorts"],
+            "description": metadata["description"],
+            "hashtags": metadata["hashtags"],
             "render_uri": storage_path,
             "render_status": "ready",
         }).execute()
