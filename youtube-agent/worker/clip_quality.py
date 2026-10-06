@@ -213,6 +213,15 @@ def make_title(c: Candidate, topic: str | None) -> str:
     return f"{lead} | {topic}" if topic else lead
 
 
+def preview_video_bitrate_kbps(duration_seconds: float, audio_kbps: int = 160) -> int:
+    if duration_seconds <= 0:
+        raise ValueError("duration_seconds must be positive")
+    budget_bytes = 42 * 1024 * 1024
+    total_kbps = (budget_bytes * 8) / duration_seconds / 1000
+    video_kbps = int(total_kbps - audio_kbps)
+    return max(1800, min(8000, video_kbps))
+
+
 def build_short_metadata(c: Candidate, topic: str | None, source_video_id: str | None) -> dict[str, object]:
     title = make_title(c, topic)
     topic_text = (topic or "gaming").strip()
