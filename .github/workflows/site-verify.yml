@@ -8,7 +8,7 @@ on:
   pull_request:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   verify:
@@ -35,15 +35,3 @@ jobs:
         run: python scripts/optimize_portfolio.py --check
       - name: Site audit
         run: python scripts/verify_site.py
-      - name: Commit generated derivatives
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/overhaul/')
-        run: |
-          git config user.name "Hynoe Flicks Build Bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add assets/img/portfolio
-          if git diff --cached --quiet; then
-            echo "No derivative changes"
-          else
-            git commit -m "perf: generate responsive portfolio derivatives"
-            git push
-          fi
