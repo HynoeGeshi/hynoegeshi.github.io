@@ -1,0 +1,32 @@
+name: Hynoe Flicks Site Verify
+
+on:
+  push:
+    branches:
+      - main
+      - 'overhaul/**'
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Python structure tests
+        run: python -m unittest discover tests -v
+      - name: JavaScript tests
+        run: |
+          shopt -s nullglob
+          files=(tests/js/*.test.mjs)
+          if [ ${#files[@]} -gt 0 ]; then npm test; else echo 'No JS tests yet'; fi
+      - name: Site audit
+        run: python scripts/verify_site.py
