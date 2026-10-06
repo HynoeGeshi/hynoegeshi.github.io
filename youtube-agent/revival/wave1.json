@@ -1,0 +1,65 @@
+{
+  "strategy": "controlled-one-at-a-time",
+  "channel": "@Hynoe",
+  "rules": {
+    "max_publications_per_run": 1,
+    "protect_public_watch_hours": true,
+    "do_not_publish_duplicates_or_broken_streams": true,
+    "old_server_minecraft_requires_archive_label": true,
+    "non_gaming_shorts": "asset-only"
+  },
+  "items": [
+    {
+      "rank": 1,
+      "video_id": "gh_8OauX3MM",
+      "game": "Madden NFL 25",
+      "title": "Madden NFL 25 on Super Bowl Sunday | Full Stream",
+      "metadata_ready": true,
+      "preserve_current_description": true,
+      "historical": {"views": 156, "watch_minutes": 7636, "average_viewed_pct": 67.53, "subscribers_gained": 0},
+      "reason": "Best combined long-form watch-time and retention signal in the unlisted archive."
+    },
+    {
+      "rank": 2,
+      "video_id": "SZAYQLV2Tbk",
+      "game": "NBA 2K25",
+      "title": "NBA 2K25 MyCareer Became an All-Night Grind",
+      "metadata_ready": true,
+      "preserve_current_description": true,
+      "historical": {"views": 104, "watch_minutes": 4724, "average_viewed_pct": 64.37, "subscribers_gained": 1},
+      "reason": "Excellent watch time and retention with a clear MyCAREER premise."
+    },
+    {
+      "rank": 3,
+      "video_id": "SqW2ytDc7nE",
+      "game": "Black Ops 6",
+      "title": "Black Ops 6 Season 2 — Wrecking Noobs & Testing the Update",
+      "metadata_ready": true,
+      "preserve_current_description": true,
+      "historical": {"views": 81, "watch_minutes": 2131, "average_viewed_pct": 71.5, "subscribers_gained": 0},
+      "reason": "Exceptional retention and a specific update-era premise."
+    },
+    {
+      "rank": 4,
+      "video_id": "WxdCtFGemY0",
+      "game": "Dying Light 2",
+      "title": "Dying Light 2 New Game++ — Giving Everything to the Survivors | Hynoe Archive",
+      "description": "One of the strongest streams from my Dying Light 2 era: a New Game++ run focused on giving everything to the Survivors.\n\nThis is an archive stream from 2022, preserved as part of the Hynoe gaming history.\n\n💬 JOIN THE HYNOE COMMUNITY\nhttps://discord.gg/wYTePCkXd5\n\n💛 SUPPORT THE CHANNEL / STREAM\nhttps://streamlabs.com/hynoe_geshi\n\n#DyingLight2 #DyingLight #Gaming #Hynoe",
+      "metadata_ready": true,
+      "preserve_current_description": false,
+      "historical": {"views": 532, "watch_minutes": 1429, "subscribers_gained": 6, "subscribers_lost": 1},
+      "reason": "Best reach/subscriber-conversion combination from the Dying Light 2 era."
+    },
+    {
+      "rank": 5,
+      "video_id": "NajkTg0jZGg",
+      "game": "Forza Horizon 5",
+      "title": "Forza Horizon 5 Road to 100% — Finishing Every Race | Hynoe Archive",
+      "description": "I was closing in on 100% completion in Forza Horizon 5 and working through the remaining races.\n\nThis is an archive stream from my original Forza Horizon 5 run, kept because it was one of the stronger discovery/subscriber-conversion streams from that era.\n\n💬 JOIN THE HYNOE COMMUNITY\nhttps://discord.gg/wYTePCkXd5\n\n💛 SUPPORT THE CHANNEL / STREAM\nhttps://streamlabs.com/hynoe_geshi\n\n#ForzaHorizon5 #Forza #Gaming #Hynoe",
+      "metadata_ready": true,
+      "preserve_current_description": false,
+      "historical": {"views": 306, "watch_minutes": 1118, "subscribers_gained": 10},
+      "reason": "Strong historical subscriber conversion; worthwhile variety-gaming test."
+    }
+  ]
+}
