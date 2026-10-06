@@ -1,5 +1,5 @@
 import unittest
-
+import clip_quality as cq
 from clip_quality import Segment, Candidate, build_candidates, caption_cues, make_title, select_diverse
 
 
@@ -62,6 +62,29 @@ class ClipQualityTests(unittest.TestCase):
         title = make_title(c, "Gears of War: E-Day")
         self.assertIn("Mouse", title)
         self.assertNotIn("Nah This Was Crazy", title)
+
+    def test_rejects_action_without_payoff(self):
+        segments = [
+            Segment(0, 4, "bro this enemy keeps rushing me"),
+            Segment(4, 8, "fight fight run run get away"),
+            Segment(8, 12, "enemy coming out grenade shot"),
+            Segment(12, 20, "come on dude this is crazy"),
+        ]
+        self.assertEqual(build_candidates(segments, max_clips=8), [])
+
+    def test_fallback_title_avoids_vague_reaction_phrase(self):
+        c = Candidate(0, 24, 82, "gameplay_moment", "bro enemy coming out fight run dude this is crazy", ["real gameplay event"], "")
+        title = make_title(c, "Gears of War: E-Day")
+        self.assertNotIn("this is crazy", title.lower())
+        self.assertNotIn("nah this was crazy", title.lower())
+
+    def test_short_metadata_links_back_to_source(self):
+        self.assertTrue(hasattr(cq, "build_short_metadata"), "build_short_metadata must exist")
+        c = Candidate(0, 24, 88, "discovery", "bro no way I found a legendary drop let's go", ["reaction/payoff"], "")
+        meta = cq.build_short_metadata(c, "Minecraft", "abc123")
+        self.assertIn("https://www.youtube.com/watch?v=abc123", meta["description"])
+        self.assertIn("Minecraft", meta["title"])
+        self.assertIn("Shorts", meta["hashtags"])
 
 
 if __name__ == '__main__':
