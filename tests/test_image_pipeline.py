@@ -6,7 +6,7 @@ from pathlib import Path
 
 from PIL import Image
 
-from scripts.optimize_portfolio import build_derivatives
+from scripts.optimize_portfolio import build_derivatives, save_webp_under_budget
 
 
 class ImagePipelineTests(unittest.TestCase):
@@ -25,6 +25,15 @@ class ImagePipelineTests(unittest.TestCase):
             with Image.open(root / "out" / result["large"]) as img:
                 self.assertLessEqual(img.width, 2200)
             self.assertNotIn("original", result["thumb"].lower())
+
+    def test_webp_encoder_adapts_quality_to_fit_budget(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "noisy.webp"
+            noisy = Image.effect_noise((1500, 1000), 85).convert("RGB")
+            quality = save_webp_under_budget(noisy, target, start_quality=84, max_bytes=180_000)
+            self.assertTrue(target.exists())
+            self.assertLessEqual(target.stat().st_size, 180_000)
+            self.assertLess(quality, 84)
 
 
 if __name__ == "__main__":
