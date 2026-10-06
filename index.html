@@ -1,829 +1,255 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Hynoe Flicks | Chicago Nightlife Photography + Editing</title>
-
-  <!-- SEO basics -->
-  <meta name="description" content="Hynoe Flicks — Chicago nightlife photography with jazz-luxury energy + standalone editing/retouching. Portraits, music, events, and brand visuals."/>
-  <meta name="robots" content="index,follow"/>
-  <meta name="theme-color" content="#0b0a0f"/>
-
-  <style>
-    :root{
-      --max: 1180px;
-
-      --night0:#0b0a0f;
-      --night1:#0f0e16;
-
-      --ink: rgba(255,246,231,.94);
-      --muted: rgba(255,246,231,.72);
-
-      --surface: rgba(255,246,231,.12);
-      --surface2: rgba(255,246,231,.09);
-
-      --border: rgba(255,255,255,.14);
-
-      --brass0:#fff2c6;
-      --brass1:#f2d07b;
-      --brass3:#a67322;
-      --brass4:#ffe7a3;
-
-      --neonV: rgba(122, 92, 255, .22);
-      --neonB: rgba(58, 160, 255, .18);
-      --neonA: rgba(255, 184, 108, .22);
-
-      --shadow: 0 30px 90px rgba(0,0,0,.42);
-      --shadow2: 0 16px 44px rgba(0,0,0,.32);
-      --shadowBrass: 0 20px 70px rgba(210,161,70,.18);
-
-      --r2: 24px;
-      --r3: 32px;
-
-      --track: .16em;
-
-      --navBg: rgba(10, 9, 14, .62);
-      --navText: rgba(255,246,231,.94);
-
-      --hint: rgba(255,246,231,.74);
-    }
-
-    @media (min-width: 900px){
-      :root{
-        --surface: rgba(255,246,231,.10);
-        --surface2: rgba(255,246,231,.06);
-      }
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; scroll-behavior:smooth; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color: var(--ink);
-      background: var(--night0);
-      overflow-x:hidden;
-    }
-    a{ color:inherit; text-decoration:none; }
-    button{ font:inherit; color:inherit; }
-
-    .wrap{ max-width: var(--max); margin:0 auto; padding: 18px 16px 76px; }
-
-    /* Nightlife activity background */
-    .bg{
-      position:fixed; inset:0; z-index:-7;
-      background:
-        radial-gradient(950px 680px at 18% 12%, rgba(210,161,70,.12), transparent 58%),
-        radial-gradient(1000px 700px at 85% 18%, var(--neonB), transparent 62%),
-        radial-gradient(900px 740px at 55% 92%, rgba(255,184,108,.10), transparent 64%),
-        radial-gradient(900px 720px at 40% 35%, var(--neonV), transparent 66%),
-        linear-gradient(180deg, var(--night1), var(--night0));
-    }
-    .bokeh{
-      position:fixed; inset:0; z-index:-6; pointer-events:none; opacity:.55;
-      background:
-        radial-gradient(circle at 12% 35%, rgba(242,208,123,.16) 0 30px, transparent 32px),
-        radial-gradient(circle at 26% 60%, rgba(58,160,255,.14) 0 26px, transparent 28px),
-        radial-gradient(circle at 44% 22%, rgba(255,184,108,.14) 0 22px, transparent 24px),
-        radial-gradient(circle at 62% 48%, rgba(122,92,255,.12) 0 30px, transparent 32px),
-        radial-gradient(circle at 78% 30%, rgba(242,208,123,.12) 0 24px, transparent 26px),
-        radial-gradient(circle at 88% 70%, rgba(255,184,108,.12) 0 32px, transparent 34px);
-      filter: blur(1px);
-      animation: bokehFloat 18s ease-in-out infinite;
-    }
-    @keyframes bokehFloat{ 0%{transform:translateY(0)} 50%{transform:translateY(-18px)} 100%{transform:translateY(0)} }
-
-    .waves{
-      position:fixed; inset:-10% -10%; z-index:-5; pointer-events:none; opacity:.18;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          rgba(255,246,231,.00) 0px,
-          rgba(255,246,231,.00) 34px,
-          rgba(242,208,123,.12) 35px,
-          rgba(255,246,231,.00) 36px
-        );
-      mask-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,.85), transparent 70%);
-      transform: rotate(-2deg);
-      animation: wavesShift 14s linear infinite;
-    }
-    @keyframes wavesShift{ 0%{background-position:0 0} 100%{background-position:120px 0} }
-
-    .grain{
-      position:fixed; inset:0; z-index:-3;
-      pointer-events:none; opacity:.16; mix-blend-mode: overlay;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
-    }
-
-    /* Nav */
-    .topbar{ position: sticky; top:0; z-index:60; padding: 14px 0; backdrop-filter: blur(14px); }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      gap: 12px; padding: 12px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--navBg);
-      box-shadow: var(--shadow2);
-      color: var(--navText);
-    }
-    .brand{ display:flex; align-items:center; gap:10px; min-width: 220px; }
-    .logo{
-      width:42px; height:42px; border-radius: 14px;
-      border: 1px solid rgba(242,208,123,.28);
-      background:
-        radial-gradient(circle at 22% 22%, rgba(255,255,255,.70), transparent 55%),
-        linear-gradient(135deg, var(--brass0), var(--brass1), var(--brass3), var(--brass4));
-      box-shadow: var(--shadowBrass);
-      position:relative; overflow:hidden;
-    }
-    .logo:after{
-      content:""; position:absolute; inset:-60%;
-      background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,.85) 50%, transparent 62%);
-      transform: rotate(10deg); opacity:.22;
-    }
-    .brand h1{ margin:0; font-size:13px; letter-spacing: var(--track); text-transform: uppercase; line-height:1.05; }
-    .brand span{ display:block; font-size:12px; opacity:.74; letter-spacing:.04em; margin-top:2px; }
-
-    .tabs{ display:flex; gap:6px; align-items:center; justify-content:center; flex-wrap:wrap; }
-    .tab{
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      background: rgba(255,246,231,.06);
-      color: rgba(255,246,231,.78);
-      font-size: 13px; cursor:pointer;
-      transition: transform .12s ease, border-color .12s ease, background .12s ease;
-      user-select:none;
-    }
-    .tab:hover{ transform: translateY(-1px); border-color: rgba(242,208,123,.24); }
-    .tab.active{
-      background: rgba(242,208,123,.12);
-      color: rgba(255,246,231,.96);
-      border-color: rgba(242,208,123,.40);
-    }
-
-    .actions{ display:flex; gap:10px; align-items:center; }
-
-    .btn{
-      border: 1px solid rgba(242,208,123,.34);
-      background:
-        radial-gradient(circle at 18% 22%, rgba(255,255,255,.70), transparent 55%),
-        linear-gradient(135deg, var(--brass0), var(--brass1), var(--brass3), var(--brass4));
-      color: rgba(18,19,21,.92);
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-weight: 820;
-      font-size: 13px;
-      box-shadow: var(--shadowBrass), 0 10px 24px rgba(0,0,0,.20);
-      transition: transform .12s ease, filter .12s ease;
-      display:inline-flex; align-items:center; justify-content:center;
-      gap: 10px; white-space:nowrap;
-    }
-    .btn:hover{ transform: translateY(-1px); filter: brightness(1.03) contrast(1.02); }
-    .btn.secondary{
-      border-color: rgba(255,255,255,.14);
-      background: rgba(255,246,231,.08);
-      color: rgba(255,246,231,.90);
-      box-shadow: 0 12px 28px rgba(0,0,0,.26);
-      font-weight: 740;
-    }
-
-    .hamburger{
-      display:grid; width:42px; height:42px; border-radius:14px;
-      border: 1px solid var(--border);
-      background: rgba(255,246,231,.06);
-      cursor:pointer;
-      box-shadow: 0 10px 22px rgba(0,0,0,.22);
-    }
-    .hamburger svg{ width:18px; height:18px; margin:auto; }
-    @media (min-width: 900px){ .hamburger{ display:none; } }
-    @media (max-width: 899px){ .tabs{ display:none; } .actions{ display:none; } }
-
-    .mobileMenu{
-      display:none;
-      margin-top: 10px;
-      padding: 12px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: rgba(10,9,14,.72);
-      box-shadow: var(--shadow2);
-    }
-    .mobileMenu a{
-      display:flex; justify-content:space-between; align-items:center;
-      padding: 12px 12px;
-      border-radius: 14px;
-      color: rgba(255,246,231,.92);
-      background: rgba(255,246,231,.06);
-      border: 1px solid rgba(255,255,255,.10);
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-    .mobileMenu a:last-child{ margin-bottom:0; }
-
-    /* Sections */
-    section{
-      margin-top: 18px;
-      border-radius: var(--r3);
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, var(--surface), var(--surface2));
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .inner{ padding: 26px; }
-
-    /* Hero */
-    .hero{
-      display:grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap: 16px;
-      align-items:stretch;
-    }
-    @media (max-width: 1020px){ .hero{ grid-template-columns: 1fr; } }
-
-    .heroCard{
-      border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,246,231,.14);
-      padding: 22px;
-      box-shadow: 0 24px 70px rgba(0,0,0,.30);
-      position:relative; overflow:hidden;
-    }
-    .heroCard:before{
-      content:""; position:absolute; inset:-60%;
-      background:
-        radial-gradient(520px 360px at 20% 25%, rgba(242,208,123,.22), transparent 62%),
-        radial-gradient(520px 360px at 75% 35%, rgba(58,160,255,.14), transparent 64%),
-        radial-gradient(520px 360px at 65% 80%, rgba(122,92,255,.16), transparent 66%);
-      transform: rotate(-6deg);
-      opacity:.88;
-      pointer-events:none;
-    }
-    .heroCard > *{ position:relative; z-index:1; }
-
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(242,208,123,.24);
-      background: rgba(242,208,123,.10);
-      color: rgba(255,246,231,.90);
-      font-size: 12px;
-      letter-spacing:.06em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      width: fit-content;
-    }
-    .kickerDot{
-      width:8px; height:8px; border-radius:999px;
-      background: linear-gradient(180deg, var(--brass1), var(--brass3));
-      box-shadow: 0 10px 18px rgba(210,161,70,.20);
-    }
-
-    .h{
-      margin:0 0 10px;
-      font-size: 40px;
-      line-height:1.06;
-      letter-spacing:-.02em;
-    }
-    @media (max-width: 520px){ .h{ font-size: 32px; } }
-
-    .brassText{
-      background: linear-gradient(90deg, var(--brass3), var(--brass1), var(--brass3));
-      -webkit-background-clip:text; background-clip:text;
-      color:transparent;
-      text-shadow: 0 14px 30px rgba(210,161,70,.18);
-    }
-    .lead{
-      margin:0 0 16px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height:1.65;
-      max-width: 74ch;
-    }
-    .heroActions{ display:flex; gap:10px; flex-wrap:wrap; }
-    @media (max-width: 520px){ .heroActions .btn{ width:100%; } }
-
-    .heroPills{
-      display:grid; gap:10px;
-      border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(10,9,14,.56);
-      padding: 16px;
-      box-shadow: 0 18px 46px rgba(0,0,0,.32);
-    }
-    @media (max-width: 520px){ .heroPills{ background: rgba(255,246,231,.10); } }
-    .pill{
-      display:flex; gap:10px;
-      padding: 12px 12px;
-      border-radius: 16px;
-      background: rgba(255,246,231,.06);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-    @media (max-width: 520px){
-      .pill{ background: rgba(255,246,231,.10); border-color: rgba(255,255,255,.14); }
-    }
-    .dot{
-      width:10px; height:10px; border-radius:999px;
-      margin-top:6px;
-      background: linear-gradient(180deg, var(--brass1), var(--brass3));
-      box-shadow: 0 14px 26px rgba(210,161,70,.22);
-      flex:0 0 auto;
-    }
-    .pill b{ display:block; font-size: 13px; }
-    .pill small{ display:block; font-size: 12px; opacity:.74; margin-top:2px; line-height:1.4; }
-
-    .sectionHead{ display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin-bottom:14px; }
-    .sectionHead h2{ margin:0; font-size:14px; letter-spacing: var(--track); text-transform: uppercase; }
-    .sectionHead p{ margin:0; color: var(--muted); font-size:13px; line-height:1.55; max-width: 80ch; }
-
-    .cards{ display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; }
-    @media (max-width: 1020px){ .cards{ grid-template-columns: 1fr; } }
-    .card{
-      border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,246,231,.12);
-      padding: 18px;
-      box-shadow: 0 18px 46px rgba(0,0,0,.28);
-      display:grid; gap: 10px;
-      min-height: 180px;
-    }
-    @media (max-width: 520px){ .card{ background: rgba(255,246,231,.16); } }
-    .card h3{ margin:0; font-size:15px; }
-    .card p{ margin:0; font-size:13px; color: var(--muted); line-height:1.6; }
-    .card ul{ margin:0; padding-left:18px; color: var(--muted); font-size:13px; line-height:1.7; }
-
-    /* booking buttons show only for active section */
-    .bookRow{
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(255,255,255,.14);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-    }
-    .bookHint{ color: var(--hint); font-size: 13px; line-height:1.55; }
-    .bookBtn{
-      opacity:0;
-      transform: translateY(6px);
-      pointer-events:none;
-      transition: opacity .18s ease, transform .18s ease;
-    }
-    section.active .bookBtn{
-      opacity:1;
-      transform: translateY(0);
-      pointer-events:auto;
-    }
-    @media (max-width: 520px){
-      .bookRow{ flex-direction:column; align-items:stretch; }
-      .bookBtn{ width:100%; }
-    }
-
-    /* Portfolio */
-    .portGrid{ display:grid; grid-template-columns: 1.25fr .75fr; gap:14px; }
-    @media (max-width: 1020px){ .portGrid{ grid-template-columns: 1fr; } }
-    .viewer{
-      border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,246,231,.06);
-      overflow:hidden;
-      position:relative;
-      min-height: 420px;
-      box-shadow: 0 22px 60px rgba(0,0,0,.34);
-    }
-    @media (max-width: 520px){ .viewer{ min-height: 320px; } }
-    .viewer img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .viewerBar{
-      position:absolute; inset:auto 0 0 0;
-      padding: 14px;
-      background: linear-gradient(to top, rgba(0,0,0,.64), rgba(0,0,0,0));
-      display:flex; align-items:center; justify-content:space-between; gap: 10px;
-    }
-    .badge{
-      border: 1px solid rgba(242,208,123,.35);
-      background: rgba(242,208,123,.12);
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      color: rgba(255,246,231,.95);
-    }
-    .iconBtn{
-      width:42px; height:42px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.24);
-      cursor:pointer;
-      display:grid; place-items:center;
-      transition: transform .12s ease, border-color .12s ease;
-    }
-    .iconBtn:hover{ transform: translateY(-1px); border-color: rgba(242,208,123,.38); }
-    .iconBtn svg{ width:18px; height:18px; }
-
-    .thumbs{
-      border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(10,9,14,.54);
-      padding: 10px;
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      align-content:start;
-      box-shadow: 0 18px 50px rgba(0,0,0,.32);
-    }
-    @media (max-width: 820px){ .thumbs{ grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 520px){ .thumbs{ grid-template-columns: repeat(2, 1fr); } }
-    .thumb{
-      border-radius: 16px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,246,231,.06);
-      cursor:pointer;
-      transition: transform .12s ease, border-color .12s ease;
-      aspect-ratio: 4/3;
-      padding:0;
-    }
-    .thumb:hover{ transform: translateY(-2px); border-color: rgba(242,208,123,.38); }
-    .thumb.active{ border-color: rgba(242,208,123,.56); }
-    .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-    .footer{ margin-top:18px; text-align:center; color: rgba(255,246,231,.64); font-size:13px; }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Hynoe Flicks | Chicago Nightlife, Portrait & Event Photographer</title>
+  <meta name="description" content="Hynoe Flicks creates cinematic Chicago nightlife, portrait, music, event and brand photography, plus standalone photo editing and retouching.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#07070a">
+  <link rel="canonical" href="https://hynoeflicks.com/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" as="image" href="assets/img/portfolio/large/p1.webp" type="image/webp" fetchpriority="high">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Hynoe Flicks">
+  <meta property="og:title" content="Hynoe Flicks | Chicago Photography After Dark">
+  <meta property="og:description" content="Cinematic nightlife, portraits, music, events, brands and editing in Chicago.">
+  <meta property="og:url" content="https://hynoeflicks.com/">
+  <meta property="og:image" content="https://hynoeflicks.com/assets/img/portfolio/large/p1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hynoe Flicks | Chicago Photography After Dark">
+  <meta name="twitter:description" content="Cinematic nightlife, portraits, music, events, brands and editing in Chicago.">
+  <meta name="twitter:image" content="https://hynoeflicks.com/assets/img/portfolio/large/p1.jpg">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ProfessionalService",
+    "name":"Hynoe Flicks",
+    "url":"https://hynoeflicks.com/",
+    "logo":"https://hynoeflicks.com/assets/img/brand/hynoe-flicks-mark.svg",
+    "image":"https://hynoeflicks.com/assets/img/portfolio/large/p1.jpg",
+    "email":"hynoe.flicks@gmail.com",
+    "areaServed":{"@type":"City","name":"Chicago"},
+    "sameAs":["https://www.instagram.com/hynoe.flicks/"],
+    "serviceType":["Nightlife photography","Portrait photography","Music photography","Event photography","Brand photography","Photo editing and retouching"]
+  }
+  </script>
 </head>
-
 <body>
-  <div class="bg"></div>
-  <div class="bokeh"></div>
-  <div class="waves"></div>
-  <div class="grain"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="topbar">
-    <div class="wrap">
-      <div class="nav">
-        <a class="brand" href="#home" aria-label="Go to top">
-          <div class="logo"></div>
-          <div>
-            <h1>Hynoe Flicks</h1>
-            <span>Chicago • Nightlife • Portraits • Editing</span>
-          </div>
-        </a>
-
-        <nav class="tabs" aria-label="Tabs">
-          <a class="tab active" data-target="home" href="#home">Home</a>
-          <a class="tab" data-target="portfolio" href="#portfolio">Portfolio</a>
-          <a class="tab" data-target="services" href="#services">Services</a>
-          <a class="tab" data-target="editing" href="#editing">Editing</a>
-          <a class="tab" data-target="contact" href="#contact">Contact</a>
-        </nav>
-
-        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-
-        <div class="actions">
-          <a class="btn secondary" id="editOnly" href="#editing">Editing Only</a>
-          <!-- MAIN BOOK BUTTON NOW GOES TO booking.html -->
-          <a class="btn" href="booking.html">Book Now</a>
-        </div>
-      </div>
-
-      <div class="mobileMenu" id="mobileMenu">
-        <a data-target="home" href="#home">Home <span>›</span></a>
-        <a data-target="portfolio" href="#portfolio">Portfolio <span>›</span></a>
-        <a data-target="services" href="#services">Services <span>›</span></a>
-        <a data-target="editing" href="#editing">Editing <span>›</span></a>
-        <a data-target="contact" href="#contact">Contact <span>›</span></a>
-        <a data-target="editing" href="#editing" id="mobileEditOnly">Editing Only <span>›</span></a>
-        <a href="booking.html">Book Now <span>›</span></a>
-      </div>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="Hynoe Flicks home">
+        <img src="assets/img/brand/hynoe-flicks-mark.svg" alt="" width="44" height="44">
+        <span class="brand-copy"><span class="brand-name">Hynoe Flicks</span><span class="brand-sub">Chicago • Photography</span></span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#services">Services</a>
+        <a href="photo-editing-retouching.html">Editing</a>
+        <a href="#about">About</a>
+        <a class="button gold" href="booking.html">Book a Shoot</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span></button>
     </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+      <a href="#portfolio">Portfolio</a>
+      <a href="#services">Services</a>
+      <a href="photo-editing-retouching.html">Editing</a>
+      <a href="#about">About</a>
+      <a href="booking.html">Book</a>
+    </nav>
   </header>
 
-  <main class="wrap">
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-media" aria-hidden="true">
+        <picture>
+          <source type="image/webp" srcset="assets/img/portfolio/card/p1.webp 1280w, assets/img/portfolio/large/p1.webp 2200w" sizes="100vw">
+          <img src="assets/img/portfolio/large/p1.jpg" alt="" width="2200" height="1467" decoding="async" fetchpriority="high">
+        </picture>
+      </div>
+      <div class="container hero-content">
+        <span class="eyebrow">Chicago • Nightlife • Portraits • Events</span>
+        <h1 class="display" id="hero-title">Make the night look how it felt.</h1>
+        <p class="lead">Cinematic photos with real energy—portraits, artists, nightlife, events and brand content built to feel alive instead of over-posed.</p>
+        <div class="button-row hero-actions">
+          <a class="button gold" href="booking.html" data-track-service="General">Book a Shoot</a>
+          <a class="button ghost" href="#portfolio">View Portfolio</a>
+        </div>
+        <div class="hero-stats" aria-label="Hynoe Flicks strengths">
+          <div class="hero-stat"><strong>Low-light ready</strong><span>Clubs, streets, venues and stage light</span></div>
+          <div class="hero-stat"><strong>Easy direction</strong><span>Natural guidance without stiff posing</span></div>
+          <div class="hero-stat"><strong>Editing available</strong><span>Retouching and color without losing you</span></div>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">See the work</div>
+    </section>
 
-    <!-- HOME -->
-    <section id="home" class="active">
-      <div class="inner">
-        <div class="hero">
-          <div class="heroCard">
-            <div class="kicker"><span class="kickerDot"></span> passionate • chicago</div>
+    <div class="feature-strip" aria-label="Photography categories">
+      <div class="container feature-track">
+        <div class="feature-cell"><b>Nightlife</b><span>Light, motion and room energy</span></div>
+        <div class="feature-cell"><b>Portraits</b><span>Clean direction with character</span></div>
+        <div class="feature-cell"><b>Artists + Events</b><span>Stage moments and real atmosphere</span></div>
+        <div class="feature-cell"><b>Brand + Editing</b><span>Consistent visuals and premium finish</span></div>
+      </div>
+    </div>
 
-            <h2 class="h">Passionate shots with <span class="brassText">music + motion</span>.</h2>
+    <section class="section" id="portfolio" data-gallery>
+      <div class="container">
+        <div class="section-head">
+          <div><span class="eyebrow">Selected work</span><h2 class="section-title">Proof before promises.</h2></div>
+          <p class="lead">The site gets out of the way here. Browse the actual frames, filter by the kind of shoot you need, then open anything full-screen.</p>
+        </div>
+        <div class="portfolio-toolbar" role="group" aria-label="Filter portfolio">
+          <button class="filter-chip" type="button" data-gallery-filter="all" aria-pressed="true">All</button>
+          <button class="filter-chip" type="button" data-gallery-filter="Nightlife" aria-pressed="false">Nightlife</button>
+          <button class="filter-chip" type="button" data-gallery-filter="Portraits" aria-pressed="false">Portraits</button>
+          <button class="filter-chip" type="button" data-gallery-filter="Music / Artists" aria-pressed="false">Music / Artists</button>
+          <button class="filter-chip" type="button" data-gallery-filter="Brand / Lifestyle" aria-pressed="false">Brand / Lifestyle</button>
+        </div>
+        <div class="gallery-grid" data-gallery-grid aria-live="polite"></div>
+      </div>
+    </section>
 
-            <p class="lead">
-              Jazz-lounge luxury with nightlife energy — clean images, warm tones, and a vibe that feels alive.
-              I shoot portraits, music, events, and brand content. Need edits only? I do that too.
-            </p>
-
-            <div class="heroActions">
-              <a class="btn secondary" href="#portfolio">See the Work</a>
-              <a class="btn secondary" href="#services">What I Shoot</a>
-              <a class="btn secondary" href="#editing">Editing</a>
-            </div>
-
-            <div class="bookRow">
-              <div class="bookHint">Pick a section — its booking button stays visible while you’re there.</div>
-              <!-- HOME BOOK -> booking.html -->
-              <a class="btn bookBtn" href="booking.html">Book Now</a>
-            </div>
-          </div>
-
-          <aside class="heroPills">
-            <div class="pill"><div class="dot"></div><div><b>Easy direction</b><small>Natural guidance, no awkward posing.</small></div></div>
-            <div class="pill"><div class="dot"></div><div><b>Night-ready quality</b><small>Clubs, venues, streets — sharp and clean.</small></div></div>
-            <div class="pill"><div class="dot"></div><div><b>Editing available</b><small>Retouch + color for a premium finish.</small></div></div>
-          </aside>
+    <section class="section compact" id="services">
+      <div class="container">
+        <div class="section-head">
+          <div><span class="eyebrow">What I shoot</span><h2 class="section-title">Choose the energy, not a generic package.</h2></div>
+          <p class="lead">Every request starts with what you are trying to make. Pricing stays a custom quote until your scope, location and date are clear.</p>
+        </div>
+        <div class="service-grid">
+          <a class="service-card" href="nightlife-photographer-chicago.html" data-track-service="Nightlife">
+            <img src="assets/img/portfolio/card/p1.webp" alt="Chicago nightlife photography by Hynoe Flicks" loading="lazy" width="1280" height="853">
+            <div class="service-content"><h3>Nightlife</h3><p>Clubs, venues, streets and after-dark atmosphere without muddy low-light frames.</p><div class="service-meta"><span>Custom quote</span><span>Low light</span></div><span class="button ghost">Explore nightlife</span></div>
+          </a>
+          <a class="service-card" href="portrait-photographer-chicago.html" data-track-service="Portraits">
+            <img src="assets/img/portfolio/card/p3.webp" alt="Chicago portrait photography by Hynoe Flicks" loading="lazy" width="1280" height="853">
+            <div class="service-content"><h3>Portraits</h3><p>Strong portraits with relaxed direction, intentional light and room for personality.</p><div class="service-meta"><span>Custom quote</span><span>Direction included</span></div><span class="button ghost">Explore portraits</span></div>
+          </a>
+          <a class="service-card" href="music-photographer-chicago.html" data-track-service="Music / Artist Content">
+            <img src="assets/img/portfolio/card/p2.webp" alt="Chicago music photography by Hynoe Flicks" loading="lazy" width="1280" height="853">
+            <div class="service-content"><h3>Music + Artists</h3><p>Performance, promo and artist content that keeps the room, movement and presence intact.</p><div class="service-meta"><span>Custom quote</span><span>Live + promo</span></div><span class="button ghost">Explore music</span></div>
+          </a>
+          <a class="service-card" href="event-photographer-chicago.html" data-track-service="Events">
+            <img src="assets/img/portfolio/card/p5.webp" alt="Chicago event photography by Hynoe Flicks" loading="lazy" width="1280" height="853">
+            <div class="service-content"><h3>Events</h3><p>People, details and the moments between the obvious moments—covered with atmosphere.</p><div class="service-meta"><span>Custom quote</span><span>Coverage</span></div><span class="button ghost">Explore events</span></div>
+          </a>
+          <a class="service-card" href="brand-photographer-chicago.html" data-track-service="Brand + Lifestyle">
+            <img src="assets/img/portfolio/card/p4.webp" alt="Chicago brand and lifestyle photography by Hynoe Flicks" loading="lazy" width="1280" height="853">
+            <div class="service-content"><h3>Brand + Lifestyle</h3><p>Campaign-ready frames that make a person, product or business feel consistent and intentional.</p><div class="service-meta"><span>Custom quote</span><span>Campaign ready</span></div><span class="button ghost">Explore brand work</span></div>
+          </a>
+          <a class="service-card" href="photo-editing-retouching.html" data-track-service="Editing Only">
+            <img src="assets/img/portfolio/card/p6.webp" alt="Edited portrait photograph by Hynoe Flicks" loading="lazy" width="1280" height="853">
+            <div class="service-content"><h3>Editing Only</h3><p>Already have the files? Send your references and get a clean retouch and color direction built around them.</p><div class="service-meta"><span>Custom quote</span><span>Remote friendly</span></div><span class="button ghost">Explore editing</span></div>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- PORTFOLIO -->
-    <section id="portfolio">
-      <div class="inner">
-        <div class="sectionHead">
-          <div>
-            <h2>Portfolio</h2>
-            <p>Carousel + thumbnails. If images aren’t uploaded yet, you’ll see a placeholder (no broken image boxes).</p>
-          </div>
+    <section class="section" id="editing">
+      <div class="container split">
+        <div class="editorial-card">
+          <span class="eyebrow">Editing + retouching</span>
+          <h2 class="section-title">Finish the frame without flattening the person.</h2>
+          <p class="lead">Color, cleanup, skin work and export built around the reference you send. The goal is a premium finish that still looks like the original moment.</p>
+          <div class="button-row"><a class="button gold" href="booking.html?service=Editing%20Only">Start an Editing Request</a><a class="button ghost" href="photo-editing-retouching.html">See the editing service</a></div>
         </div>
-
-        <div class="portGrid">
-          <div class="viewer">
-            <img id="heroImg" alt="Portfolio image"/>
-            <div class="viewerBar">
-              <div class="badge" id="heroBadge">Portfolio</div>
-              <div style="display:flex; gap:8px;">
-                <button class="iconBtn" id="prev" aria-label="Previous">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-                <button class="iconBtn" id="next" aria-label="Next">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="thumbs" id="thumbs"></div>
-        </div>
-
-        <div class="bookRow">
-          <div class="bookHint">Like the vibe? Tap book and tell me your vision.</div>
-          <!-- PORTFOLIO BOOK -> booking.html -->
-          <a class="btn bookBtn" href="booking.html">Book Now</a>
+        <div class="editing-ready" role="note">
+          <span class="eyebrow">Before / after showcase</span>
+          <h3>Real comparison coming from real source files.</h3>
+          <p>I’m not faking a before/after with two unrelated photos. This slot is ready for an actual unedited + final pair when one is added to the portfolio.</p>
         </div>
       </div>
     </section>
 
-    <!-- SERVICES -->
-    <section id="services">
-      <div class="inner">
-        <div class="sectionHead">
-          <div>
-            <h2>Services</h2>
-            <p>Luxury look, chill process. No prices listed — we’ll plan around what you need.</p>
+    <section class="section compact" id="about">
+      <div class="container split">
+        <div class="editorial-card">
+          <span class="eyebrow">Behind Hynoe Flicks</span>
+          <h2 class="section-title">Relaxed on set. Intentional in the frame.</h2>
+          <p class="lead">The shooting style is built around movement, light and making people feel comfortable enough to stop thinking about the camera.</p>
+          <div class="about-list">
+            <div><span>01</span><section><b>You get direction.</b><p>No guessing what to do with your hands or where to look.</p></section></div>
+            <div><span>02</span><section><b>The location stays part of the story.</b><p>Venue light, city glow and atmosphere are used instead of erased.</p></section></div>
+            <div><span>03</span><section><b>The finish stays consistent.</b><p>Color and retouching are handled to make the set feel like one body of work.</p></section></div>
           </div>
         </div>
+        <div class="photo-card"><img src="assets/img/portfolio/large/p6.webp" alt="Editorial portrait from the Hynoe Flicks portfolio" loading="lazy" width="2200" height="1467"></div>
+      </div>
+    </section>
 
-        <div class="cards">
-          <div class="card">
-            <h3>Portraits</h3>
-            <p>Clean, premium portraits — studio energy or nightlife glow.</p>
-            <ul>
-              <li>Direction + posing help</li>
-              <li>Warm luxury tones</li>
-              <li>Finals ready for posting</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Music + Events</h3>
-            <p>Stage moments, venue mood, crowd energy — captured with control.</p>
-            <ul>
-              <li>Low-light sharpness</li>
-              <li>Press / promo-ready</li>
-              <li>Fast, smooth workflow</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Brand + Lifestyle</h3>
-            <p>Premium content that makes your brand feel more expensive.</p>
-            <ul>
-              <li>Consistent set styling</li>
-              <li>Clean + cinematic tone</li>
-              <li>Built for campaigns</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="bookRow">
-          <div class="bookHint">Send dates + location + the vibe. I’ll reply with next steps.</div>
-          <!-- SERVICES BOOK -> booking.html -->
-          <a class="btn bookBtn" href="booking.html">Book Now</a>
+    <section class="section compact" aria-labelledby="process-title">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">How it works</span><h2 class="section-title" id="process-title">Simple from request to finals.</h2></div><p class="lead">You should know what happens after you hit send. No mystery form into a void.</p></div>
+        <div class="process-grid">
+          <div class="process-step"><span class="num">01</span><h3>Send the request</h3><p>Choose the service, date range, location and the direction you have in mind.</p></div>
+          <div class="process-step"><span class="num">02</span><h3>Confirm the scope</h3><p>We line up the shoot needs, timing and what you want the final set to do.</p></div>
+          <div class="process-step"><span class="num">03</span><h3>Lock the date</h3><p>Once the details and booking requirements are agreed, the shoot is confirmed.</p></div>
+          <div class="process-step"><span class="num">04</span><h3>Shoot</h3><p>Get direction when you need it and room to move naturally when you do not.</p></div>
+          <div class="process-step"><span class="num">05</span><h3>Finals</h3><p>Your selected final images are edited for a consistent, post-ready finish.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- EDITING -->
-    <section id="editing">
-      <div class="inner">
-        <div class="sectionHead">
-          <div>
-            <h2>Editing</h2>
-            <p>Just need edits? Send your set — I’ll handle retouch + color.</p>
-          </div>
-        </div>
+    <section class="section compact" aria-labelledby="proof-title">
+      <div class="container">
+        <span class="eyebrow">Client proof</span><h2 class="section-title" id="proof-title">No fake testimonials.</h2>
+        <div class="testimonial-ready"><div><strong>Verified client words will live here.</strong><p>This section is intentionally waiting for real Hynoe Flicks feedback instead of filling space with made-up quotes.</p></div></div>
+      </div>
+    </section>
 
-        <div class="cards">
-          <div class="card">
-            <h3>Premium Retouch</h3>
-            <p>Texture-preserving cleanup that stays natural and high-end.</p>
-            <ul>
-              <li>Natural skin cleanup</li>
-              <li>Distraction removal</li>
-              <li>Luxury polish</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Color Grade</h3>
-            <p>Warm brass tones, deep shadows, clean highlights.</p>
-            <ul>
-              <li>Tone matching</li>
-              <li>Cinematic color</li>
-              <li>Export for web/social</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Simple Workflow</h3>
-            <p>Send files + a reference vibe. You’ll get finals ready to post.</p>
-            <ul>
-              <li>Easy intake</li>
-              <li>Clear communication</li>
-              <li>Pro delivery</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="bookRow">
-          <div class="bookHint">Editing only: tell me how many photos + your reference look.</div>
-          <!-- EDITING BOOK -> booking.html (preselect Editing Only) -->
-          <a class="btn bookBtn" href="booking.html?service=Editing%20Only">Book This</a>
+    <section class="section compact" id="faq">
+      <div class="container">
+        <div class="section-head"><div><span class="eyebrow">FAQ</span><h2 class="section-title">Know before you book.</h2></div><p class="lead">The things people usually need answered before sending a request.</p></div>
+        <div class="faq">
+          <details><summary>Do you help with posing and direction?</summary><p>Yes. Direction is part of the process, especially for portraits. The goal is to give enough guidance to look intentional without making the session feel stiff.</p></details>
+          <details><summary>Can you shoot in clubs, venues and other low-light spaces?</summary><p>Yes. Nightlife and low-light environments are a core part of the Hynoe Flicks look.</p></details>
+          <details><summary>Can I hire you only for editing?</summary><p>Yes. Use the Editing Only option in the booking flow and include how many photos you have plus a reference for the finish you want.</p></details>
+          <details><summary>Why is pricing listed as a custom quote?</summary><p>Different locations, coverage needs and deliverables change the scope. The booking form gathers those details first so the quote can match the actual job instead of a vague package.</p></details>
+          <details><summary>How do I send inspiration?</summary><p>The booking flow has a space for reference links and notes. Instagram, Pinterest or a moodboard link works well.</p></details>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="inner">
-        <div class="sectionHead">
-          <div>
-            <h2>Contact</h2>
-            <p>Fastest: email. Tell me what we’re shooting, where, and when.</p>
-          </div>
-        </div>
-
-        <div class="card" style="min-height:auto;">
-          <div style="font-size:15px; line-height:1.7;">
-            <b>Email:</b> hynoe.flicks@gmail.com<br/>
-            <b>Instagram:</b> @hynoe.flicks
-          </div>
-        </div>
-
-        <div class="bookRow">
-          <div class="bookHint">Send your goal + location + date range.</div>
-          <!-- CONTACT BOOK -> booking.html -->
-          <a class="btn bookBtn" href="booking.html">Book Now</a>
-        </div>
+    <section class="section compact">
+      <div class="container cta-band">
+        <span class="eyebrow">Ready when you are</span>
+        <h2 class="section-title">Show me the vision. We’ll build the frame around it.</h2>
+        <p>Send the date, location and what you want the photos to feel like. The request takes a couple of short steps and keeps your answers if submission ever fails.</p>
+        <div class="button-row"><a class="button gold" href="booking.html">Book a Shoot</a><a class="button ghost" href="mailto:hynoe.flicks@gmail.com">Email Hynoe Flicks</a></div>
       </div>
     </section>
-
-    <div class="footer">© <span id="year"></span> Hynoe Flicks • Chicago</div>
   </main>
 
-  <script>
-    // --------- ACTIVE SECTION (stable scroll spy) ----------
-    const tabs = [...document.querySelectorAll(".tab")];
-    const ids = ["home","portfolio","services","editing","contact"];
-    const sections = ids.map(id => document.getElementById(id));
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a class="brand" href="/"><img src="assets/img/brand/hynoe-flicks-mark.svg" alt="" width="44" height="44"><span class="brand-copy"><span class="brand-name">Hynoe Flicks</span><span class="brand-sub">Chicago • Photography</span></span></a><p>Cinematic Chicago nightlife, portrait, artist, event and brand photography with standalone editing available.</p></div>
+        <div class="footer-col"><h3>Services</h3><a href="nightlife-photographer-chicago.html">Nightlife</a><a href="portrait-photographer-chicago.html">Portraits</a><a href="event-photographer-chicago.html">Events</a><a href="music-photographer-chicago.html">Music / Artists</a><a href="brand-photographer-chicago.html">Brand / Lifestyle</a><a href="photo-editing-retouching.html">Editing</a></div>
+        <div class="footer-col"><h3>Connect</h3><a href="booking.html">Book a Shoot</a><a href="mailto:hynoe.flicks@gmail.com">hynoe.flicks@gmail.com</a><a href="https://www.instagram.com/hynoe.flicks/" rel="me external">@hynoe.flicks</a></div>
+      </div>
+      <div class="footer-bottom"><span>© <span id="year"></span> Hynoe Flicks</span><span>Chicago, Illinois</span></div>
+    </div>
+  </footer>
 
-    function setActive(id){
-      sections.forEach(s => s.classList.toggle("active", s && s.id === id));
-      tabs.forEach(t => t.classList.toggle("active", t.dataset.target === id));
-    }
+  <a class="mobile-book" id="mobileBook" href="booking.html">Book a Shoot</a>
 
-    tabs.forEach(t => t.addEventListener("click", () => setActive(t.dataset.target)));
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Portfolio image viewer">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close image viewer">×</button>
+      <button class="lightbox-nav prev" id="lightboxPrev" type="button" aria-label="Previous image">←</button>
+      <img id="lightboxImage" src="assets/img/portfolio/large/p1.webp" alt="Hynoe Flicks portfolio photograph" width="2200" height="1467">
+      <button class="lightbox-nav next" id="lightboxNext" type="button" aria-label="Next image">→</button>
+      <div class="lightbox-caption" id="lightboxCaption" aria-live="polite"></div>
+    </div>
+  </div>
 
-    const activationOffset = 140; // px from top
-    let ticking = false;
-
-    function updateActiveFromScroll(){
-      const y = window.scrollY;
-      let bestId = "home";
-      for (const s of sections){
-        const top = s.offsetTop;
-        if (y + activationOffset >= top) bestId = s.id;
-      }
-      setActive(bestId);
-      ticking = false;
-    }
-
-    window.addEventListener("scroll", () => {
-      if (!ticking){
-        ticking = true;
-        requestAnimationFrame(updateActiveFromScroll);
-      }
-    }, { passive:true });
-
-    function activateFromHash(){
-      const h = (location.hash || "").replace("#","");
-      if (ids.includes(h)) setActive(h);
-    }
-    window.addEventListener("hashchange", activateFromHash);
-
-    // Mobile menu
-    const burger = document.getElementById("hamburger");
-    const menu = document.getElementById("mobileMenu");
-    function toggleMenu(force){
-      const open = typeof force === "boolean" ? force : (menu.style.display !== "block");
-      menu.style.display = open ? "block" : "none";
-      burger.setAttribute("aria-expanded", open ? "true" : "false");
-    }
-    burger.addEventListener("click", () => toggleMenu());
-
-    [...menu.querySelectorAll("a[data-target]")].forEach(a => {
-      a.addEventListener("click", () => {
-        setActive(a.dataset.target);
-        toggleMenu(false);
-      });
-    });
-
-    // Editing-only jump
-    document.getElementById("editOnly")?.addEventListener("click", () => setActive("editing"));
-    document.getElementById("mobileEditOnly")?.addEventListener("click", () => setActive("editing"));
-
-    // --------- PORTFOLIO ----------
-    const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='1000'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230b0a0f'/%3E%3Cstop offset='0.55' stop-color='%23141326'/%3E%3Cstop offset='1' stop-color='%23d2a146'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='44' fill='%23fff4df' opacity='0.75'%3EAdd images to assets/img/%3C/text%3E%3C/svg%3E";
-
-    /* You can rename these once your images are uploaded */
-    const portfolio = [
-      { src:"assets/img/p1.jpg", caption:"Late Night • City Glow" },
-      { src:"assets/img/p2.jpg", caption:"Live Music • Stage Mood" },
-      { src:"assets/img/p3.jpg", caption:"Portrait • Lounge Lighting" },
-      { src:"assets/img/p4.jpg", caption:"Brand • Clean Luxury" },
-      { src:"assets/img/p5.jpg", caption:"Event • Energy" },
-      { src:"assets/img/p6.jpg", caption:"Portrait • Editorial" },
-      { src:"assets/img/p7.jpg", caption:"Details • Close" },
-      { src:"assets/img/p8.jpg", caption:"Motion • Lifestyle" }
-    ];
-
-    const heroImg = document.getElementById("heroImg");
-    const badge = document.getElementById("heroBadge");
-    const thumbs = document.getElementById("thumbs");
-    let idx = 0;
-
-    function safeLoad(imgEl, src){
-      imgEl.src = src;
-      imgEl.onerror = () => { imgEl.src = placeholder; };
-    }
-    function show(i){
-      idx = (i + portfolio.length) % portfolio.length;
-      safeLoad(heroImg, portfolio[idx].src);
-      badge.textContent = portfolio[idx].caption;
-      [...thumbs.children].forEach((b, n) => b.classList.toggle("active", n === idx));
-    }
-    function renderThumbs(){
-      thumbs.innerHTML = "";
-      portfolio.forEach((p, i) => {
-        const b = document.createElement("button");
-        b.className = "thumb" + (i===idx ? " active" : "");
-        b.type = "button";
-        const im = document.createElement("img");
-        safeLoad(im, p.src);
-        b.appendChild(im);
-        b.addEventListener("click", () => show(i));
-        thumbs.appendChild(b);
-      });
-    }
-
-    document.getElementById("prev")?.addEventListener("click", () => show(idx-1));
-    document.getElementById("next")?.addEventListener("click", () => show(idx+1));
-
-    // Swipe
-    let startX=0;
-    heroImg?.addEventListener("touchstart", e => startX = e.touches[0].clientX, {passive:true});
-    heroImg?.addEventListener("touchend", e => {
-      const endX = e.changedTouches[0].clientX;
-      const dx = endX - startX;
-      if(Math.abs(dx) > 40) dx > 0 ? show(idx-1) : show(idx+1);
-    }, {passive:true});
-
-    // Init
-    document.getElementById("year").textContent = new Date().getFullYear();
-    renderThumbs();
-    show(0);
-    activateFromHash();
-    updateActiveFromScroll();
-  </script>
+  <script type="module" src="assets/js/site.js"></script>
+  <script type="module" src="assets/js/gallery.js"></script>
+  <script type="module" src="assets/js/before-after.js"></script>
 </body>
 </html>

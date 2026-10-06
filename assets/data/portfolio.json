@@ -1,0 +1,26 @@
+[
+  {
+    "id":"p1","category":"Nightlife","caption":"City energy after dark","alt":"Chicago nightlife photograph with city lights and after-dark atmosphere","thumb":"assets/img/portfolio/thumb/p1.webp","card":"assets/img/portfolio/card/p1.webp","large":"assets/img/portfolio/large/p1.webp","largeJpeg":"assets/img/portfolio/large/p1.jpg"
+  },
+  {
+    "id":"p2","category":"Music / Artists","caption":"Live music presence","alt":"Live music performance photographed by Hynoe Flicks","thumb":"assets/img/portfolio/thumb/p2.webp","card":"assets/img/portfolio/card/p2.webp","large":"assets/img/portfolio/large/p2.webp","largeJpeg":"assets/img/portfolio/large/p2.jpg"
+  },
+  {
+    "id":"p3","category":"Portraits","caption":"Warm portrait mood","alt":"Warm low-light portrait photographed by Hynoe Flicks","thumb":"assets/img/portfolio/thumb/p3.webp","card":"assets/img/portfolio/card/p3.webp","large":"assets/img/portfolio/large/p3.webp","largeJpeg":"assets/img/portfolio/large/p3.jpg"
+  },
+  {
+    "id":"p4","category":"Brand / Lifestyle","caption":"Clean brand frame","alt":"Clean lifestyle and brand photograph by Hynoe Flicks","thumb":"assets/img/portfolio/thumb/p4.webp","card":"assets/img/portfolio/card/p4.webp","large":"assets/img/portfolio/large/p4.webp","largeJpeg":"assets/img/portfolio/large/p4.jpg"
+  },
+  {
+    "id":"p5","category":"Music / Artists","caption":"Stage moment","alt":"Performer on stage photographed in low light by Hynoe Flicks","thumb":"assets/img/portfolio/thumb/p5.webp","card":"assets/img/portfolio/card/p5.webp","large":"assets/img/portfolio/large/p5.webp","largeJpeg":"assets/img/portfolio/large/p5.jpg"
+  },
+  {
+    "id":"p6","category":"Portraits","caption":"Editorial portrait","alt":"Editorial portrait with cinematic lighting by Hynoe Flicks","thumb":"assets/img/portfolio/thumb/p6.webp","card":"assets/img/portfolio/card/p6.webp","large":"assets/img/portfolio/large/p6.webp","largeJpeg":"assets/img/portfolio/large/p6.jpg"
+  },
+  {
+    "id":"p7","category":"Portraits","caption":"Close detail","alt":"Close portrait detail photographed by Hynoe Flicks","thumb":"assets/img/portfolio/thumb/p7.webp","card":"assets/img/portfolio/card/p7.webp","large":"assets/img/portfolio/large/p7.webp","largeJpeg":"assets/img/portfolio/large/p7.jpg"
+  },
+  {
+    "id":"p8","category":"Brand / Lifestyle","caption":"Motion and lifestyle","alt":"Lifestyle action photograph with motion by Hynoe Flicks","thumb":"assets/img/portfolio/thumb/p8.webp","card":"assets/img/portfolio/card/p8.webp","large":"assets/img/portfolio/large/p8.webp","largeJpeg":"assets/img/portfolio/large/p8.jpg"
+  }
+]

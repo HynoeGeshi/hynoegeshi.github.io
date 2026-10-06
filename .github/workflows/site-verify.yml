@@ -1,0 +1,37 @@
+name: Hynoe Flicks Site Verify
+
+on:
+  push:
+    branches:
+      - main
+      - 'overhaul/**'
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test dependencies
+        run: python -m pip install --disable-pip-version-check Pillow
+      - name: Python tests
+        run: python -m unittest discover tests -v
+      - name: JavaScript tests
+        run: npm test
+      - name: Generate responsive portfolio derivatives
+        run: python scripts/optimize_portfolio.py --report
+      - name: Verify derivative budgets
+        run: python scripts/optimize_portfolio.py --check
+      - name: Site audit
+        run: python scripts/verify_site.py
