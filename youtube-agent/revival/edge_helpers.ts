@@ -7,25 +7,20 @@ async function token(admin:any,channelId:string,clientId:string,clientSecret:str
 async function yt(access:string,url:string,init:RequestInit={}){const h=new Headers(init.headers||{});h.set('Authorization',`Bearer ${access}`);if(init.body&&!h.has('Content-Type'))h.set('Content-Type','application/json');const r=await fetch(url,{...init,headers:h});const text=await r.text();let b:any={};try{b=text?JSON.parse(text):{};}catch{b={raw:text};}if(!r.ok){const e:any=new Error(b?.error?.errors?.[0]?.reason||b?.error?.message||`YouTube request failed (${r.status})`);e.status=r.status;throw e;}return b;}
 function keepSnippet(s:any,title:string,description:string){const out:any={title,description,categoryId:String(s.categoryId||'20')};if(Array.isArray(s.tags))out.tags=s.tags;if(s.defaultLanguage)out.defaultLanguage=s.defaultLanguage;if(s.defaultAudioLanguage)out.defaultAudioLanguage=s.defaultAudioLanguage;return out;}
 function keepStatus(s:any){const out:any={privacyStatus:'public'};for(const k of ['license','embeddable','publicStatsViewable','selfDeclaredMadeForKids','containsSyntheticMedia'])if(s?.[k]!==undefined)out[k]=s[k];return out;}
-
-
 export {json,token,yt,keepSnippet,keepStatus};
 export async function context(req:Request) {
  const auth=req.headers.get('Authorization');
- if(!auth&&!req.headers.get('x-revival-runner'))throw Error('authentication required');
+ if(!auth)throw Error('authentication required');
  const url=Deno.env.get('SUPABASE_URL')!;
  const pub=envKey('SUPABASE_PUBLISHABLE_KEY','SUPABASE_ANON_KEY','SUPABASE_PUBLISHABLE_KEYS');
  const sec=envKey('SUPABASE_SECRET_KEY','SUPABASE_SERVICE_ROLE_KEY','SUPABASE_SECRET_KEYS');
  if(!pub||!sec)throw Error('server configuration incomplete');
  const admin=createClient(url,String(sec));const body=await req.json();
- const runner=req.headers.get('x-revival-runner');
- if(runner){const {data:valid,error}=await admin.rpc('validate_revival_runner',{p_token:runner,p_channel_id:body.channel_id});if(error||!valid)throw Error('invalid session');const{data:owned}=await admin.from('channels').select('id,youtube_channel_id,youtube_handle').eq('id',body.channel_id).single();if(owned?.youtube_channel_id!=='UCjWR1CZVFkrVk3S-TRrOGGQ'||owned?.youtube_handle!=='@Hynoe')throw Error('channel not owned');return{admin,owned,body};}
- if(!auth)throw Error('authentication required');
  const uc=createClient(url,String(pub),{global:{headers:{Authorization:auth}}});
  const {data:{user}}=await uc.auth.getUser();if(!user)throw Error('invalid session');
  const {data:owned,error}=await uc.from('channels').select('id,youtube_channel_id,youtube_handle').eq('id',body.channel_id).maybeSingle();
  if(error||!owned||owned.youtube_handle!=='@Hynoe'||owned.youtube_channel_id!=='UCjWR1CZVFkrVk3S-TRrOGGQ')throw Error('channel not owned');
- return {admin,owned,body};
+ return {admin,owned,body,user};
 }
 export async function access(admin:any,channelId:string) {
  const {data,error}=await admin.rpc('admin_get_youtube_oauth_client_credentials',{p_channel_id:channelId});if(error)throw error;
