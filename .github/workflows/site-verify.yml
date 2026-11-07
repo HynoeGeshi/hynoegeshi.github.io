@@ -27,6 +27,12 @@ jobs:
         run: python -m pip install --disable-pip-version-check Pillow
       - name: Python tests
         run: python -m unittest discover tests -v
+      - name: Install browser test dependencies
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Browser regression tests
+        run: npm run test:browser
       - name: JavaScript tests
         run: npm test
       - name: Generate responsive portfolio derivatives

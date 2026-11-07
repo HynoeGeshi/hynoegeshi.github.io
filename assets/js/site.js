@@ -9,10 +9,13 @@ export function initSiteChrome() {
   const mobileNav = byId('mobileNav');
   const mobileBook = byId('mobileBook');
   const hero = document.querySelector('.hero, .service-hero');
+  const desktopLayout = window.matchMedia('(min-width: 981px)');
+  toggle?.setAttribute('aria-controls', 'mobileNav');
 
   const closeMenu = () => {
     mobileNav?.classList.remove('open');
     setExpanded(toggle, false);
+    toggle?.setAttribute('aria-label', 'Open menu');
     document.body.style.overflow = '';
   };
 
@@ -20,7 +23,13 @@ export function initSiteChrome() {
     const next = !mobileNav?.classList.contains('open');
     mobileNav?.classList.toggle('open', next);
     setExpanded(toggle, next);
+    toggle?.setAttribute('aria-label', next ? 'Close menu' : 'Open menu');
     document.body.style.overflow = next ? 'hidden' : '';
+  });
+
+  // A menu opened on a phone must not leave desktop scrolling locked.
+  desktopLayout.addEventListener('change', (event) => {
+    if (event.matches && mobileNav?.classList.contains('open')) closeMenu();
   });
 
   mobileNav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));

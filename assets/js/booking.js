@@ -27,13 +27,15 @@ function getFormData(form) {
   return Object.fromEntries(new FormData(form).entries());
 }
 
-function showErrors(form, fields = []) {
+function showErrors(form, fields = [], focus = true) {
   form.querySelectorAll('[data-error-for]').forEach((el) => { el.textContent = ''; });
+  form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
   fields.forEach((field) => {
     const el = form.querySelector(`[data-error-for="${field}"]`);
-    if (el) el.textContent = 'Please complete this field before continuing.';
-    form.elements[field]?.focus?.();
+    if (el) el.textContent = field === 'email' ? 'Please enter a valid email address.' : 'Please complete this field before continuing.';
+    form.querySelectorAll(`[name="${field}"]`).forEach((input) => input.setAttribute('aria-invalid', 'true'));
   });
+  if (focus && fields.length) form.querySelector(`[name="${fields[0]}"]`)?.focus();
 }
 
 function fallbackMailto(payload) {
@@ -62,6 +64,15 @@ function initBooking() {
   const success = document.getElementById('successPanel');
   const formPanel = document.getElementById('bookingPanel');
   let current = 0;
+  let submitting = false;
+  let started = false;
+
+  const trackStart = (service) => {
+    if (!started && normalizeService(service)) {
+      started = true;
+      trackEvent('booking_start', { service });
+    }
+  };
 
   const serviceFromQuery = normalizeService(new URLSearchParams(location.search).get('service'));
   if (serviceFromQuery) {
@@ -93,12 +104,14 @@ function initBooking() {
     const errors = validateStep(stepId, data);
     showErrors(form, errors);
     if (errors.length) return;
+    if (stepId === 'service') trackStart(data.service);
     trackEvent('booking_step_complete', { step: current + 1, service: normalizeService(data.service) || 'unknown' });
     current = Math.min(steps.length - 1, current + 1);
     render();
   };
 
   const back = () => {
+    if (submitting) return;
     current = Math.max(0, current - 1);
     render();
   };
@@ -107,20 +120,33 @@ function initBooking() {
   form.querySelectorAll('[data-back]').forEach((button) => button.addEventListener('click', back));
 
   form.addEventListener('change', (event) => {
-    if (event.target.name === 'service') trackEvent('booking_start', { service: event.target.value });
-  }, { once: true });
+    if (event.target.name === 'service') trackStart(event.target.value);
+  });
+
+  // Enter advances the current step, while textareas retain normal newline behavior.
+  form.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && STEP_IDS[current] !== 'review' && event.target.matches('input:not([type=radio])')) {
+      event.preventDefault();
+      advance();
+    }
+  });
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (submitting) return;
+    if (STEP_IDS[current] !== 'review') {
+      advance();
+      return;
+    }
     const raw = getFormData(form);
     const contactErrors = validateStep('contact', raw);
     const serviceErrors = validateStep('service', raw);
     const scheduleErrors = validateStep('schedule', raw);
     const errors = [...new Set([...serviceErrors, ...scheduleErrors, ...contactErrors])];
     if (errors.length) {
-      showErrors(form, errors);
       current = Math.max(0, STEP_IDS.findIndex((id) => validateStep(id, raw).length));
       render();
+      showErrors(form, errors);
       return;
     }
     if (raw.website) return;
@@ -130,6 +156,7 @@ function initBooking() {
       return;
     }
 
+    submitting = true;
     const payload = buildSubmissionPayload(raw);
     const submitButton = document.getElementById('submitBooking');
     submitButton.disabled = true;
@@ -152,6 +179,7 @@ function initBooking() {
       status.className = 'submit-status show error';
       status.innerHTML = `The request did not send, but your answers are still here. <a href="${fallbackMailto(payload)}">Open a pre-filled email instead</a>.`;
     } finally {
+      submitting = false;
       submitButton.disabled = false;
       submitButton.textContent = 'Send Request';
     }
