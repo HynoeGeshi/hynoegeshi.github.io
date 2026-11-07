@@ -1,0 +1,8 @@
+{
+  "prompt": "Use case: logo-brand. Asset type: production website logo, horizontal lockup with genuine transparent background. Edit target: the supplied current Hynoe logo. Create a Hynoe Flicks photography brand version, preserving the distinctive interlocking gold HN monogram geometry and its glowing elliptical gold ring so it is clearly the SAME Hynoe identity. Keep the warm metallic gold, subtle bright highlights and restrained blue accent of the original. Adapt the layout for a horizontal website logo: the HN monogram within its elliptical ring on the left, with the exact text \"HYNOE\" above \"FLICKS\" on the right in elegant, highly readable gold serif capitals inspired by the original HYNOE lettering. Text must spell H-Y-N-O-E and F-L-I-C-K-S exactly. Keep edges clean and the small logo legible, reduce excessive scattered particles and glow outside the emblem. Composition approximately 3:1, tightly framed with modest even transparent padding, no clipping. No black rectangle, no white rectangle, no mockup, no extra words, no photography tagline, no camera illustration. Preserve the original HN symbol rather than replacing it with HF. Both words should be prominent, FLICKS slightly smaller than HYNOE but still clear.",
+  "mode": "built-in",
+  "reference": "D:/Codex Projects/2026-10-07/go-x20/outputs/Hynoe-Studio/hynoe-logo-black.png",
+  "master": "assets/img/brand/hynoe-flicks-logo.png",
+  "web": "assets/img/brand/hynoe-flicks-logo.webp",
+  "transform": "WebP resized to900x300; square icons use resized emblem crop with dark site background; original generated transparency preserved in master and WebP."
+}

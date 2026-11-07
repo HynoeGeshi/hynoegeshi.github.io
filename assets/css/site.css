@@ -45,7 +45,7 @@ img{max-width:100%;display:block}
 
 .site-header{position:fixed;inset:0 0 auto;z-index:80;padding:14px 0;transition:background .25s,border-color .25s,backdrop-filter .25s}.site-header.scrolled{background:rgba(7,7,10,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:54px}
-.brand{display:inline-flex;align-items:center;gap:11px;min-width:max-content}.brand img{width:44px;height:44px;border-radius:13px}.brand-copy{display:grid}.brand-name{font-weight:800;letter-spacing:.13em;text-transform:uppercase;font-size:.78rem}.brand-sub{font-size:.68rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.brand{display:inline-flex;align-items:center;min-height:54px;min-width:max-content}.brand img{display:block;width:200px;height:auto}.footer-brand .brand img{width:220px}
 .nav-links{display:flex;align-items:center;gap:22px}.nav-links a{font-size:.83rem;font-weight:700;color:#ded6cc;position:relative}.nav-links a:not(.button)::after{content:"";position:absolute;left:0;right:100%;bottom:-8px;height:1px;background:var(--gold);transition:right .2s}.nav-links a:hover::after,.nav-links a[aria-current="page"]::after{right:0}
 .nav-toggle{display:none;width:46px;height:46px;border:1px solid var(--line);border-radius:50%;background:rgba(9,9,12,.65);place-items:center;cursor:pointer}.nav-toggle span,.nav-toggle::before,.nav-toggle::after{content:"";display:block;width:18px;height:1px;background:currentColor;margin:4px auto;transition:.2s}
 .mobile-nav{display:none}
@@ -98,7 +98,7 @@ img{max-width:100%;display:block}
 }
 
 @media(max-width:700px){
-  :root{--radius:22px}.container{width:min(100% - 24px,var(--max))}.site-header{padding:10px 0}.brand-sub{display:none}.brand img{width:40px;height:40px}
+  :root{--radius:22px}.container{width:min(100% - 24px,var(--max))}.site-header{padding:10px 0}.brand img,.footer-brand .brand img{width:160px}
   .hero-content{padding-bottom:48px}.hero-media::after{background:linear-gradient(0deg,rgba(7,7,10,.98) 0%,rgba(7,7,10,.42) 58%,rgba(7,7,10,.26) 100%)}.hero .display{font-size:clamp(3rem,17vw,5.5rem);max-width:8.2ch}.hero .lead{font-size:.98rem}.hero-stats{gap:18px}.scroll-cue{display:none}
   .section{padding:76px 0}.section.compact{padding:58px 0}.section-head{gap:10px;margin-bottom:28px}.section-title{font-size:clamp(2.45rem,12vw,4.2rem)}
   .feature-track{grid-template-columns:1fr 1fr}.feature-cell{padding:20px 16px;min-height:128px}.feature-cell b{font-size:1.12rem}
