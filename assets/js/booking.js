@@ -4,6 +4,7 @@ import { trackEvent } from './analytics.js';
 const EMAILJS_PUBLIC_KEY = 'FgSokmdb81EHSYZkS';
 const EMAILJS_SERVICE_ID = 'service_mp10odw';
 const EMAILJS_TEMPLATE_ID = 'template_h0dss6l';
+const BOOKING_EMAIL = 'hynoe.flicks@gmail.com';
 const STEP_IDS = ['service', 'schedule', 'vision', 'contact', 'review'];
 const startedAt = Date.now();
 
@@ -11,7 +12,7 @@ export async function submitBooking(payload) {
   if (!window.emailjs?.send) throw new Error('Booking provider unavailable');
   if (EMAILJS_PUBLIC_KEY) window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
   await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-    to_email: 'hynoe.flicks@gmail.com',
+    to_email: BOOKING_EMAIL,
     from_name: payload.name,
     reply_to: payload.email,
     service: payload.service,
@@ -38,9 +39,8 @@ function showErrors(form, fields = [], focus = true) {
   if (focus && fields.length) form.querySelector(`[name="${fields[0]}"]`)?.focus();
 }
 
-function fallbackMailto(payload) {
-  const subject = encodeURIComponent(`Booking Request - Hynoe Flicks - ${payload.service || 'Photography'}`);
-  const body = encodeURIComponent([
+function bookingEmailBody(payload) {
+  return [
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
     `Service: ${payload.service}`,
@@ -51,8 +51,7 @@ function fallbackMailto(payload) {
     '',
     'Details:',
     payload.details || ''
-  ].join('\n'));
-  return `mailto:hynoe.flicks@gmail.com?subject=${subject}&body=${body}`;
+  ].join('\n');
 }
 
 function initBooking() {
@@ -61,6 +60,9 @@ function initBooking() {
   const steps = [...form.querySelectorAll('[data-booking-step]')];
   const progress = [...document.querySelectorAll('[data-progress-step]')];
   const status = document.getElementById('submitStatus');
+  const fallback = document.getElementById('bookingFallback');
+  const fallbackLink = fallback.querySelector('a');
+  const fallbackText = document.getElementById('bookingFallbackText');
   const success = document.getElementById('successPanel');
   const formPanel = document.getElementById('bookingPanel');
   let current = 0;
@@ -110,8 +112,17 @@ function initBooking() {
     render();
   };
 
+  const clearSubmissionFeedback = () => {
+    status.className = 'submit-status';
+    status.textContent = '';
+    fallback.hidden = true;
+    fallbackLink.removeAttribute('href');
+    fallbackText.value = '';
+  };
+
   const back = () => {
     if (submitting) return;
+    clearSubmissionFeedback();
     current = Math.max(0, current - 1);
     render();
   };
@@ -138,6 +149,7 @@ function initBooking() {
       advance();
       return;
     }
+    clearSubmissionFeedback();
     const raw = getFormData(form);
     const contactErrors = validateStep('contact', raw);
     const serviceErrors = validateStep('service', raw);
@@ -177,7 +189,12 @@ function initBooking() {
       console.error(error);
       trackEvent('booking_error', { service: payload.service });
       status.className = 'submit-status show error';
-      status.innerHTML = `The request did not send, but your answers are still here. <a href="${fallbackMailto(payload)}">Open a pre-filled email instead</a>.`;
+      status.textContent = 'The request didn’t send. Your answers are still here, and you can email them below.';
+      const subject = `Booking Request - Hynoe Flicks - ${payload.service || 'Photography'}`;
+      const body = bookingEmailBody(payload);
+      fallbackText.value = body;
+      fallbackLink.href = `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      fallback.hidden = false;
     } finally {
       submitting = false;
       submitButton.disabled = false;

@@ -113,6 +113,14 @@
             </div>
             <div class="submit-status" id="submitStatus" role="status" aria-live="polite"></div>
             <div class="booking-actions"><button class="button ghost" type="button" data-back>Back</button><div class="right"><button class="button gold" id="submitBooking" type="submit">Send Request</button></div></div>
+            <div class="booking-fallback" id="bookingFallback" hidden>
+              <a href="mailto:hynoe.flicks@gmail.com">Open a prefilled email</a>
+              <p id="bookingFallbackInstructions">You can also copy the request below and email it to <strong>hynoe.flicks@gmail.com</strong>.</p>
+              <div class="field">
+                <label for="bookingFallbackText">Request text</label>
+                <textarea id="bookingFallbackText" rows="6" readonly aria-describedby="bookingFallbackInstructions"></textarea>
+              </div>
+            </div>
           </div>
         </form>
       </section>

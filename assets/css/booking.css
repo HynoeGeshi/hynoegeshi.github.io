@@ -4,3 +4,7 @@
 @media(max-width:620px){.booking-main{padding-top:calc(var(--nav-h) + 34px)}.booking-aside{padding:24px 20px}.booking-aside h1{font-size:3rem}.booking-card{padding:24px 18px}.choice-grid,.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.booking-actions{align-items:stretch;flex-direction:column}.booking-actions .right{margin-left:0;width:100%}.booking-actions .button{flex:1}.review-row{grid-template-columns:1fr;gap:4px}.booking-progress{margin-top:18px}.progress-step span:first-child{width:26px;height:26px}}
 
 .choice input:focus-visible+label{outline:3px solid var(--gold);outline-offset:3px}
+
+.booking-fallback{margin-top:18px;padding:14px 16px;border:1px solid var(--line);border-radius:15px;font-size:.82rem;overflow-wrap:anywhere}
+.booking-fallback a{color:var(--gold);text-decoration:underline}
+.booking-fallback p{margin:8px 0 12px}
