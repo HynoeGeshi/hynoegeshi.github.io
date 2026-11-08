@@ -64,7 +64,10 @@ function initBooking() {
   const status = document.getElementById('submitStatus');
   const fallback = document.getElementById('bookingFallback');
   const fallbackLink = fallback.querySelector('a');
+  const copyDetails = fallback.querySelector('details');
   const fallbackText = document.getElementById('bookingFallbackText');
+  const submitButton = document.getElementById('submitBooking');
+  const reviewBack = form.querySelector('[data-booking-step="review"] [data-back]');
   const shootSchedule = document.getElementById('shootSchedule');
   const editingSchedule = document.getElementById('editingSchedule');
   const scheduleTitle = document.getElementById('scheduleTitle');
@@ -128,6 +131,7 @@ function initBooking() {
       const key = el.dataset.review;
       el.textContent = data[key] || '—';
     });
+    if (copyDetails) showEmailOption(data);
   };
 
   const advance = () => {
@@ -142,12 +146,26 @@ function initBooking() {
     render();
   };
 
-  const clearSubmissionFeedback = () => {
-    status.className = 'submit-status';
-    status.textContent = '';
+  const hideEmailOption = () => {
     fallback.hidden = true;
     fallbackLink.removeAttribute('href');
     fallbackText.value = '';
+    if (copyDetails) copyDetails.open = false;
+  };
+
+  const showEmailOption = (payload, expand = false) => {
+    const subject = `Booking Request - Hynoe Flicks - ${payload.service || 'Photography'}`;
+    const body = bookingEmailBody(payload, Boolean(editingSchedule) && payload.service === EDITING_SERVICE);
+    fallbackText.value = body;
+    fallbackLink.href = `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (copyDetails) copyDetails.open = expand;
+    fallback.hidden = false;
+  };
+
+  const clearSubmissionFeedback = () => {
+    status.className = 'submit-status';
+    status.textContent = '';
+    hideEmailOption();
   };
 
   const back = () => {
@@ -179,13 +197,13 @@ function initBooking() {
       advance();
       return;
     }
-    clearSubmissionFeedback();
     const raw = getFormData(form);
     const contactErrors = validateStep('contact', raw);
     const serviceErrors = validateStep('service', raw);
     const scheduleErrors = validateStep('schedule', raw);
     const errors = [...new Set([...serviceErrors, ...scheduleErrors, ...contactErrors])];
     if (errors.length) {
+      clearSubmissionFeedback();
       current = Math.max(0, STEP_IDS.findIndex((id) => validateStep(id, raw).length));
       render();
       showErrors(form, errors);
@@ -199,8 +217,9 @@ function initBooking() {
     }
 
     submitting = true;
+    hideEmailOption();
     const payload = buildSubmissionPayload(raw);
-    const submitButton = document.getElementById('submitBooking');
+    reviewBack.disabled = true;
     submitButton.disabled = true;
     submitButton.textContent = 'Sending…';
     status.className = 'submit-status show';
@@ -219,14 +238,11 @@ function initBooking() {
       console.error(error);
       trackEvent('booking_error', { service: payload.service });
       status.className = 'submit-status show error';
-      status.textContent = 'The request didn’t send. Your answers are still here, and you can email them below.';
-      const subject = `Booking Request - Hynoe Flicks - ${payload.service || 'Photography'}`;
-      const body = bookingEmailBody(payload, Boolean(editingSchedule) && payload.service === EDITING_SERVICE);
-      fallbackText.value = body;
-      fallbackLink.href = `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      fallback.hidden = false;
+      status.textContent = 'The site couldn’t confirm the send. Your answers are still here. You can retry or email the request below.';
+      showEmailOption(payload, true);
     } finally {
       submitting = false;
+      reviewBack.disabled = false;
       submitButton.disabled = false;
       submitButton.textContent = 'Send Request';
     }

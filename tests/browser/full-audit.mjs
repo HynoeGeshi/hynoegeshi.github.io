@@ -38,7 +38,7 @@ try{
         (await page.locator('button').evaluateAll(a=>a.map(x=>x.getAttribute('aria-label')||x.textContent.trim()))).forEach(x=>buttons.add(x));
         const images=await page.locator('img').evaluateAll(a=>Promise.all(a.map(async x=>{x.loading='eager';try{await x.decode();return {src:x.getAttribute('src'),ok:x.naturalWidth>0};}catch{return {src:x.getAttribute('src'),ok:false};}})));
         assert.ok(images.every(x=>x.ok),'broken image '+JSON.stringify(images.filter(x=>!x.ok)));
-        const faq=page.locator('details');for(let n=0;n<await faq.count();n++){await faq.nth(n).locator('summary').click();assert.equal(await faq.nth(n).getAttribute('open'),'');await faq.nth(n).locator('summary').click();assert.equal(await faq.nth(n).getAttribute('open'),null);}
+        const faq=page.locator('.faq details');for(let n=0;n<await faq.count();n++){await faq.nth(n).locator('summary').click();assert.equal(await faq.nth(n).getAttribute('open'),'');await faq.nth(n).locator('summary').click();assert.equal(await faq.nth(n).getAttribute('open'),null);}
         if(width<981){await page.locator('#navToggle').click();assert.equal(await page.locator('#navToggle').getAttribute('aria-label'),'Close menu');await page.keyboard.press('Escape');assert.equal(await page.locator('#navToggle').getAttribute('aria-expanded'),'false');assert.notEqual(await page.evaluate(()=>document.body.style.overflow),'hidden');}
         if(path==='index.html'&&width!==320)await page.screenshot({path:resolve(artifactDir,'screenshots/home-'+width+'.jpg'),type:'jpeg',quality:75,fullPage:true});
       });
@@ -66,10 +66,11 @@ try{
     const send = page.locator('#submitBooking');
     const back = page.locator('.booking-step.active [data-back]');
     const next = page.locator('.booking-step.active [data-next]');
-    assert.equal(await fallback.isVisible(), false);
+    assert.equal(await fallback.isVisible(), true);
+    assert.equal(await message.isVisible(), false);
     await page.evaluate(() => qaMode = 'fail');
     await send.click();
-    await fallback.waitFor({ timeout: 3000 });
+    await page.locator('#submitStatus.error').waitFor({ timeout: 3000 });
     const url = new URL(await fallback.locator('a').getAttribute('href'));
     assert.equal(url.protocol, 'mailto:');
     assert.equal(url.pathname, 'hynoe.flicks@gmail.com');
@@ -90,8 +91,9 @@ try{
     assert.equal(await page.locator('#email').inputValue(), 'qa@example.invalid');
     await page.locator('#name').fill('Updated QA Name');
     await next.click();
+    assert.match(await message.inputValue(), /Name: Updated QA Name/);
     await send.click();
-    await fallback.waitFor();
+    await page.locator('#submitStatus.error').waitFor();
     assert.match(await message.inputValue(), /Name: Updated QA Name/);
     await page.evaluate(() => qaMode = 'success');
     await send.click();
@@ -99,6 +101,6 @@ try{
     assert.equal(await fallback.isVisible(), false);
     assert.equal(await page.evaluate(() => qaSends.length), 3);
   });
-  await check('Repeated submit events while sending cannot create duplicate inquiries',async()=>{await readyForReview();await page.evaluate(()=>qaMode='wait');await page.locator('#submitBooking').click();await page.evaluate(()=>{const f=document.getElementById('bookingForm');f.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));f.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));});assert.equal(await page.evaluate(()=>qaSends.length),1);assert.equal(await page.locator('#submitBooking').isDisabled(),true);await page.evaluate(()=>qaRelease());await page.locator('#successPanel.show').waitFor();});
+  await check('Repeated submit events while sending cannot create duplicate inquiries',async()=>{await readyForReview();await page.evaluate(()=>qaMode='wait');await page.locator('#submitBooking').click();await page.evaluate(()=>{const f=document.getElementById('bookingForm');f.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));f.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));});assert.equal(await page.evaluate(()=>qaSends.length),1);assert.equal(await page.locator('#submitBooking').isDisabled(),true);assert.equal(await page.locator('#bookingFallback').isVisible(),false);assert.equal(await page.locator('.booking-step.active [data-back]').isDisabled(),true);await page.evaluate(()=>qaRelease());await page.locator('#successPanel.show').waitFor();});
   await check('No unhandled browser exceptions',async()=>assert.deepEqual(errors,[]));
 }finally{await browser.close();await new Promise(r=>server.close(r));const report={base,checkedAt:new Date().toISOString(),results,pass:results.filter(x=>x.pass).length,fail:results.filter(x=>!x.pass).length,uniqueLinks:links.size,buttonNames:[...buttons],unhandledErrors:errors,provider:'All sends simulated; no emails sent'};await writeFile(resolve(artifactDir,'full-audit-results.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));process.exitCode=report.fail?1:0;}

@@ -9,3 +9,4 @@
 .booking-fallback{margin-top:18px;padding:14px 16px;border:1px solid var(--line);border-radius:15px;font-size:.82rem;overflow-wrap:anywhere}
 .booking-fallback a{color:var(--gold);text-decoration:underline}
 .booking-fallback p{margin:8px 0 12px}
+.booking-fallback summary{cursor:pointer}
