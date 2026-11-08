@@ -1,3 +1,5 @@
+export const EDITING_SERVICE = 'Editing Only';
+
 const SERVICES = new Set([
   'Portraits',
   'Nightlife',
@@ -5,7 +7,7 @@ const SERVICES = new Set([
   'Music / Artist Content',
   'Events',
   'Brand + Lifestyle',
-  'Editing Only'
+  EDITING_SERVICE
 ]);
 
 export function normalizeService(value) {
@@ -18,7 +20,7 @@ export function validateStep(stepId, data = {}) {
   if (stepId === 'service') {
     if (!normalizeService(data.service)) missing.push('service');
   }
-  if (stepId === 'schedule') {
+  if (stepId === 'schedule' && !(normalizeService(data.service) === EDITING_SERVICE && Object.hasOwn(data, 'editingDeadline'))) {
     if (!String(data.dateRange ?? '').trim()) missing.push('dateRange');
     if (!String(data.location ?? '').trim()) missing.push('location');
   }
@@ -35,7 +37,12 @@ export function validateStep(stepId, data = {}) {
 
 export function buildSubmissionPayload(data = {}) {
   const allowed = ['service', 'dateRange', 'location', 'details', 'references', 'name', 'email', 'budgetNote'];
-  return Object.fromEntries(allowed.map((key) => [key, String(data[key] ?? '').trim()]));
+  const payload = Object.fromEntries(allowed.map((key) => [key, String(data[key] ?? '').trim()]));
+  if (payload.service === EDITING_SERVICE && Object.hasOwn(data, 'editingDeadline')) {
+    payload.dateRange = String(data.editingDeadline ?? '').trim() || 'Flexible';
+    payload.location = '';
+  }
+  return payload;
 }
 
 export const BOOKING_SERVICES = [...SERVICES];

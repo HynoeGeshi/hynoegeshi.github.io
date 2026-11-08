@@ -27,3 +27,19 @@ test('buildSubmissionPayload keeps booking fields and excludes internal analytic
   assert.equal('analyticsSession' in payload, false);
   assert.equal('currentStep' in payload, false);
 });
+
+test('editing deadline is optional and shoot details stay out of editing requests', () => {
+  assert.deepEqual(validateStep('schedule', { service: 'Editing Only', editingDeadline: '' }), []);
+  assert.deepEqual(validateStep('schedule', { service: 'Events' }), ['dateRange', 'location']);
+  const values = { service: 'Editing Only', dateRange: 'November 20', location: 'Chicago', editingDeadline: '' };
+  const flexible = buildSubmissionPayload(values);
+  assert.equal(flexible.dateRange, 'Flexible');
+  assert.equal(flexible.location, '');
+  assert.equal(buildSubmissionPayload({ ...values, editingDeadline: ' November 30 ' }).dateRange, 'November 30');
+  const shoot = buildSubmissionPayload({ ...values, service: 'Events', editingDeadline: 'November 30' });
+  assert.equal(shoot.dateRange, 'November 20');
+  assert.equal(shoot.location, 'Chicago');
+  const legacy = { service: 'Editing Only', dateRange: 'November 20', location: 'Chicago' };
+  assert.equal(buildSubmissionPayload(legacy).dateRange, 'November 20');
+  assert.equal(buildSubmissionPayload(legacy).location, 'Chicago');
+});

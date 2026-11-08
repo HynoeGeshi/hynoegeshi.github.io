@@ -1,4 +1,4 @@
-import { buildSubmissionPayload, normalizeService, validateStep } from './booking-utils.mjs';
+import { buildSubmissionPayload, EDITING_SERVICE, normalizeService, validateStep } from './booking-utils.mjs?v=editing-timing';
 import { trackEvent } from './analytics.js';
 
 const EMAILJS_PUBLIC_KEY = 'FgSokmdb81EHSYZkS';
@@ -39,13 +39,15 @@ function showErrors(form, fields = [], focus = true) {
   if (focus && fields.length) form.querySelector(`[name="${fields[0]}"]`)?.focus();
 }
 
-function bookingEmailBody(payload) {
+function bookingEmailBody(payload, editing) {
+  const schedule = editing
+    ? [`Delivery deadline: ${payload.dateRange}`]
+    : [`Date range: ${payload.dateRange}`, `Location: ${payload.location}`];
   return [
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
     `Service: ${payload.service}`,
-    `Date range: ${payload.dateRange}`,
-    `Location: ${payload.location}`,
+    ...schedule,
     `Budget note: ${payload.budgetNote || ''}`,
     `References: ${payload.references || ''}`,
     '',
@@ -63,6 +65,15 @@ function initBooking() {
   const fallback = document.getElementById('bookingFallback');
   const fallbackLink = fallback.querySelector('a');
   const fallbackText = document.getElementById('bookingFallbackText');
+  const shootSchedule = document.getElementById('shootSchedule');
+  const editingSchedule = document.getElementById('editingSchedule');
+  const scheduleTitle = document.getElementById('scheduleTitle');
+  const scheduleCopy = document.getElementById('scheduleCopy');
+  const scheduleProgress = document.getElementById('scheduleProgress');
+  const visionTitle = document.getElementById('visionTitle');
+  const visionCopy = document.getElementById('visionCopy');
+  const reviewDateLabel = document.getElementById('reviewDateLabel');
+  const reviewLocationRow = document.getElementById('reviewLocationRow');
   const success = document.getElementById('successPanel');
   const formPanel = document.getElementById('bookingPanel');
   let current = 0;
@@ -83,13 +94,32 @@ function initBooking() {
   }
 
   const render = () => {
+    const editing = editingSchedule && form.elements.service.value === EDITING_SERVICE;
+    if (editingSchedule) {
+      shootSchedule.hidden = editing;
+      editingSchedule.hidden = !editing;
+      scheduleTitle.textContent = editing ? 'When do you need the edited photos?' : 'When and where?';
+      scheduleCopy.textContent = editing
+        ? 'Leave this blank if your timing is flexible.'
+        : 'A range is fine if the date is not locked yet.';
+      scheduleProgress.textContent = editing ? 'Timing' : 'Date + place';
+      visionTitle.textContent = editing ? 'What would you like edited?' : 'What should it feel like?';
+      visionCopy.textContent = editing
+        ? 'Tell me how many photos you have, what you want changed, and where the final images will appear.'
+        : 'References help, but you do not need a full creative brief.';
+      reviewDateLabel.textContent = editing ? 'Delivery deadline' : 'Date';
+      reviewLocationRow.hidden = editing;
+    }
     steps.forEach((step, index) => step.classList.toggle('active', index === current));
     progress.forEach((step, index) => {
       step.classList.toggle('active', index === current);
       step.classList.toggle('done', index < current);
     });
     if (STEP_IDS[current] === 'review') fillReview();
-    steps[current]?.querySelector('input, textarea, button, select')?.focus?.({ preventScroll: true });
+    const firstField = STEP_IDS[current] === 'schedule'
+      ? form.elements[editing ? 'editingDeadline' : 'dateRange']
+      : steps[current]?.querySelector('input, textarea, button, select');
+    firstField?.focus({ preventScroll: true });
   };
 
   const fillReview = () => {
@@ -191,7 +221,7 @@ function initBooking() {
       status.className = 'submit-status show error';
       status.textContent = 'The request didn’t send. Your answers are still here, and you can email them below.';
       const subject = `Booking Request - Hynoe Flicks - ${payload.service || 'Photography'}`;
-      const body = bookingEmailBody(payload);
+      const body = bookingEmailBody(payload, Boolean(editingSchedule) && payload.service === EDITING_SERVICE);
       fallbackText.value = body;
       fallbackLink.href = `mailto:${BOOKING_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       fallback.hidden = false;
