@@ -55,7 +55,11 @@ try {
     const emailOption = page.locator('#bookingFallback');
     assert.equal(await emailOption.isVisible(), true);
     assert.equal(await page.evaluate(() => testSends.length), 0);
-    const draft = new URL(await emailOption.getByRole('link', { name: 'Open a prefilled email' }).getAttribute('href'));
+    const draftLink = emailOption.getByRole('link', { name: 'Open a prefilled email' });
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'bookingReviewTitle');
+    await page.keyboard.press('Tab');
+    assert.equal(await draftLink.evaluate(link => document.activeElement === link), true);
+    const draft = new URL(await draftLink.getAttribute('href'));
     assert.equal(draft.pathname, 'hynoe.flicks@gmail.com');
     assert.match(draft.searchParams.get('body'), /Eight photos for a website/);
     const requestText = page.locator('#bookingFallbackText');

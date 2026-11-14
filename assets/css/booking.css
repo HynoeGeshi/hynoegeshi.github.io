@@ -5,8 +5,10 @@
 
 .choice input:focus-visible+label{outline:3px solid var(--gold);outline-offset:3px}
 .booking-step [hidden]{display:none}
+#bookingReviewTitle{scroll-margin-top:calc(var(--nav-h) + 16px)}
 
 .booking-fallback{margin-top:18px;padding:14px 16px;border:1px solid var(--line);border-radius:15px;font-size:.82rem;overflow-wrap:anywhere}
-.booking-fallback a{color:var(--gold);text-decoration:underline}
+.booking-fallback a:not(.button){color:var(--gold);text-decoration:underline}
 .booking-fallback p{margin:8px 0 12px}
 .booking-fallback summary{cursor:pointer}
+.booking-fallback > .button + details{margin-top:12px}

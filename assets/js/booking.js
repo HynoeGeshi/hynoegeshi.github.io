@@ -67,6 +67,8 @@ function initBooking() {
   const copyDetails = fallback.querySelector('details');
   const fallbackText = document.getElementById('bookingFallbackText');
   const submitButton = document.getElementById('submitBooking');
+  const submitLabel = submitButton.textContent;
+  const reviewTitle = document.getElementById('bookingReviewTitle');
   const reviewBack = form.querySelector('[data-booking-step="review"] [data-back]');
   const shootSchedule = document.getElementById('shootSchedule');
   const editingSchedule = document.getElementById('editingSchedule');
@@ -121,8 +123,8 @@ function initBooking() {
     if (STEP_IDS[current] === 'review') fillReview();
     const firstField = STEP_IDS[current] === 'schedule'
       ? form.elements[editing ? 'editingDeadline' : 'dateRange']
-      : steps[current]?.querySelector('input, textarea, button, select');
-    firstField?.focus({ preventScroll: true });
+      : steps[current]?.querySelector('[tabindex="-1"], input, textarea, button, select');
+    firstField?.focus({ preventScroll: firstField !== reviewTitle });
   };
 
   const fillReview = () => {
@@ -238,13 +240,14 @@ function initBooking() {
       console.error(error);
       trackEvent('booking_error', { service: payload.service });
       status.className = 'submit-status show error';
-      status.textContent = 'The site couldn’t confirm the send. Your answers are still here. You can retry or email the request below.';
+      status.textContent = 'The site couldn’t confirm the send. Your answers are still here. You can open the prefilled email or retry.';
       showEmailOption(payload, true);
+      if (reviewTitle && document.activeElement === document.body) fallbackLink.focus();
     } finally {
       submitting = false;
       reviewBack.disabled = false;
       submitButton.disabled = false;
-      submitButton.textContent = 'Send Request';
+      submitButton.textContent = submitLabel;
     }
   });
 
