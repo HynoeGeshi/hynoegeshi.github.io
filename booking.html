@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="Send your date, location and vision in a short five-step request.">
   <meta name="twitter:image" content="https://hynoeflicks.com/assets/img/portfolio/large/p3.jpg">
   <link rel="stylesheet" href="assets/css/site.css">
-  <link rel="stylesheet" href="assets/css/booking.css?v=email-first">
+  <link rel="stylesheet" href="assets/css/booking.css?v=simpler-pages">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Hynoe Flicks","item":"https://hynoeflicks.com/"},{"@type":"ListItem","position":2,"name":"Book a Shoot","item":"https://hynoeflicks.com/booking.html"}]}
   </script>
@@ -40,9 +40,7 @@
   <main class="booking-main" id="main">
     <div class="container booking-shell">
       <aside class="booking-aside">
-        <span class="eyebrow">Booking request</span>
-        <h1>Tell me what we’re making.</h1>
-        <p>Five short steps. Your answers stay in the form if you go back or if sending ever fails.</p>
+        <h1>Book a shoot</h1>
         <div class="booking-progress" aria-label="Booking progress">
           <div class="progress-step active" data-progress-step><span>1</span><span>Service</span></div>
           <div class="progress-step" data-progress-step><span>2</span><span id="scheduleProgress">Date + place</span></div>
@@ -50,7 +48,7 @@
           <div class="progress-step" data-progress-step><span>4</span><span>Contact</span></div>
           <div class="progress-step" data-progress-step><span>5</span><span>Review</span></div>
         </div>
-        <p class="booking-note">Prefer email? <a href="mailto:hynoe.flicks@gmail.com">hynoe.flicks@gmail.com</a></p>
+        <p class="booking-note">Questions? <a href="mailto:hynoe.flicks@gmail.com">Email Hynoe Flicks</a></p>
       </aside>
 
       <section class="booking-card" id="bookingPanel" aria-label="Booking request form">
@@ -58,7 +56,7 @@
           <div class="honeypot" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
 
           <div class="booking-step active" data-booking-step="service">
-            <span class="step-kicker">Step 1 of 5</span><h2>What do you need?</h2><p class="step-copy">Pick the closest fit. The details can be adjusted once we talk.</p>
+            <span class="step-kicker">Step 1 of 5</span><h2>Choose a service</h2>
             <div class="choice-grid">
               <div class="choice"><input id="servicePortraits" type="radio" name="service" aria-describedby="serviceError" value="Portraits"><label for="servicePortraits"><strong>Portraits</strong><small>Individual, editorial or lifestyle portraits with direction.</small></label></div>
               <div class="choice"><input id="serviceNightlife" type="radio" name="service" aria-describedby="serviceError" value="Nightlife"><label for="serviceNightlife"><strong>Nightlife</strong><small>Clubs, venues, parties and after-dark atmosphere.</small></label></div>
@@ -109,9 +107,9 @@
               <div class="review-row"><b>Service</b><span data-review="service"></span></div>
               <div class="review-row"><b id="reviewDateLabel">Date</b><span data-review="dateRange"></span></div>
               <div class="review-row" id="reviewLocationRow"><b>Location</b><span data-review="location"></span></div>
-              <div class="review-row"><b>Vision</b><span data-review="details"></span></div>
-              <div class="review-row"><b>References</b><span data-review="references"></span></div>
-              <div class="review-row"><b>Budget note</b><span data-review="budgetNote"></span></div>
+              <div class="review-row" data-optional-review><b>Vision</b><span data-review="details"></span></div>
+              <div class="review-row" data-optional-review><b>References</b><span data-review="references"></span></div>
+              <div class="review-row" data-optional-review><b>Budget note</b><span data-review="budgetNote"></span></div>
               <div class="review-row"><b>Name</b><span data-review="name"></span></div>
               <div class="review-row"><b>Email</b><span data-review="email"></span></div>
             </div>
@@ -140,6 +138,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
   <script type="module" src="assets/js/site.js"></script>
-  <script type="module" src="assets/js/booking.js?v=email-first"></script>
+  <script type="module" src="assets/js/booking.js?v=simpler-pages"></script>
 </body>
 </html>

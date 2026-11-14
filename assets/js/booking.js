@@ -129,9 +129,11 @@ function initBooking() {
 
   const fillReview = () => {
     const data = buildSubmissionPayload(getFormData(form));
-    document.querySelectorAll('[data-review]').forEach((el) => {
-      const key = el.dataset.review;
-      el.textContent = data[key] || '—';
+    form.querySelectorAll('[data-review]').forEach((el) => {
+      const value = data[el.dataset.review];
+      el.textContent = value || '—';
+      const row = el.closest('[data-optional-review]');
+      if (row) row.hidden = !value;
     });
     if (copyDetails) showEmailOption(data);
   };

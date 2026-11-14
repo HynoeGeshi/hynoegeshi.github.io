@@ -52,6 +52,9 @@ try {
     await next.click();
     assert.equal(await page.locator('[data-review="location"]').isVisible(), false);
     assert.equal(await page.locator('[data-review="dateRange"]').textContent(), 'Flexible');
+    assert.equal(await page.locator('[data-review="details"]').isVisible(), true);
+    assert.equal(await page.locator('[data-review="references"]').isVisible(), false);
+    assert.equal(await page.locator('[data-review="budgetNote"]').isVisible(), false);
     const emailOption = page.locator('#bookingFallback');
     assert.equal(await emailOption.isVisible(), true);
     assert.equal(await page.evaluate(() => testSends.length), 0);
