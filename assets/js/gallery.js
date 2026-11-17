@@ -1,24 +1,17 @@
 import { nextIndex, normalizeCategory, previousIndex } from './gallery-utils.mjs';
 import { trackEvent } from './analytics.js';
 
-function picture(item, loading = 'lazy') {
-  const img = document.createElement('img');
-  img.src = item.card || item.large || item.thumb;
-  img.alt = item.alt || item.caption || 'Hynoe Flicks portfolio photograph';
-  img.loading = loading;
-  img.decoding = 'async';
-  if (item.width) img.width = item.width;
-  if (item.height) img.height = item.height;
-  img.addEventListener('error', () => {
-    img.hidden = true;
-    img.closest('.gallery-item')?.classList.add('image-failed');
-  }, { once: true });
-  return img;
-}
-
-export function initGallery(root, items = []) {
-  if (!root || !items.length) return;
-  const grid = root.querySelector('[data-gallery-grid]');
+export function initGallery(root) {
+  const grid = root?.querySelector('[data-gallery-grid]');
+  if (!grid) return;
+  const items = [...grid.querySelectorAll('a.gallery-item')].map((link) => ({
+    link,
+    image: link.querySelector('img'),
+    category: link.querySelector('.gallery-meta b').textContent,
+    caption: link.querySelector('.gallery-meta span').textContent,
+  }));
+  if (!items.length) return;
+  const controls = root.querySelector('[data-gallery-controls]');
   const filters = [...root.querySelectorAll('[data-gallery-filter]')];
   const lightbox = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightboxImage');
@@ -32,34 +25,25 @@ export function initGallery(root, items = []) {
   let lastFocus = null;
   let touchStartX = 0;
 
-  const render = () => {
-    visibleItems = activeCategory === 'all'
-      ? items
-      : items.filter((item) => normalizeCategory(item.category) === activeCategory);
-    grid.innerHTML = '';
-    visibleItems.forEach((item, index) => {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'gallery-item';
-      button.dataset.galleryIndex = String(index);
-      button.setAttribute('aria-label', `Open ${item.caption || item.category || 'portfolio image'}`);
-      button.appendChild(picture(item));
-      const meta = document.createElement('span');
-      meta.className = 'gallery-meta';
-      meta.innerHTML = `<span>${item.caption || 'Hynoe Flicks'}</span><b>${item.category || 'Portfolio'}</b>`;
-      button.appendChild(meta);
-      button.addEventListener('click', () => openLightbox(index, button));
-      grid.appendChild(button);
-    });
+  const selectCategory = (filter) => {
+    const category = normalizeCategory(filter?.dataset.galleryFilter);
+    if (category !== activeCategory) {
+      activeCategory = category;
+      visibleItems = category === 'all'
+        ? items
+        : items.filter((item) => normalizeCategory(item.category) === category);
+      grid.replaceChildren(...visibleItems.map((item) => item.link));
+    }
+    filters.forEach((button) => button.setAttribute('aria-pressed', String(button === filter)));
     trackEvent('portfolio_view', { category: activeCategory, count: visibleItems.length });
   };
 
   const updateLightbox = () => {
     const item = visibleItems[activeIndex];
     if (!item || !lbImg) return;
-    lbImg.src = item.large || item.card || item.thumb;
-    lbImg.alt = item.alt || item.caption || 'Hynoe Flicks portfolio photograph';
-    if (lbCaption) lbCaption.textContent = `${item.category || 'Portfolio'} — ${item.caption || 'Hynoe Flicks'}`;
+    lbImg.src = item.link.href;
+    lbImg.alt = item.image.alt;
+    if (lbCaption) lbCaption.textContent = `${item.category} — ${item.caption}`;
   };
 
   const openLightbox = (index, trigger) => {
@@ -89,12 +73,21 @@ export function initGallery(root, items = []) {
 
   filters.forEach((filter) => {
     filter.addEventListener('click', () => {
-      activeCategory = normalizeCategory(filter.dataset.galleryFilter);
-      filters.forEach((button) => button.setAttribute('aria-pressed', button === filter ? 'true' : 'false'));
-      render();
+      selectCategory(filter);
       trackEvent('portfolio_category_click', { category: activeCategory });
     });
   });
+
+  if (lightbox && lbImg) {
+    items.forEach((item) => {
+      item.link.setAttribute('aria-haspopup', 'dialog');
+      item.link.addEventListener('click', (event) => {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        openLightbox(visibleItems.indexOf(item), item.link);
+      });
+    });
+  }
 
   close?.addEventListener('click', closeLightbox);
   prev?.addEventListener('click', () => step(-1));
@@ -119,22 +112,59 @@ export function initGallery(root, items = []) {
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     }
   });
-  render();
+  const filterFromFragment = () => filters.find((filter) => filter.dataset.galleryFragment === window.location.hash.slice(1));
+  window.addEventListener('hashchange', () => {
+    const filter = filterFromFragment();
+    if (filter) selectCategory(filter);
+  });
+  selectCategory(filterFromFragment() || filters[0]);
+  if (controls) controls.hidden = false;
 }
 
-async function boot() {
-  const root = document.querySelector('[data-gallery]');
-  if (!root) return;
-  try {
-    const response = await fetch('assets/data/portfolio.json', { cache: 'no-store' });
-    if (!response.ok) throw new Error(`Portfolio request failed: ${response.status}`);
-    const items = await response.json();
-    initGallery(root, items);
-  } catch (error) {
-    console.error(error);
-    const grid = root.querySelector('[data-gallery-grid]');
-    if (grid) grid.innerHTML = '<div class="gallery-empty">Portfolio is being refreshed. You can still book a shoot or contact Hynoe Flicks directly.</div>';
+function legacyCard(item) {
+  const caption = item.caption || 'Hynoe Flicks';
+  const category = item.category || 'Portfolio';
+  const link = document.createElement('a');
+  link.className = 'gallery-item';
+  link.href = item.large || item.card || item.thumb;
+  link.setAttribute('aria-label', `Open ${caption} ${category}`);
+  const image = document.createElement('img');
+  image.src = item.card || item.large || item.thumb;
+  image.alt = item.alt || caption;
+  image.loading = 'lazy';
+  image.decoding = 'async';
+  const meta = document.createElement('span');
+  meta.className = 'gallery-meta';
+  const captionLabel = document.createElement('span');
+  captionLabel.textContent = caption;
+  const categoryLabel = document.createElement('b');
+  categoryLabel.textContent = category;
+  meta.append(captionLabel, ' ', categoryLabel);
+  link.append(image, meta);
+  return link;
+}
+
+async function bootGallery(root) {
+  const grid = root?.querySelector('[data-gallery-grid]');
+  if (!grid) return;
+
+  // An older homepage can still request this module by its unversioned URL.
+  if (!grid.childElementCount && !root.querySelector('[data-gallery-controls]')) {
+    try {
+      const response = await fetch('assets/data/portfolio.json', { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Portfolio request failed: ${response.status}`);
+      const items = await response.json();
+      grid.replaceChildren(...items.map(legacyCard));
+    } catch (error) {
+      console.error(error);
+      const message = document.createElement('div');
+      message.className = 'gallery-empty';
+      message.textContent = 'Portfolio is being refreshed. You can still request a quote or contact Hynoe Flicks directly.';
+      grid.replaceChildren(message);
+      return;
+    }
   }
+  initGallery(root);
 }
 
-boot();
+bootGallery(document.querySelector('[data-gallery]'));

@@ -5,13 +5,14 @@ import { normalizeService, validateStep, buildSubmissionPayload } from '../../as
 test('normalizeService accepts known services and rejects unknown values', () => {
   assert.equal(normalizeService('Editing Only'), 'Editing Only');
   assert.equal(normalizeService('Nightlife'), 'Nightlife');
+  assert.equal(normalizeService(' Music + Events '), 'Music / Artist Content');
   assert.equal(normalizeService('Totally Fake Package'), '');
 });
 
 test('validateStep checks only fields required for that step', () => {
   assert.deepEqual(validateStep('service', { service: '' }), ['service']);
   assert.deepEqual(validateStep('service', { service: 'Portraits' }), []);
-  assert.deepEqual(validateStep('schedule', { dateRange: '', location: 'Chicago' }), ['dateRange']);
+  assert.deepEqual(validateStep('schedule', { service: 'Nightlife', dateRange: '', location: '' }), []);
   assert.deepEqual(validateStep('contact', { name: 'T', email: 'bad' }), ['email']);
   assert.deepEqual(validateStep('contact', { name: 'T', email: 't@example.com' }), []);
 });
@@ -30,7 +31,7 @@ test('buildSubmissionPayload keeps booking fields and excludes internal analytic
 
 test('editing deadline is optional and shoot details stay out of editing requests', () => {
   assert.deepEqual(validateStep('schedule', { service: 'Editing Only', editingDeadline: '' }), []);
-  assert.deepEqual(validateStep('schedule', { service: 'Events' }), ['dateRange', 'location']);
+  assert.deepEqual(validateStep('schedule', { service: 'Events' }), []);
   const values = { service: 'Editing Only', dateRange: 'November 20', location: 'Chicago', editingDeadline: '' };
   const flexible = buildSubmissionPayload(values);
   assert.equal(flexible.dateRange, 'Flexible');
@@ -42,4 +43,10 @@ test('editing deadline is optional and shoot details stay out of editing request
   const legacy = { service: 'Editing Only', dateRange: 'November 20', location: 'Chicago' };
   assert.equal(buildSubmissionPayload(legacy).dateRange, 'November 20');
   assert.equal(buildSubmissionPayload(legacy).location, 'Chicago');
+});
+
+test('blank photography timing stays blank in the submission payload', () => {
+  const payload = buildSubmissionPayload({ service: 'Nightlife', dateRange: ' ', location: '', editingDeadline: 'November 30' });
+  assert.equal(payload.dateRange, '');
+  assert.equal(payload.location, '');
 });

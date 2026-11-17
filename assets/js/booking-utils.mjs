@@ -12,6 +12,7 @@ const SERVICES = new Set([
 
 export function normalizeService(value) {
   const candidate = String(value ?? '').trim();
+  if (candidate === 'Music + Events') return 'Music / Artist Content';
   return SERVICES.has(candidate) ? candidate : '';
 }
 
@@ -19,13 +20,6 @@ export function validateStep(stepId, data = {}) {
   const missing = [];
   if (stepId === 'service') {
     if (!normalizeService(data.service)) missing.push('service');
-  }
-  if (stepId === 'schedule' && !(normalizeService(data.service) === EDITING_SERVICE && Object.hasOwn(data, 'editingDeadline'))) {
-    if (!String(data.dateRange ?? '').trim()) missing.push('dateRange');
-    if (!String(data.location ?? '').trim()) missing.push('location');
-  }
-  if (stepId === 'vision') {
-    return missing;
   }
   if (stepId === 'contact') {
     if (!String(data.name ?? '').trim()) missing.push('name');

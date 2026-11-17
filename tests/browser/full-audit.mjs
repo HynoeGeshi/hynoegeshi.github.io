@@ -8,24 +8,44 @@ const root=resolve(import.meta.dirname,'../..');
 const pages=['index.html','booking.html','nightlife-photographer-chicago.html','portrait-photographer-chicago.html','event-photographer-chicago.html','music-photographer-chicago.html','brand-photographer-chicago.html','photo-editing-retouching.html'];
 const artifactDir = resolve(process.env.FLICKS_QA_DIR || resolve(root, '.qa-artifacts'));
 await mkdir(artifactDir, { recursive: true });
-const mime={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml','.jpg':'image/jpeg','.webp':'image/webp','.webmanifest':'application/manifest+json'};
-const server=createServer(async(req,res)=>{try{const url=new URL(req.url,'http://localhost');const file=resolve(root,'.'+(url.pathname==='/'?'/index.html':decodeURIComponent(url.pathname)));if(!file.startsWith(root+sep)){res.writeHead(403).end();return;}const data=await readFile(file);res.writeHead(200,{'Content-Type':mime[extname(file)]||'application/octet-stream','Cache-Control':'no-store'});res.end(data);}catch{res.writeHead(404).end();}});
+const mime={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml','.jpg':'image/jpeg','.webp':'image/webp','.webmanifest':'application/manifest+json','.woff2':'font/woff2'};
+const server = createServer(async (req, res) => {
+  try {
+    const url = new URL(req.url, 'http://localhost');
+    const file = resolve(root, '.' + (url.pathname === '/' ? '/index.html' : decodeURIComponent(url.pathname)));
+    if (!file.startsWith(root + sep)) { res.writeHead(403).end(); return; }
+    const data = await readFile(file);
+    const providerMock = url.pathname === '/booking.html' && url.searchParams.get('test-site-send') === 'enabled';
+    res.writeHead(200, {'Content-Type':mime[extname(file)] || 'application/octet-stream','Cache-Control':'no-store'});
+    res.end(providerMock ? data.toString().replace('data-site-send="paused"', 'data-site-send="enabled"') : data);
+  } catch { res.writeHead(404).end(); }
+});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const base='http://127.0.0.1:'+server.address().port;
 const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_EXECUTABLE_PATH || undefined,args:['--disable-gpu']});
-const context=await browser.newContext({viewport:{width:1280,height:900}});
+const context=await browser.newContext({viewport:{width:1280,height:900},serviceWorkers:'block'});
 const errors=[],results=[],links=new Set(),buttons=new Set();
 context.on('page',p=>p.on('pageerror',e=>errors.push(e.message)));
-await context.route('**/*', route => new URL(route.request().url()).origin === base ? route.continue() : route.abort());
+await context.route('**/*', route => new URL(route.request().url()).origin === base && route.request().method() === 'GET' ? route.continue() : route.abort());
 await context.route('https://cdn.jsdelivr.net/**',r=>r.fulfill({contentType:'text/javascript',body:'window.emailjs={init(){},async send(...args){window.qaSends.push(args);if(window.qaMode==="fail")throw new Error("Expected simulated provider failure");if(window.qaMode==="wait")await new Promise(r=>window.qaRelease=r);return {status:200};}};'}));
-await context.route('https://fonts.googleapis.com/**',r=>r.fulfill({contentType:'text/css',body:''}));
 await context.addInitScript(()=>{window.qaSends=[];window.qaMode='success';window.qaEvents=[];window.addEventListener('hynoe:analytics',e=>qaEvents.push(e.detail));});
 const page=await context.newPage();
 await mkdir(resolve(artifactDir,'screenshots'),{recursive:true});
 async function check(name,fn){try{await fn();results.push({name,pass:true});}catch(e){results.push({name,pass:false,error:e.message});}}
 async function go(path){const r=await page.goto(new URL(path,base).href);assert.equal(r.status(),200);await page.waitForFunction(()=>document.getElementById('navToggle')?.getAttribute('aria-controls')==='mobileNav');}
-async function readyForReview(){await go('/booking.html?service=Nightlife');await page.locator('[data-next]').first().click();await page.locator('#dateRange').fill('November 20');await page.locator('#location').fill('Chicago');await page.locator('.booking-step.active [data-next]').click();await page.locator('#details').fill('Private website QA. No real inquiry.');await page.locator('#references').fill('https://example.com/moodboard');await page.locator('#budgetNote').fill('500 dollars');await page.locator('.booking-step.active [data-next]').click();await page.locator('#name').fill('Website QA');await page.locator('#email').fill('qa@example.invalid');await page.locator('.booking-step.active [data-next]').click();await page.waitForTimeout(1900);}
+async function readyForReview(){await go('/booking.html?service=Nightlife&test-site-send=enabled');await page.locator('#dateRange').fill('November 20');await page.locator('#location').fill('Chicago');await page.locator('.booking-step.active [data-next]').click();await page.locator('#details').fill('Private website QA. No real inquiry.');await page.locator('#references').fill('https://example.com/moodboard');await page.locator('#budgetNote').fill('500 dollars');await page.locator('.booking-step.active [data-next]').click();await page.locator('#name').fill('Website QA');await page.locator('#email').fill('qa@example.invalid');await page.locator('.booking-step.active [data-next]').click();await page.waitForTimeout(1900);}
 try{
+  await check('both brand font families load from the site',async()=>{
+    await go('/');
+    const fonts = await page.evaluate(async () => {
+      const loaded = await Promise.all([
+        document.fonts.load('400 16px Manrope', 'Chicago'),
+        document.fonts.load('700 32px "Playfair Display"', 'Hynoe Flicks')
+      ]);
+      return loaded.map(faces => faces.some(face => face.status === 'loaded'));
+    });
+    assert.deepEqual(fonts, [true, true]);
+  });
   for(const width of [1280,390,320]){
     await page.setViewportSize({width,height:900});
     for(const path of pages){
@@ -54,8 +74,42 @@ try{
     await page.locator('.gallery-item').first().click();await page.locator('#lightbox').click({position:{x:2,y:2}});assert.equal(await page.locator('#lightbox').getAttribute('aria-hidden'),'true');
   });
   const serviceRoutes={'nightlife-photographer-chicago.html':'Nightlife','portrait-photographer-chicago.html':'Portraits','event-photographer-chicago.html':'Events','music-photographer-chicago.html':'Music / Artist Content','brand-photographer-chicago.html':'Brand + Lifestyle','photo-editing-retouching.html':'Editing Only'};
-  for(const [path,service]of Object.entries(serviceRoutes))await check(path+' booking CTA selects '+service,async()=>{await go('/'+path);await page.locator('a[href*="booking.html?service="]').first().click();await page.waitForFunction(()=>document.querySelector('input[name=service]:checked'));assert.equal(await page.locator('input[name=service]:checked').inputValue(),service);});
+  for (const [path, service] of Object.entries(serviceRoutes)) {
+    await check(path + ' booking CTA opens the schedule for ' + service, async () => {
+      await go('/' + path);
+      await page.locator('a[href*="booking.html?service="]').first().click();
+      await page.locator('.booking-step.active[data-booking-step="schedule"]').waitFor();
+      assert.equal(await page.locator('input[name="service"]:checked').inputValue(), service);
+      assert.equal(await page.evaluate(() => qaSends.length), 0);
+    });
+  }
   await check('Every mobile homepage menu link navigates and unlocks scrolling',async()=>{await page.setViewportSize({width:390,height:844});await go('/');const hrefs=await page.locator('#mobileNav a').evaluateAll(a=>a.map(x=>x.getAttribute('href')));for(const href of hrefs){await go('/');await page.locator('#navToggle').click();await page.locator('#mobileNav a').evaluateAll((a,h)=>a.find(x=>x.getAttribute('href')===h).click(),href);await page.waitForTimeout(100);assert.equal(await page.locator('#navToggle').getAttribute('aria-expanded'),'false');assert.notEqual(await page.evaluate(()=>document.body.style.overflow),'hidden');assert.equal(new URL(page.url()).pathname,new URL(href,base).pathname);}});
+  await check('Mobile quote shortcut is hidden when a regular quote button is in view', async () => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await go('/');
+    const shortcut = page.locator('#mobileBook');
+    await shortcut.waitFor({ state: 'hidden' });
+    await page.locator('#services').evaluate(section => section.scrollIntoView({ behavior: 'instant' }));
+    await shortcut.waitFor({ state: 'visible' });
+    await page.locator('.cta-band a.button.gold').evaluate(link => link.scrollIntoView({ block: 'center', behavior: 'instant' }));
+    await shortcut.waitFor({ state: 'hidden' });
+  });
+  await check('The landscape mobile menu can scroll independently of the page', async () => {
+    await page.setViewportSize({ width: 844, height: 390 });
+    await go('/');
+    await page.evaluate(() => window.scrollTo({ top: 200, behavior: 'instant' }));
+    await page.locator('.site-header.scrolled').waitFor();
+    await page.locator('#navToggle').click();
+    const menu = page.locator('#mobileNav');
+    const lastLink = menu.getByRole('link', { name: 'Request a Quote' });
+    await lastLink.focus();
+    assert.equal(await menu.evaluate(el => el.scrollTop > 0), true);
+    assert.equal(await page.evaluate(() => window.scrollY), 200);
+    assert.ok((await lastLink.boundingBox()).y < 390);
+    await page.keyboard.press('Escape');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'navToggle');
+    await page.setViewportSize({ width: 390, height: 844 });
+  });
   await check('Booking empty service and invalid email focus accessible errors',async()=>{await go('/booking.html');await page.locator('[data-next]').first().click();assert.equal(await page.evaluate(()=>document.activeElement.id),'servicePortraits');assert.equal(await page.locator('#servicePortraits').getAttribute('aria-invalid'),'true');assert.equal(await page.locator('#servicePortraits').getAttribute('aria-describedby'),'serviceError');await page.locator('label[for="serviceNightlife"]').click();await page.locator('.booking-step.active [data-next]').click();await page.locator('#dateRange').fill('November 20');await page.locator('#location').fill('Chicago');await page.locator('.booking-step.active [data-next]').click();await page.locator('.booking-step.active [data-next]').click();await page.locator('#name').fill('Website QA');await page.locator('#email').fill('invalid');await page.locator('.booking-step.active [data-next]').click();assert.equal(await page.evaluate(()=>document.activeElement.id),'email');assert.equal(await page.locator('#email').getAttribute('aria-invalid'),'true');assert.equal(await page.evaluate(()=>qaSends.length),0);});
   await check('Successful simulated booking sends once with all reviewed values',async()=>{await readyForReview();assert.equal(await page.locator('[data-review="budgetNote"]').textContent(),'500 dollars');await page.locator('#submitBooking').click();await page.locator('#successPanel.show').waitFor();assert.equal(await page.locator('#bookingPanel').isVisible(),false);const sends=await page.evaluate(()=>qaSends);assert.equal(sends.length,1);assert.equal(sends[0][2].budget_note,'500 dollars');assert.equal(sends[0][2].reply_to,'qa@example.invalid');assert.ok(sends[0][2].details.includes('https://example.com/moodboard'));assert.equal(await page.evaluate(()=>document.activeElement.tagName),'H2');});
   await check('Failed simulated booking preserves answers and offers copyable email text', async () => {
@@ -76,7 +130,7 @@ try{
     assert.equal(url.pathname, 'hynoe.flicks@gmail.com');
     assert.equal(url.searchParams.get('subject'), 'Booking Request - Hynoe Flicks - Nightlife');
     const body = await message.inputValue();
-    assert.equal(url.searchParams.get('body'), body);
+    assert.equal(url.searchParams.get('body').replace(/\r\n/g, '\n'), body);
     assert.match(body, /Website QA[\s\S]*qa@example\.invalid[\s\S]*Nightlife[\s\S]*November 20[\s\S]*Chicago[\s\S]*500 dollars[\s\S]*https:\/\/example\.com\/moodboard[\s\S]*Private website QA/);
     assert.equal(await message.getAttribute('readonly'), '');
     await message.focus();
@@ -101,6 +155,35 @@ try{
     assert.equal(await fallback.isVisible(), false);
     assert.equal(await page.evaluate(() => qaSends.length), 3);
   });
-  await check('Repeated submit events while sending cannot create duplicate inquiries',async()=>{await readyForReview();await page.evaluate(()=>qaMode='wait');await page.locator('#submitBooking').click();await page.evaluate(()=>{const f=document.getElementById('bookingForm');f.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));f.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));});assert.equal(await page.evaluate(()=>qaSends.length),1);assert.equal(await page.locator('#submitBooking').isDisabled(),true);assert.equal(await page.locator('#bookingFallback').isVisible(),false);assert.equal(await page.locator('.booking-step.active [data-back]').isDisabled(),true);await page.evaluate(()=>qaRelease());await page.locator('#successPanel.show').waitFor();});
+  await check('A slow provider restores the email draft and blocks repeat site submissions', async () => {
+    await readyForReview();
+    await page.clock.install();
+    await page.evaluate(() => qaMode = 'wait');
+    const submit = page.locator('#submitBooking');
+    const draft = page.locator('#bookingFallback');
+    const message = page.locator('#bookingFallbackText');
+    const repeat = () => page.locator('#bookingForm').evaluate(form => form.requestSubmit());
+    await submit.click();
+    await repeat();
+    assert.equal(await page.evaluate(() => qaSends.length), 1);
+    assert.equal(await submit.isDisabled(), true);
+    assert.equal(await draft.isVisible(), false);
+    assert.equal(await page.locator('.booking-step.active [data-back]').isDisabled(), true);
+    await page.clock.fastForward(8100);
+    assert.equal(await draft.isVisible(), true);
+    assert.equal(await message.isVisible(), true);
+    assert.match(await message.inputValue(), /Private website QA/);
+    const mailto = new URL(await draft.locator('a').getAttribute('href'));
+    assert.equal(mailto.pathname, 'hynoe.flicks@gmail.com');
+    assert.equal(mailto.searchParams.get('body').replace(/\r\n/g, '\n'), await message.inputValue());
+    assert.match(await page.locator('#submitStatus').textContent(), /still|taking longer|waiting/i);
+    assert.equal(await submit.isDisabled(), true);
+    await repeat();
+    assert.equal(await page.evaluate(() => qaSends.length), 1);
+    await page.evaluate(() => qaRelease());
+    await page.locator('#successPanel.show').waitFor();
+    assert.equal(await draft.isVisible(), false);
+    assert.equal(await page.evaluate(() => qaSends.length), 1);
+  });
   await check('No unhandled browser exceptions',async()=>assert.deepEqual(errors,[]));
 }finally{await browser.close();await new Promise(r=>server.close(r));const report={base,checkedAt:new Date().toISOString(),results,pass:results.filter(x=>x.pass).length,fail:results.filter(x=>!x.pass).length,uniqueLinks:links.size,buttonNames:[...buttons],unhandledErrors:errors,provider:'All sends simulated; no emails sent'};await writeFile(resolve(artifactDir,'full-audit-results.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));process.exitCode=report.fail?1:0;}

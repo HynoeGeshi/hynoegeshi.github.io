@@ -10,7 +10,7 @@
   <link rel="canonical" href="https://hynoeflicks.com/">
   <link rel="icon" href="/favicon.png" type="image/png"><link rel="apple-touch-icon" href="/assets/img/brand/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="preload" as="image" href="assets/img/portfolio/large/p1.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" imagesrcset="assets/img/portfolio/card/p1.webp 1280w, assets/img/portfolio/large/p1.webp 2200w" imagesizes="100vw" type="image/webp" fetchpriority="high">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Hynoe Flicks">
   <meta property="og:title" content="Hynoe Flicks | Chicago Photography After Dark">
@@ -21,11 +21,12 @@
   <meta name="twitter:title" content="Hynoe Flicks | Chicago Photography After Dark">
   <meta name="twitter:description" content="Cinematic nightlife, portraits, music, events, brands and editing in Chicago.">
   <meta name="twitter:image" content="https://hynoeflicks.com/assets/img/portfolio/large/p1.jpg">
-  <link rel="stylesheet" href="assets/css/site.css?v=simpler-pages">
+  <link rel="stylesheet" href="assets/css/site.css?v=booking-request">
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
-    "@type":"ProfessionalService",
+    "@type":"Organization",
+    "@id":"https://hynoeflicks.com/#studio",
     "name":"Hynoe Flicks",
     "url":"https://hynoeflicks.com/",
     "logo":"https://hynoeflicks.com/assets/img/brand/hynoe-flicks-logo.png",
@@ -33,7 +34,7 @@
     "email":"hynoe.flicks@gmail.com",
     "areaServed":{"@type":"City","name":"Chicago"},
     "sameAs":["https://www.instagram.com/hynoe.flicks/"],
-    "serviceType":["Nightlife photography","Portrait photography","Music photography","Event photography","Brand photography","Photo editing and retouching"]
+    "description":"Chicago photography for nightlife, live music, portraits, events and brands, with standalone photo editing and retouching."
   }
   </script>
 </head>
@@ -47,7 +48,7 @@
         <a href="#portfolio">Portfolio</a>
         <a href="#services">Services</a>
         <a href="#about">About</a>
-        <a class="button gold" href="booking.html">Book a Shoot</a>
+        <a class="button gold" href="booking.html">Request a Quote</a>
       </nav>
       <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span></button>
     </div>
@@ -55,7 +56,7 @@
       <a href="#portfolio">Portfolio</a>
       <a href="#services">Services</a>
       <a href="#about">About</a>
-      <a href="booking.html">Book</a>
+      <a href="booking.html">Request a Quote</a>
     </nav>
   </header>
 
@@ -70,27 +71,63 @@
       <div class="container hero-content">
         <span class="eyebrow">Chicago photography</span>
         <h1 class="display" id="hero-title">Make the night look how it felt.</h1>
-        <p class="lead">Cinematic photography for people, live events and brands.</p>
+        <p class="lead">Nightlife, live music and cinematic portraits.</p>
         <div class="button-row hero-actions">
-          <a class="button gold" href="booking.html" data-track-service="General">Book a Shoot</a>
+          <a class="button gold" href="booking.html" data-track-service="General">Request a Quote</a>
           <a class="button ghost" href="#portfolio">View Portfolio</a>
         </div>
       </div>
     </section>
 
+    <div class="portfolio-fragments" aria-hidden="true"><span id="portfolio-nightlife"></span><span id="portfolio-portraits"></span><span id="portfolio-music"></span><span id="portfolio-brand"></span></div>
     <section class="section compact" id="portfolio" data-gallery>
       <div class="container">
         <div class="section-head">
           <h2 class="section-title">Portfolio</h2>
         </div>
-        <div class="portfolio-toolbar" role="group" aria-label="Filter portfolio">
-          <button class="filter-chip" type="button" data-gallery-filter="all" aria-pressed="true">All</button>
-          <button class="filter-chip" type="button" data-gallery-filter="Nightlife" aria-pressed="false">Nightlife</button>
-          <button class="filter-chip" type="button" data-gallery-filter="Portraits" aria-pressed="false">Portraits</button>
-          <button class="filter-chip" type="button" data-gallery-filter="Music / Artists" aria-pressed="false">Music / Artists</button>
-          <button class="filter-chip" type="button" data-gallery-filter="Brand / Lifestyle" aria-pressed="false">Brand / Lifestyle</button>
+        <div data-gallery-controls hidden>
+          <div class="portfolio-toolbar" role="group" aria-label="Filter portfolio">
+            <button class="filter-chip" type="button" data-gallery-filter="all" data-gallery-fragment="portfolio" aria-pressed="true">All</button>
+            <button class="filter-chip" type="button" data-gallery-filter="Nightlife" data-gallery-fragment="portfolio-nightlife" aria-pressed="false">Nightlife</button>
+            <button class="filter-chip" type="button" data-gallery-filter="Portraits" data-gallery-fragment="portfolio-portraits" aria-pressed="false">Portraits</button>
+            <button class="filter-chip" type="button" data-gallery-filter="Music / Artists" data-gallery-fragment="portfolio-music" aria-pressed="false">Music / Artists</button>
+            <button class="filter-chip" type="button" data-gallery-filter="Brand / Lifestyle" data-gallery-fragment="portfolio-brand" aria-pressed="false">Brand / Lifestyle</button>
+          </div>
         </div>
-        <div class="gallery-grid" data-gallery-grid aria-live="polite"></div>
+        <div class="gallery-grid" data-gallery-grid aria-live="polite">
+          <a class="gallery-item" href="assets/img/portfolio/large/p1.webp" aria-label="Open City energy after dark Nightlife">
+            <img src="assets/img/portfolio/card/p1.webp" srcset="assets/img/portfolio/thumb/p1.webp 640w, assets/img/portfolio/card/p1.webp 1280w" sizes="auto, (max-width: 700px) calc((100vw - 32px) / 2), min(58vw, 716px)" alt="Chicago nightlife photograph with city lights and after-dark atmosphere" width="1280" height="853" loading="lazy" decoding="async">
+            <span class="gallery-meta"><span>City energy after dark</span> <b>Nightlife</b></span>
+          </a>
+          <a class="gallery-item" href="assets/img/portfolio/large/p2.webp" aria-label="Open Live music presence Music / Artists">
+            <img src="assets/img/portfolio/card/p2.webp" srcset="assets/img/portfolio/thumb/p2.webp 640w, assets/img/portfolio/card/p2.webp 1280w" sizes="auto, (max-width: 700px) calc((100vw - 32px) / 2), min(58vw, 716px)" alt="Live music performance photographed by Hynoe Flicks" width="1280" height="1920" loading="lazy" decoding="async">
+            <span class="gallery-meta"><span>Live music presence</span> <b>Music / Artists</b></span>
+          </a>
+          <a class="gallery-item" href="assets/img/portfolio/large/p3.webp" aria-label="Open Warm portrait mood Portraits">
+            <img src="assets/img/portfolio/card/p3.webp" srcset="assets/img/portfolio/thumb/p3.webp 640w, assets/img/portfolio/card/p3.webp 1280w" sizes="auto, (max-width: 700px) calc((100vw - 32px) / 2), min(58vw, 716px)" alt="Warm low-light portrait photographed by Hynoe Flicks" width="1280" height="1920" loading="lazy" decoding="async">
+            <span class="gallery-meta"><span>Warm portrait mood</span> <b>Portraits</b></span>
+          </a>
+          <a class="gallery-item" href="assets/img/portfolio/large/p4.webp" aria-label="Open Clean brand frame Brand / Lifestyle">
+            <img src="assets/img/portfolio/card/p4.webp" srcset="assets/img/portfolio/thumb/p4.webp 640w, assets/img/portfolio/card/p4.webp 1280w" sizes="auto, (max-width: 700px) calc((100vw - 32px) / 2), min(58vw, 716px)" alt="Clean lifestyle and brand photograph by Hynoe Flicks" width="1280" height="853" loading="lazy" decoding="async">
+            <span class="gallery-meta"><span>Clean brand frame</span> <b>Brand / Lifestyle</b></span>
+          </a>
+          <a class="gallery-item" href="assets/img/portfolio/large/p5.webp" aria-label="Open Stage moment Music / Artists">
+            <img src="assets/img/portfolio/card/p5.webp" srcset="assets/img/portfolio/thumb/p5.webp 640w, assets/img/portfolio/card/p5.webp 1280w" sizes="auto, (max-width: 700px) calc((100vw - 32px) / 2), min(58vw, 716px)" alt="Performer on stage photographed in low light by Hynoe Flicks" width="1280" height="1920" loading="lazy" decoding="async">
+            <span class="gallery-meta"><span>Stage moment</span> <b>Music / Artists</b></span>
+          </a>
+          <a class="gallery-item" href="assets/img/portfolio/large/p6.webp" aria-label="Open Editorial portrait Portraits">
+            <img src="assets/img/portfolio/card/p6.webp" srcset="assets/img/portfolio/thumb/p6.webp 640w, assets/img/portfolio/card/p6.webp 1280w" sizes="auto, (max-width: 700px) calc((100vw - 32px) / 2), min(58vw, 716px)" alt="Editorial portrait with cinematic lighting by Hynoe Flicks" width="1280" height="1920" loading="lazy" decoding="async">
+            <span class="gallery-meta"><span>Editorial portrait</span> <b>Portraits</b></span>
+          </a>
+          <a class="gallery-item" href="assets/img/portfolio/large/p7.webp" aria-label="Open Close detail Portraits">
+            <img src="assets/img/portfolio/card/p7.webp" srcset="assets/img/portfolio/thumb/p7.webp 640w, assets/img/portfolio/card/p7.webp 1280w" sizes="auto, (max-width: 700px) calc((100vw - 32px) / 2), min(58vw, 716px)" alt="Close portrait detail photographed by Hynoe Flicks" width="1280" height="1920" loading="lazy" decoding="async">
+            <span class="gallery-meta"><span>Close detail</span> <b>Portraits</b></span>
+          </a>
+          <a class="gallery-item" href="assets/img/portfolio/large/p8.webp" aria-label="Open Motion and lifestyle Brand / Lifestyle">
+            <img src="assets/img/portfolio/card/p8.webp" srcset="assets/img/portfolio/thumb/p8.webp 640w, assets/img/portfolio/card/p8.webp 1280w" sizes="auto, (max-width: 700px) calc((100vw - 32px) / 2), min(58vw, 716px)" alt="Lifestyle action photograph with motion by Hynoe Flicks" width="1280" height="853" loading="lazy" decoding="async">
+            <span class="gallery-meta"><span>Motion and lifestyle</span> <b>Brand / Lifestyle</b></span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -102,32 +139,32 @@
         </div>
         <div class="service-grid">
           <a class="service-card" href="nightlife-photographer-chicago.html" data-track-service="Nightlife">
-            <img src="assets/img/portfolio/card/p1.webp" alt="" loading="lazy" width="1280" height="853">
+            <img src="assets/img/portfolio/card/p1.webp" srcset="assets/img/portfolio/thumb/p1.webp 640w, assets/img/portfolio/card/p1.webp 1280w" sizes="auto, (max-width: 700px) calc(100vw - 24px), (max-width: 980px) calc((100vw - 50px) / 2), min(404px, calc((100vw - 64px) / 3))" alt="" loading="lazy" decoding="async" width="1280" height="853">
             <div class="service-content"><h3>Nightlife</h3><p>Clubs, venues and city scenes after dark.</p></div>
             <span class="service-arrow" aria-hidden="true">→</span>
           </a>
           <a class="service-card" href="portrait-photographer-chicago.html" data-track-service="Portraits">
-            <img src="assets/img/portfolio/card/p3.webp" alt="" loading="lazy" width="1280" height="853">
+            <img src="assets/img/portfolio/card/p3.webp" srcset="assets/img/portfolio/thumb/p3.webp 640w, assets/img/portfolio/card/p3.webp 1280w" sizes="auto, (max-width: 700px) calc(100vw - 24px), (max-width: 980px) calc((100vw - 50px) / 2), min(404px, calc((100vw - 64px) / 3))" alt="" loading="lazy" decoding="async" width="1280" height="1920">
             <div class="service-content"><h3>Portraits</h3><p>Individual, editorial and lifestyle sessions.</p></div>
             <span class="service-arrow" aria-hidden="true">→</span>
           </a>
           <a class="service-card" href="music-photographer-chicago.html" data-track-service="Music / Artist Content">
-            <img src="assets/img/portfolio/card/p2.webp" alt="" loading="lazy" width="1280" height="853">
+            <img src="assets/img/portfolio/card/p2.webp" srcset="assets/img/portfolio/thumb/p2.webp 640w, assets/img/portfolio/card/p2.webp 1280w" sizes="auto, (max-width: 700px) calc(100vw - 24px), (max-width: 980px) calc((100vw - 50px) / 2), min(404px, calc((100vw - 64px) / 3))" alt="" loading="lazy" decoding="async" width="1280" height="1920">
             <div class="service-content"><h3>Music + Artists</h3><p>Live performances and artist promo photos.</p></div>
             <span class="service-arrow" aria-hidden="true">→</span>
           </a>
           <a class="service-card" href="event-photographer-chicago.html" data-track-service="Events">
-            <img src="assets/img/portfolio/card/p5.webp" alt="" loading="lazy" width="1280" height="853">
+            <img src="assets/img/portfolio/card/p5.webp" srcset="assets/img/portfolio/thumb/p5.webp 640w, assets/img/portfolio/card/p5.webp 1280w" sizes="auto, (max-width: 700px) calc(100vw - 24px), (max-width: 980px) calc((100vw - 50px) / 2), min(404px, calc((100vw - 64px) / 3))" alt="" loading="lazy" decoding="async" width="1280" height="1920">
             <div class="service-content"><h3>Events</h3><p>People and details at parties, launches and gatherings.</p></div>
             <span class="service-arrow" aria-hidden="true">→</span>
           </a>
           <a class="service-card" href="brand-photographer-chicago.html" data-track-service="Brand + Lifestyle">
-            <img src="assets/img/portfolio/card/p4.webp" alt="" loading="lazy" width="1280" height="853">
+            <img src="assets/img/portfolio/card/p4.webp" srcset="assets/img/portfolio/thumb/p4.webp 640w, assets/img/portfolio/card/p4.webp 1280w" sizes="auto, (max-width: 700px) calc(100vw - 24px), (max-width: 980px) calc((100vw - 50px) / 2), min(404px, calc((100vw - 64px) / 3))" alt="" loading="lazy" decoding="async" width="1280" height="853">
             <div class="service-content"><h3>Brand + Lifestyle</h3><p>Images for campaigns, websites and social media.</p></div>
             <span class="service-arrow" aria-hidden="true">→</span>
           </a>
           <a class="service-card" id="editing" href="photo-editing-retouching.html" data-track-service="Editing Only">
-            <img src="assets/img/portfolio/card/p6.webp" alt="" loading="lazy" width="1280" height="853">
+            <img src="assets/img/portfolio/card/p6.webp" srcset="assets/img/portfolio/thumb/p6.webp 640w, assets/img/portfolio/card/p6.webp 1280w" sizes="auto, (max-width: 700px) calc(100vw - 24px), (max-width: 980px) calc((100vw - 50px) / 2), min(404px, calc((100vw - 64px) / 3))" alt="" loading="lazy" decoding="async" width="1280" height="1920">
             <div class="service-content"><h3>Editing Only</h3><p>Color and retouching for photos you already have.</p></div>
             <span class="service-arrow" aria-hidden="true">→</span>
           </a>
@@ -141,7 +178,7 @@
           <h2 class="section-title">About Hynoe Flicks</h2>
           <p class="lead">I work with the light and movement already in the room and give you simple direction when you need it. I edit the final photos so the set feels consistent.</p>
         </div>
-        <div class="photo-card"><img src="assets/img/portfolio/large/p6.webp" alt="Editorial portrait from the Hynoe Flicks portfolio" loading="lazy" width="2200" height="1467"></div>
+        <div class="photo-card"><img src="assets/img/portfolio/card/p6.webp" srcset="assets/img/portfolio/thumb/p6.webp 640w, assets/img/portfolio/card/p6.webp 1280w, assets/img/portfolio/large/p6.webp 2200w" sizes="auto, (max-width: 700px) calc(100vw - 24px), (max-width: 980px) calc(100vw - 36px), min(581px, calc((100vw - 54px) * 0.475))" alt="Editorial portrait from the Hynoe Flicks portfolio" loading="lazy" decoding="async" width="1280" height="1920"></div>
       </div>
     </section>
 
@@ -150,7 +187,7 @@
         <div class="section-head"><h2 class="section-title">Before you book</h2></div>
         <div class="faq">
           <details><summary>When is my shoot confirmed?</summary><p>Once we agree on the date, scope and booking requirements.</p></details>
-          <details><summary>How do I share inspiration?</summary><p>Add a link to an Instagram post, Pinterest board or moodboard in your request.</p></details>
+          <details><summary>Can I ask for a quote before I have a date?</summary><p>Yes. Share what you know and leave the date or venue blank while you’re planning.</p></details>
         </div>
       </div>
     </section>
@@ -159,7 +196,7 @@
       <div class="container cta-band">
         <h2 class="section-title" id="process-title">Let’s plan your shoot</h2>
         <p>Tell me what you have in mind. I’ll follow up to confirm the scope, timing and quote.</p>
-        <div class="button-row"><a class="button gold" href="booking.html">Book a Shoot</a><a class="button ghost" href="mailto:hynoe.flicks@gmail.com">Email Hynoe Flicks</a></div>
+        <div class="button-row"><a class="button gold" href="booking.html">Request a Quote</a><a class="button ghost" href="mailto:hynoe.flicks@gmail.com">Email Hynoe Flicks</a></div>
       </div>
     </section>
   </main>
@@ -174,20 +211,20 @@
     </div>
   </footer>
 
-  <a class="mobile-book" id="mobileBook" href="booking.html">Book a Shoot</a>
+  <a class="mobile-book" id="mobileBook" href="booking.html">Request a Quote</a>
 
   <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Portfolio image viewer">
     <div class="lightbox-inner">
       <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close image viewer">×</button>
       <button class="lightbox-nav prev" id="lightboxPrev" type="button" aria-label="Previous image">←</button>
-      <img id="lightboxImage" src="assets/img/portfolio/large/p1.webp" alt="Hynoe Flicks portfolio photograph" width="2200" height="1467">
+      <img id="lightboxImage" src="assets/img/portfolio/card/p1.webp" alt="Hynoe Flicks portfolio photograph" width="1280" height="853" loading="lazy">
       <button class="lightbox-nav next" id="lightboxNext" type="button" aria-label="Next image">→</button>
       <div class="lightbox-caption" id="lightboxCaption" aria-live="polite"></div>
     </div>
   </div>
 
-  <script type="module" src="assets/js/site.js"></script>
-  <script type="module" src="assets/js/gallery.js"></script>
+  <script type="module" src="assets/js/site.js?v=booking-request"></script>
+  <script type="module" src="assets/js/gallery.js?v=static-portfolio"></script>
   <script type="module" src="assets/js/before-after.js"></script>
 </body>
 </html>

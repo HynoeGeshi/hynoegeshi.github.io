@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>Book a Chicago Photo Shoot | Hynoe Flicks</title>
-  <meta name="description" content="Send a Chicago photography or editing request to Hynoe Flicks. Choose the service, date and location, share your vision, then review before sending.">
+  <meta name="description" content="Request a custom quote for Chicago photography or photo editing from Hynoe Flicks. Share the details you know, even if your date or venue is flexible.">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#07070a">
   <link rel="canonical" href="https://hynoeflicks.com/booking.html">
@@ -13,15 +13,15 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Hynoe Flicks">
   <meta property="og:title" content="Book a Shoot | Hynoe Flicks Chicago">
-  <meta property="og:description" content="Send your date, location and vision in a short five-step request.">
+  <meta property="og:description" content="Request a quote for a Chicago photo shoot or standalone editing. Flexible dates are welcome.">
   <meta property="og:url" content="https://hynoeflicks.com/booking.html">
   <meta property="og:image" content="https://hynoeflicks.com/assets/img/portfolio/large/p3.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Book a Shoot | Hynoe Flicks Chicago">
-  <meta name="twitter:description" content="Send your date, location and vision in a short five-step request.">
+  <meta name="twitter:description" content="Request a quote for a Chicago photo shoot or standalone editing. Flexible dates are welcome.">
   <meta name="twitter:image" content="https://hynoeflicks.com/assets/img/portfolio/large/p3.jpg">
-  <link rel="stylesheet" href="assets/css/site.css">
-  <link rel="stylesheet" href="assets/css/booking.css?v=simpler-pages">
+  <link rel="stylesheet" href="assets/css/site.css?v=booking-request">
+  <link rel="stylesheet" href="assets/css/booking.css?v=booking-request">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Hynoe Flicks","item":"https://hynoeflicks.com/"},{"@type":"ListItem","position":2,"name":"Book a Shoot","item":"https://hynoeflicks.com/booking.html"}]}
   </script>
@@ -40,24 +40,31 @@
   <main class="booking-main" id="main">
     <div class="container booking-shell">
       <aside class="booking-aside">
-        <h1>Book a shoot</h1>
-        <div class="booking-progress" aria-label="Booking progress">
+        <h1>Request a quote</h1>
+        <div class="booking-progress" id="bookingProgress" role="group" aria-label="Booking progress" hidden>
           <div class="progress-step active" data-progress-step><span>1</span><span>Service</span></div>
           <div class="progress-step" data-progress-step><span>2</span><span id="scheduleProgress">Date + place</span></div>
           <div class="progress-step" data-progress-step><span>3</span><span>Vision</span></div>
           <div class="progress-step" data-progress-step><span>4</span><span>Contact</span></div>
           <div class="progress-step" data-progress-step><span>5</span><span>Review</span></div>
         </div>
-        <p class="booking-note">Questions? <a href="mailto:hynoe.flicks@gmail.com">Email Hynoe Flicks</a></p>
+        <p class="booking-note" id="bookingQuestions" hidden><a href="mailto:hynoe.flicks@gmail.com">Questions? Email Hynoe Flicks</a></p>
       </aside>
 
-      <section class="booking-card" id="bookingPanel" aria-label="Booking request form">
-        <form id="bookingForm" novalidate>
+      <section class="booking-card booking-unavailable" id="bookingUnavailable" aria-labelledby="bookingUnavailableTitle">
+        <h2 id="bookingUnavailableTitle">Request a quote by email</h2>
+        <p>Tell me what you’d like photographed or edited and any timing you already know.</p>
+        <a class="button gold" href="mailto:hynoe.flicks@gmail.com">Email Hynoe Flicks</a>
+        <p>hynoe.flicks@gmail.com</p>
+      </section>
+
+      <section class="booking-card" id="bookingPanel" aria-label="Booking request form" hidden>
+        <form id="bookingForm" data-site-send="paused" novalidate>
           <div class="honeypot" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
 
           <div class="booking-step active" data-booking-step="service">
-            <span class="step-kicker">Step 1 of 5</span><h2>Choose a service</h2>
-            <div class="choice-grid">
+            <span class="step-kicker">Step 1 of 5</span><h2 id="bookingServiceTitle" tabindex="-1">Choose a service</h2>
+            <div class="choice-grid" role="radiogroup" aria-labelledby="bookingServiceTitle" aria-required="true">
               <div class="choice"><input id="servicePortraits" type="radio" name="service" aria-describedby="serviceError" value="Portraits"><label for="servicePortraits"><strong>Portraits</strong><small>Individual, editorial or lifestyle portraits with direction.</small></label></div>
               <div class="choice"><input id="serviceNightlife" type="radio" name="service" aria-describedby="serviceError" value="Nightlife"><label for="serviceNightlife"><strong>Nightlife</strong><small>Clubs, venues, parties and after-dark atmosphere.</small></label></div>
               <div class="choice"><input id="serviceMusic" type="radio" name="service" aria-describedby="serviceError" value="Music / Artist Content"><label for="serviceMusic"><strong>Music / Artist Content</strong><small>Live performance, artist promo and content sessions.</small></label></div>
@@ -70,10 +77,10 @@
           </div>
 
           <div class="booking-step" data-booking-step="schedule">
-            <span class="step-kicker">Step 2 of 5</span><h2 id="scheduleTitle">When and where?</h2><p class="step-copy" id="scheduleCopy">A range is fine if the date is not locked yet.</p>
+            <span class="step-kicker">Step 2 of 5</span><h2 id="scheduleTitle" tabindex="-1">When and where?</h2><p class="step-copy" id="scheduleCopy">Either field can be left blank if you’re still planning.</p>
             <div class="form-grid" id="shootSchedule">
-              <div class="field"><label for="dateRange">Date or date range</label><input id="dateRange" name="dateRange" aria-describedby="dateRangeError" placeholder="October 12, next weekend, etc." autocomplete="off"><div class="field-error" id="dateRangeError" data-error-for="dateRange" role="alert"></div></div>
-              <div class="field"><label for="location">Location / venue</label><input id="location" name="location" aria-describedby="locationError" placeholder="Chicago neighborhood, venue, studio…" autocomplete="street-address"><div class="field-error" id="locationError" data-error-for="location" role="alert"></div></div>
+              <div class="field"><label for="dateRange">Date or date range</label><input id="dateRange" name="dateRange" aria-describedby="scheduleCopy" placeholder="Next weekend, early December…" autocomplete="off"></div>
+              <div class="field"><label for="location">Location or venue</label><input id="location" name="location" aria-describedby="scheduleCopy" placeholder="Venue or Chicago neighborhood" autocomplete="off"></div>
             </div>
             <div class="field" id="editingSchedule" hidden>
               <label for="editingDeadline">Delivery deadline <span class="muted">(optional)</span></label>
@@ -83,31 +90,40 @@
           </div>
 
           <div class="booking-step" data-booking-step="vision">
-            <span class="step-kicker">Step 3 of 5</span><h2 id="visionTitle">What should it feel like?</h2><p class="step-copy" id="visionCopy">References help, but you do not need a full creative brief.</p>
+            <span class="step-kicker">Step 3 of 5</span><h2 id="visionTitle" tabindex="-1">Tell me about the project</h2><p class="step-copy" id="visionCopy">A few details help me put together a quote.</p>
             <div class="form-grid">
-              <div class="field full"><label for="details">Vision / details</label><textarea id="details" name="details" placeholder="Tell me the vibe, who is involved, what the photos are for, colors, outfits, must-have shots…"></textarea></div>
-              <div class="field full"><label for="references">Reference links</label><input id="references" name="references" type="url" placeholder="Instagram, Pinterest, moodboard or other reference link"></div>
-              <div class="field full"><label for="budgetNote">Budget note <span class="muted">(optional)</span></label><input id="budgetNote" name="budgetNote" placeholder="Optional—useful if you already have a target range"></div>
+              <div class="field full"><label for="details">Project details <span class="muted">(optional)</span></label><textarea id="details" name="details" aria-describedby="visionCopy"></textarea></div>
+              <div class="field full"><label for="references">Reference link <span class="muted">(optional)</span></label><input id="references" name="references" type="url" placeholder="Instagram, Pinterest or a moodboard"></div>
+              <div class="field full"><label for="budgetNote">Budget range <span class="muted">(optional)</span></label><input id="budgetNote" name="budgetNote"></div>
             </div>
             <div class="booking-actions"><button class="button ghost" type="button" data-back>Back</button><div class="right"><button class="button gold" type="button" data-next>Continue</button></div></div>
           </div>
 
           <div class="booking-step" data-booking-step="contact">
-            <span class="step-kicker">Step 4 of 5</span><h2>Where should I reply?</h2><p class="step-copy">Only the booking email uses this information. Analytics does not receive your form contents.</p>
+            <span class="step-kicker">Step 4 of 5</span><h2 tabindex="-1">Where should I reply?</h2><p class="step-copy">I’ll use these details to follow up about your request.</p>
             <div class="form-grid">
-              <div class="field"><label for="name">Name</label><input id="name" name="name" aria-describedby="nameError" autocomplete="name"><div class="field-error" id="nameError" data-error-for="name" role="alert"></div></div>
-              <div class="field"><label for="email">Email</label><input id="email" name="email" aria-describedby="emailError" type="email" autocomplete="email"><div class="field-error" id="emailError" data-error-for="email" role="alert"></div></div>
+              <div class="field"><label for="name">Name</label><input id="name" name="name" aria-describedby="nameError" autocomplete="name" required><div class="field-error" id="nameError" data-error-for="name" role="alert"></div></div>
+              <div class="field"><label for="email">Email</label><input id="email" name="email" aria-describedby="emailError" type="email" autocomplete="email" required><div class="field-error" id="emailError" data-error-for="email" role="alert"></div></div>
             </div>
             <div class="booking-actions"><button class="button ghost" type="button" data-back>Back</button><div class="right"><button class="button gold" type="button" data-next>Review Request</button></div></div>
           </div>
 
           <div class="booking-step" data-booking-step="review">
-            <span class="step-kicker">Step 5 of 5</span><h2 id="bookingReviewTitle" tabindex="-1">Review your request</h2><p class="step-copy">Check your details, then open the prefilled email and send it from your email app. Please use one sending method.</p>
+            <span class="step-kicker">Step 5 of 5</span><h2 id="bookingReviewTitle" tabindex="-1">Review your request</h2><p class="step-copy" id="bookingReviewCopy">Open the prefilled email and send it from your email app. I’ll follow up about timing, scope and a quote.</p>
             <div class="review-list">
               <div class="review-row"><b>Service</b><span data-review="service"></span></div>
-              <div class="review-row"><b id="reviewDateLabel">Date</b><span data-review="dateRange"></span></div>
-              <div class="review-row" id="reviewLocationRow"><b>Location</b><span data-review="location"></span></div>
-              <div class="review-row" data-optional-review><b>Vision</b><span data-review="details"></span></div>
+              <div class="review-row" data-optional-review><b id="reviewDateLabel">Date</b><span data-review="dateRange"></span></div>
+              <div class="review-row" id="reviewLocationRow" data-optional-review><b>Location</b><span data-review="location"></span></div>
+              <div class="review-row" data-optional-review>
+                <b>Project details</b>
+                <div>
+                  <span class="review-details" data-review="details"></span>
+                  <details id="reviewLongDetails" hidden>
+                    <summary>View full project details</summary>
+                    <span class="review-details" id="reviewExpandedDetails"></span>
+                  </details>
+                </div>
+              </div>
               <div class="review-row" data-optional-review><b>References</b><span data-review="references"></span></div>
               <div class="review-row" data-optional-review><b>Budget note</b><span data-review="budgetNote"></span></div>
               <div class="review-row"><b>Name</b><span data-review="name"></span></div>
@@ -123,9 +139,11 @@
                   <label for="bookingFallbackText">Request text</label>
                   <textarea id="bookingFallbackText" rows="6" readonly aria-describedby="bookingFallbackInstructions"></textarea>
                 </div>
+                <button class="button ghost" id="copyBookingText" type="button">Copy request text</button>
+                <div id="copyBookingStatus" class="copy-status" role="status"></div>
               </details>
             </div>
-            <div class="booking-actions"><button class="button ghost" type="button" data-back>Back</button><div class="right"><button class="button ghost" id="submitBooking" type="submit">Send through the site</button></div></div>
+            <div class="booking-actions"><button class="button ghost" type="button" data-back>Back</button><div class="right"><button class="button ghost" id="submitBooking" type="submit" hidden>Send through the site</button></div></div>
           </div>
         </form>
       </section>
@@ -136,8 +154,7 @@
     </div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
-  <script type="module" src="assets/js/site.js"></script>
-  <script type="module" src="assets/js/booking.js?v=simpler-pages"></script>
+  <script type="module" src="assets/js/site.js?v=booking-request"></script>
+  <script type="module" src="assets/js/booking.js?v=booking-request"></script>
 </body>
 </html>
